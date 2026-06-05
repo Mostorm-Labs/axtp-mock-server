@@ -25,6 +25,7 @@ const specRoot = process.env.AXTP_SPEC_ROOT;
 const { loadProtocolSources } = await import(pathToFileURL(path.join(root, "generators/dist/sourceLoader.js")).href);
 const { validateSpec } = await import(pathToFileURL(path.join(root, "generators/dist/validator.js")).href);
 const { emitJsonFiles } = await import(pathToFileURL(path.join(root, "generators/dist/emitters/json.js")).href);
+const { emitMockServerFiles } = await import(pathToFileURL(path.join(root, "generators/dist/emitters/mockServer.js")).href);
 const { emitTestVectorFiles } = await import(pathToFileURL(path.join(root, "generators/dist/emitters/testVectors.js")).href);
 
 const spec = await loadProtocolSources(specRoot);
@@ -32,10 +33,13 @@ for (const message of validateSpec(spec)) console.log(message);
 
 const fixturesDir = path.join(root, "fixtures/generated");
 const vectorsDir = path.join(root, "fixtures/test-vectors");
+const mockServerDir = path.join(root, "generated");
 await Promise.all([
   emitJsonFiles(spec, fixturesDir),
+  emitMockServerFiles(spec, mockServerDir),
   emitTestVectorFiles(spec, vectorsDir)
 ]);
 console.log(`[OK] generated mock server fixtures: ${fixturesDir}`);
 console.log(`[OK] generated mock server test vectors: ${vectorsDir}`);
+console.log(`[OK] generated mock server projects: ${mockServerDir}`);
 NODE

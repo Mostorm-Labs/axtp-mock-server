@@ -79,6 +79,16 @@ pnpm --dir generators generate:runtime
 Generated mock server fixtures are written to `fixtures/generated/` and
 `fixtures/test-vectors/`.
 
+The generator also emits runnable mock-server subprojects:
+
+- `generated/node-mock-server/`, based on `axtp-node-runtime`
+- `generated/cpp-mock-server/`, based on `axtp-cpp-runtime`
+
+Both generated projects install default audio handlers for
+`audio.getAlgorithmConfig`, `audio.getAlgorithmCapabilities`, and
+`audio.setAlgorithmConfig`. Runtime repositories remain dependencies only; mock
+server product code is generated and maintained in this repository.
+
 To move to a later released spec tag:
 
 ```bash

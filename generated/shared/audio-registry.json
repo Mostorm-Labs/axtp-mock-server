@@ -1,0 +1,28 @@
+{
+  "methods": [
+    {
+      "id": 2305,
+      "name": "audio.getAlgorithmConfig",
+      "requestSchema": "AudioGetAlgorithmConfigRequest",
+      "responseSchema": "AudioAlgorithmConfig"
+    },
+    {
+      "id": 2306,
+      "name": "audio.setAlgorithmConfig",
+      "requestSchema": "AudioSetAlgorithmConfigRequest",
+      "responseSchema": "AudioSetAlgorithmConfigResponse"
+    },
+    {
+      "id": 2317,
+      "name": "audio.getAlgorithmCapabilities",
+      "requestSchema": "AudioGetAlgorithmCapabilitiesRequest",
+      "responseSchema": "AudioGetAlgorithmCapabilitiesResponse"
+    },
+    {
+      "id": 2318,
+      "name": "audio.resetAlgorithmConfig",
+      "requestSchema": "AudioResetAlgorithmConfigRequest",
+      "responseSchema": "AudioSetAlgorithmConfigResponse"
+    }
+  ]
+}

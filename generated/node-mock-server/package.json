@@ -1,0 +1,19 @@
+{
+  "name": "@axtp/generated-node-mock-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "smoke": "node dist/smoke.js",
+    "test": "node dist/smoke.js"
+  },
+  "dependencies": {
+    "@axtp/runtime": "link:../../../axtp-node-runtime"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  },
+  "packageManager": "pnpm@11.3.0"
+}

@@ -1,0 +1,74 @@
+{
+  "name": "audio-default",
+  "description": "Default AXTP audio mock responses for client-side protocol testing.",
+  "methods": {
+    "audio.getAlgorithmConfig": {
+      "response": {
+        "noiseSuppression": {
+          "enabled": true,
+          "level": 1
+        },
+        "echoCancellation": {
+          "enabled": true,
+          "nlpLevel": 1
+        }
+      }
+    },
+    "audio.getAlgorithmCapabilities": {
+      "response": {
+        "capability": "audio.algorithm",
+        "updatePolicy": {
+          "partialUpdateSupported": true,
+          "multiAlgorithmUpdateSupported": true,
+          "atomicUpdateSupported": true
+        },
+        "algorithms": {
+          "noiseSuppression": {
+            "supported": true,
+            "enabled": {
+              "type": "boolean",
+              "defaultBoolean": true
+            },
+            "level": {
+              "type": "uint8",
+              "min": 0,
+              "max": 5,
+              "step": 1,
+              "defaultUInt8": 1
+            }
+          },
+          "echoCancellation": {
+            "supported": true,
+            "enabled": {
+              "type": "boolean",
+              "defaultBoolean": true
+            },
+            "nlpLevel": {
+              "type": "uint8",
+              "min": 0,
+              "max": 3,
+              "step": 1,
+              "defaultUInt8": 1
+            }
+          }
+        }
+      }
+    },
+    "audio.setAlgorithmConfig": {
+      "response": {
+        "applyState": "applied",
+        "requiresAudioRestart": false,
+        "config": {
+          "noiseSuppression": {
+            "enabled": true,
+            "level": 1
+          },
+          "echoCancellation": {
+            "enabled": true,
+            "nlpLevel": 1
+          }
+        }
+      }
+    }
+  }
+}
