@@ -10,3 +10,5 @@ dist/
 node_modules/
 .cache/
 *.log
+conformance-results/
+generated/node-mock-server/pnpm-lock.yaml

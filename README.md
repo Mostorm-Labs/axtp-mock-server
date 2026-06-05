@@ -60,9 +60,22 @@ scripts/check-axtp-spec-lock.sh
 ```
 
 Mock server behavior is generated or validated against AXTP Spec registry,
-schemas, and conformance cases. After upgrading, run generator checks and any
-scenario or conformance tests before merging. TODO: no dedicated mock server
-scenario/conformance test script exists yet.
+schemas, and conformance cases. After upgrading, run generator checks and the
+conformance runner before merging.
+
+## Conformance
+
+Conformance cases are owned by the AXTP spec repository. Point the runner at the
+locked spec checkout and run:
+
+```bash
+AXTP_SPEC_PATH=/path/to/axtp scripts/run-conformance.sh
+```
+
+The runner writes `conformance-results/result.json`. Required failures exit
+nonzero. Optional cases are reported as skipped or passed unless
+`CONFORMANCE_STRICT_OPTIONAL=true`; upgrade PR workflows may temporarily use
+`CONFORMANCE_ALLOW_INCOMPLETE=true`.
 
 ## Automated AXTP Spec Upgrade
 
