@@ -141,12 +141,24 @@ jobs:
 
       - name: Generated Node mock server checks
         shell: bash
+        env:
+          AXTP_RUNTIME_AUTOMATION_TOKEN: ${{ secrets.AXTP_RUNTIME_AUTOMATION_TOKEN }}
         run: |
           set -euo pipefail
           if [[ -f generated/node-mock-server/package.json ]]; then
-            pnpm --dir generated/node-mock-server install
+            if [[ ! -d ../axtp-ts-runtime ]]; then
+              runtime_url="https://github.com/Mostorm-Labs/axtp-ts-runtime.git"
+              if [[ -n "${AXTP_RUNTIME_AUTOMATION_TOKEN:-}" ]]; then
+                runtime_url="https://x-access-token:${AXTP_RUNTIME_AUTOMATION_TOKEN}@github.com/Mostorm-Labs/axtp-ts-runtime.git"
+              fi
+              git clone --depth 1 "$runtime_url" ../axtp-ts-runtime
+            fi
+            pnpm --dir ../axtp-ts-runtime install --frozen-lockfile
+            pnpm --dir ../axtp-ts-runtime build
+            pnpm --dir generated/node-mock-server install --no-lockfile
             pnpm --dir generated/node-mock-server build
             pnpm --dir generated/node-mock-server test
+            rm -f generated/node-mock-server/pnpm-lock.yaml
           else
             echo "No generated Node mock server package; skipping."
           fi
