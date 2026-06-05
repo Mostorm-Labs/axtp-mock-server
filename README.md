@@ -48,6 +48,22 @@ and conformance cases through `AXTP_SPEC_PATH` or an explicit
 scripts/check-axtp-spec-lock.sh
 ```
 
+## AXTP Spec Upgrade
+
+This mock server follows AXTP Spec via `AXTP_SPEC.lock.yaml`.
+
+To upgrade:
+
+```bash
+scripts/upgrade-axtp-spec.sh spec/v0.3.0
+scripts/check-axtp-spec-lock.sh
+```
+
+Mock server behavior is generated or validated against AXTP Spec registry,
+schemas, and conformance cases. After upgrading, run generator checks and any
+scenario or conformance tests before merging. TODO: no dedicated mock server
+scenario/conformance test script exists yet.
+
 ## Local Generator
 
 This repository maintains its own generator under `generators/`.

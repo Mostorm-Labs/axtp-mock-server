@@ -2,6 +2,7 @@
 generators/node_modules/
 generators/dist/
 generators/.vite/
+third_party/axtp-spec/
 
 # Local build and dependency outputs
 build/
