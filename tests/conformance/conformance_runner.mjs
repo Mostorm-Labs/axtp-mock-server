@@ -11,7 +11,11 @@ function resolveSpecPath() {
     path.join(root, "third_party/axtp-spec"),
     path.join(root, ".axtp-spec")
   ]) {
-    if (candidate && fs.existsSync(path.join(candidate, "conformance/manifest.yaml"))) {
+    if (
+      candidate &&
+      (fs.existsSync(path.join(candidate, "docs/conformance/manifest.yaml")) ||
+        fs.existsSync(path.join(candidate, "conformance/manifest.yaml")))
+    ) {
       return candidate;
     }
   }
@@ -23,7 +27,11 @@ const profilePath = process.env.CONFORMANCE_PROFILE_PATH ?? path.join(root, "con
 const resultPath = process.env.CONFORMANCE_RESULT_PATH ?? path.join(root, "conformance-results/result.json");
 const tsRuntimePath = process.env.AXTP_TS_RUNTIME_PATH ?? path.resolve(root, "../axtp-ts-runtime");
 
-if (!specPath || !fs.existsSync(path.join(specPath, "conformance/manifest.yaml"))) {
+if (
+  !specPath ||
+  (!fs.existsSync(path.join(specPath, "docs/conformance/manifest.yaml")) &&
+    !fs.existsSync(path.join(specPath, "conformance/manifest.yaml")))
+) {
   throw new Error("AXTP conformance manifest not found");
 }
 if (!fs.existsSync(profilePath)) {
