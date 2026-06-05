@@ -43,3 +43,5 @@ console.log(`[OK] generated mock server fixtures: ${fixturesDir}`);
 console.log(`[OK] generated mock server test vectors: ${vectorsDir}`);
 console.log(`[OK] generated mock server projects: ${mockServerDir}`);
 NODE
+
+AXTP_SPEC_PATH="$spec" node "$root/scripts/axtp-versioning.mjs" generate --runtime-name axtp-mock-server
