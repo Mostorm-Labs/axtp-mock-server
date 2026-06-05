@@ -79,7 +79,7 @@ async function emitNodeMockServer(dir: string): Promise<void> {
     "test": "node dist/smoke.js"
   },
   "dependencies": {
-    "@axtp/runtime": "link:../../../axtp-node-runtime"
+    "@axtp/runtime": "link:../../../axtp-ts-runtime"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
@@ -106,7 +106,8 @@ async function emitNodeMockServer(dir: string): Promise<void> {
     writeTextFile(path.join(dir, "README.md"), `# Generated AXTP Node Mock Server
 
 This generated project uses \`@axtp/runtime\` from the sibling
-\`axtp-node-runtime\` repository.
+\`axtp-ts-runtime\` repository. It runs the generated mock server on the
+Node.js backend.
 
 \`\`\`bash
 pnpm install

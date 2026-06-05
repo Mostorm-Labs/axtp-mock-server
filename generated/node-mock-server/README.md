@@ -1,7 +1,8 @@
 # Generated AXTP Node Mock Server
 
 This generated project uses `@axtp/runtime` from the sibling
-`axtp-node-runtime` repository.
+`axtp-ts-runtime` repository. It runs the generated mock server on the
+Node.js backend.
 
 ```bash
 pnpm install

@@ -9,7 +9,7 @@
     "test": "node dist/smoke.js"
   },
   "dependencies": {
-    "@axtp/runtime": "link:../../../axtp-node-runtime"
+    "@axtp/runtime": "link:../../../axtp-ts-runtime"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

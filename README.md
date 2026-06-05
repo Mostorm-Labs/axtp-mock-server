@@ -81,7 +81,7 @@ Generated mock server fixtures are written to `fixtures/generated/` and
 
 The generator also emits runnable mock-server subprojects:
 
-- `generated/node-mock-server/`, based on `axtp-node-runtime`
+- `generated/node-mock-server/`, based on `axtp-ts-runtime` with the Node.js backend
 - `generated/cpp-mock-server/`, based on `axtp-cpp-runtime`
 
 Both generated projects install default audio handlers for
