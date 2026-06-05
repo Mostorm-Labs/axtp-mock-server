@@ -1,0 +1,56 @@
+{
+  "capabilities": [
+    {
+      "id": 1,
+      "name": "protocol.payload.control",
+      "domain": "protocol",
+      "status": "mvp",
+      "description": "Device supports CONTROL payload.",
+      "deprecated": false,
+      "type": "bool",
+      "idHex": "0x0001"
+    },
+    {
+      "id": 2,
+      "name": "protocol.payload.rpc",
+      "domain": "protocol",
+      "status": "mvp",
+      "description": "Device supports RPC payload.",
+      "deprecated": false,
+      "type": "bool",
+      "idHex": "0x0002"
+    },
+    {
+      "id": 3,
+      "name": "protocol.payload.stream",
+      "domain": "protocol",
+      "status": "mvp",
+      "description": "Device supports STREAM payload.",
+      "deprecated": false,
+      "type": "bool",
+      "idHex": "0x0003"
+    },
+    {
+      "id": 9,
+      "name": "protocol.reservedRequestIdWidth",
+      "domain": "protocol",
+      "status": "reserved",
+      "description": "Historical requestId width negotiation bit; AXTP v1 fixes requestId as uint32.",
+      "deprecated": false,
+      "type": "reserved",
+      "idHex": "0x0009"
+    },
+    {
+      "id": 2305,
+      "name": "audio.algorithm",
+      "domain": "audio",
+      "status": "stable",
+      "description": "Device supports runtime audio algorithm capability discovery, configuration, reset, and change notification.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "AudioAlgorithmCapability",
+      "idHex": "0x0901"
+    }
+  ]
+}

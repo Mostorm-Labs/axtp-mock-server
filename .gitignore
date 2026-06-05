@@ -1,0 +1,11 @@
+# Generator local outputs
+generators/node_modules/
+generators/dist/
+generators/.vite/
+
+# Local build and dependency outputs
+build/
+dist/
+node_modules/
+.cache/
+*.log

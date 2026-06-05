@@ -1,0 +1,28 @@
+{
+  "events": [
+    {
+      "id": 2305,
+      "bitOffset": 0,
+      "name": "audio.algorithmConfigChanged",
+      "domain": "audio",
+      "status": "stable",
+      "description": "Emitted when audio algorithm configuration changes after set, reset, profile, restore, factory reset, or device policy changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "AudioAlgorithmConfigChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "audio.setAlgorithmConfig",
+        "audio.resetAlgorithmConfig",
+        "profile changed",
+        "factory reset",
+        "restore config",
+        "device policy"
+      ],
+      "capabilities": [
+        "audio.algorithm"
+      ],
+      "idHex": "0x0901"
+    }
+  ]
+}

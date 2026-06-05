@@ -1,0 +1,1308 @@
+{
+  "schemas": [
+    {
+      "name": "Empty",
+      "type": "object",
+      "fields": []
+    },
+    {
+      "name": "CommonEmptyRequest",
+      "type": "object",
+      "fields": []
+    },
+    {
+      "name": "CommonEmptyResponse",
+      "type": "object",
+      "fields": []
+    },
+    {
+      "name": "ControlOpenBody",
+      "type": "object",
+      "fields": [
+        {
+          "id": 2,
+          "name": "protocolVersion",
+          "type": "uint8",
+          "required": true,
+          "deprecated": false,
+          "min": 1,
+          "max": 15
+        },
+        {
+          "id": 3,
+          "name": "reservedHeaderProfile",
+          "type": "uint8",
+          "required": false,
+          "deprecated": true,
+          "min": 1,
+          "max": 2
+        },
+        {
+          "id": 4,
+          "name": "maxFrameSize",
+          "type": "uint16",
+          "required": true,
+          "deprecated": false,
+          "min": 1,
+          "max": 65535
+        },
+        {
+          "id": 6,
+          "name": "mtu",
+          "type": "uint16",
+          "required": true,
+          "deprecated": false,
+          "min": 1,
+          "max": 65535
+        },
+        {
+          "id": 7,
+          "name": "supportedPayloadTypes",
+          "type": "bitmap",
+          "required": true,
+          "deprecated": false
+        },
+        {
+          "id": 8,
+          "name": "supportedRpcEncodings",
+          "type": "bitmap",
+          "required": true,
+          "deprecated": false
+        },
+        {
+          "id": 10,
+          "name": "heartbeatIntervalMs",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "min": 500,
+          "max": 60000
+        },
+        {
+          "id": 11,
+          "name": "ackMode",
+          "type": "uint8",
+          "required": true,
+          "deprecated": false,
+          "min": 0,
+          "max": 4
+        }
+      ]
+    },
+    {
+      "name": "ControlAcceptBody",
+      "type": "object",
+      "fields": [
+        {
+          "id": 1,
+          "name": "sessionId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false
+        },
+        {
+          "id": 2,
+          "name": "protocolVersion",
+          "type": "uint8",
+          "required": true,
+          "deprecated": false,
+          "min": 1,
+          "max": 15
+        },
+        {
+          "id": 3,
+          "name": "reservedHeaderProfile",
+          "type": "uint8",
+          "required": false,
+          "deprecated": true,
+          "min": 1,
+          "max": 2
+        },
+        {
+          "id": 4,
+          "name": "maxFrameSize",
+          "type": "uint16",
+          "required": true,
+          "deprecated": false,
+          "min": 1,
+          "max": 65535
+        },
+        {
+          "id": 6,
+          "name": "mtu",
+          "type": "uint16",
+          "required": true,
+          "deprecated": false,
+          "min": 1,
+          "max": 65535
+        },
+        {
+          "id": 7,
+          "name": "supportedPayloadTypes",
+          "type": "bitmap",
+          "required": true,
+          "deprecated": false
+        },
+        {
+          "id": 10,
+          "name": "heartbeatIntervalMs",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "min": 500,
+          "max": 60000
+        },
+        {
+          "id": 11,
+          "name": "ackMode",
+          "type": "uint8",
+          "required": true,
+          "deprecated": false,
+          "min": 0,
+          "max": 4
+        },
+        {
+          "id": 30,
+          "name": "selectedRpcEncoding",
+          "type": "uint8",
+          "required": true,
+          "deprecated": false,
+          "min": 1,
+          "max": 4
+        }
+      ]
+    },
+    {
+      "name": "AudioAlgorithmCapability",
+      "type": "object",
+      "description": "Device-level audio.algorithm capability summary.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "configSchemaVersion",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 16,
+          "description": "Version of the audio algorithm configuration schema exposed by the device."
+        },
+        {
+          "id": 2,
+          "name": "updatePolicy",
+          "type": "AudioAlgorithmUpdatePolicy",
+          "required": true,
+          "deprecated": false,
+          "description": "Update and atomicity policy for set and reset operations."
+        },
+        {
+          "id": 3,
+          "name": "supportedAlgorithms",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Optional compact list of supported algorithm object names; JSON implementations expose names as an array of strings."
+        }
+      ]
+    },
+    {
+      "name": "AudioGetAlgorithmCapabilitiesRequest",
+      "type": "object",
+      "description": "Optional selector for querying audio algorithm capabilities.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "items",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional JSON array of algorithm object names; omit to query all supported algorithms."
+        }
+      ]
+    },
+    {
+      "name": "AudioGetAlgorithmConfigRequest",
+      "type": "object",
+      "description": "Optional selector for querying current audio algorithm configuration.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "items",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional JSON array of algorithm object names; omit to query all supported algorithms."
+        }
+      ]
+    },
+    {
+      "name": "AudioSetAlgorithmConfigRequest",
+      "type": "object",
+      "description": "Partial audio algorithm configuration update.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "config",
+          "type": "AudioAlgorithmConfig",
+          "required": true,
+          "deprecated": false,
+          "description": "Partial configuration keyed by algorithm object name."
+        }
+      ]
+    },
+    {
+      "name": "AudioResetAlgorithmConfigRequest",
+      "type": "object",
+      "description": "Selector for resetting audio algorithm configuration to defaults.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "items",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 256,
+          "description": "JSON reset selector: the string all, an array of algorithm object names, or a map from algorithm names to field-name arrays."
+        }
+      ]
+    },
+    {
+      "name": "AudioSetAlgorithmConfigResponse",
+      "type": "object",
+      "description": "Result of a successful set or reset operation.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "applyState",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Apply state; values are applied or pending_restart."
+        },
+        {
+          "id": 2,
+          "name": "requiresAudioRestart",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the change requires restarting the audio link or rebuilding the audio pipeline."
+        },
+        {
+          "id": 3,
+          "name": "config",
+          "type": "AudioAlgorithmConfig",
+          "required": true,
+          "deprecated": false,
+          "description": "Final effective configuration for the algorithms affected by this operation."
+        }
+      ]
+    },
+    {
+      "name": "AudioAlgorithmConfigChangedEvent",
+      "type": "object",
+      "description": "Payload emitted when audio algorithm configuration changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "reason",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Change reason; values include user_request, reset_to_default, factory_reset, profile_changed, device_policy, restore_config, and unknown."
+        },
+        {
+          "id": 2,
+          "name": "applyState",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Apply state; values are applied or pending_restart."
+        },
+        {
+          "id": 3,
+          "name": "requiresAudioRestart",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the change requires restarting the audio link or rebuilding the audio pipeline."
+        },
+        {
+          "id": 4,
+          "name": "config",
+          "type": "AudioAlgorithmConfig",
+          "required": true,
+          "deprecated": false,
+          "description": "Changed or affected algorithm configuration values."
+        },
+        {
+          "id": 5,
+          "name": "changedFields",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 256,
+          "description": "Optional JSON array of changed field paths such as noiseSuppression.level."
+        }
+      ]
+    },
+    {
+      "name": "AudioGetAlgorithmCapabilitiesResponse",
+      "type": "object",
+      "description": "Supported algorithm objects, fields, defaults, ranges, units, and update policy.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "capability",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 32,
+          "description": "Fixed capability name audio.algorithm."
+        },
+        {
+          "id": 2,
+          "name": "updatePolicy",
+          "type": "AudioAlgorithmUpdatePolicy",
+          "required": true,
+          "deprecated": false,
+          "description": "Update and atomicity policy for set and reset operations."
+        },
+        {
+          "id": 3,
+          "name": "algorithms",
+          "type": "AudioAlgorithmCapabilities",
+          "required": true,
+          "deprecated": false,
+          "description": "Capability descriptors keyed by algorithm object name."
+        }
+      ]
+    },
+    {
+      "name": "AudioAlgorithmUpdatePolicy",
+      "type": "object",
+      "description": "Audio algorithm update and atomicity policy.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "partialUpdateSupported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether clients may send only the fields they want to modify."
+        },
+        {
+          "id": 2,
+          "name": "multiAlgorithmUpdateSupported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether one request may update multiple algorithm objects."
+        },
+        {
+          "id": 3,
+          "name": "atomicUpdateSupported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether set and reset operations are applied atomically."
+        }
+      ]
+    },
+    {
+      "name": "AudioAlgorithmCapabilities",
+      "type": "object",
+      "description": "Capability descriptors for audio algorithm objects.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "noiseSuppression",
+          "type": "AudioNoiseSuppressionCapabilities",
+          "required": false,
+          "deprecated": false,
+          "description": "Noise suppression capability descriptor."
+        },
+        {
+          "id": 2,
+          "name": "echoCancellation",
+          "type": "AudioEchoCancellationCapabilities",
+          "required": false,
+          "deprecated": false,
+          "description": "Echo cancellation capability descriptor."
+        },
+        {
+          "id": 3,
+          "name": "autoGainControl",
+          "type": "AudioAutoGainControlCapabilities",
+          "required": false,
+          "deprecated": false,
+          "description": "Automatic gain control capability descriptor."
+        },
+        {
+          "id": 4,
+          "name": "beamforming",
+          "type": "AudioBeamformingCapabilities",
+          "required": false,
+          "deprecated": false,
+          "description": "Beamforming capability descriptor."
+        },
+        {
+          "id": 5,
+          "name": "dereverberation",
+          "type": "AudioDereverberationCapabilities",
+          "required": false,
+          "deprecated": false,
+          "description": "Dereverberation capability descriptor."
+        },
+        {
+          "id": 6,
+          "name": "voiceActivityDetection",
+          "type": "AudioVoiceActivityDetectionCapabilities",
+          "required": false,
+          "deprecated": false,
+          "description": "Voice activity detection capability descriptor."
+        },
+        {
+          "id": 7,
+          "name": "directionOfArrival",
+          "type": "AudioDirectionOfArrivalCapabilities",
+          "required": false,
+          "deprecated": false,
+          "description": "Direction of arrival capability descriptor."
+        },
+        {
+          "id": 8,
+          "name": "howlingSuppression",
+          "type": "AudioHowlingSuppressionCapabilities",
+          "required": false,
+          "deprecated": false,
+          "description": "Howling suppression capability descriptor."
+        }
+      ]
+    },
+    {
+      "name": "AudioAlgorithmPropertyCapability",
+      "type": "object",
+      "description": "Descriptor for one algorithm configuration property.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "type",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Property type; values include boolean, enum, uint8, uint16, uint32, int32, float, string, object, and array."
+        },
+        {
+          "id": 2,
+          "name": "defaultBool",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Boolean default value when type is boolean."
+        },
+        {
+          "id": 3,
+          "name": "defaultEnum",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 32,
+          "description": "Enum default value when type is enum."
+        },
+        {
+          "id": 4,
+          "name": "defaultInt32",
+          "type": "int32",
+          "required": false,
+          "deprecated": false,
+          "description": "Numeric default value for integer-backed properties."
+        },
+        {
+          "id": 5,
+          "name": "min",
+          "type": "int32",
+          "required": false,
+          "deprecated": false,
+          "description": "Inclusive numeric minimum."
+        },
+        {
+          "id": 6,
+          "name": "max",
+          "type": "int32",
+          "required": false,
+          "deprecated": false,
+          "description": "Inclusive numeric maximum."
+        },
+        {
+          "id": 7,
+          "name": "step",
+          "type": "int32",
+          "required": false,
+          "deprecated": false,
+          "description": "Numeric step size."
+        },
+        {
+          "id": 8,
+          "name": "values",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional JSON array of enum values."
+        },
+        {
+          "id": 9,
+          "name": "unit",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 16,
+          "description": "Unit such as ms, dB, or degree."
+        },
+        {
+          "id": 10,
+          "name": "requiresAudioRestart",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether modifying this field requires restarting the audio link or rebuilding the audio pipeline."
+        }
+      ]
+    },
+    {
+      "name": "AudioNoiseSuppressionCapabilities",
+      "type": "object",
+      "description": "Noise suppression supported fields.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "supported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the device supports noiseSuppression."
+        },
+        {
+          "id": 2,
+          "name": "displayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "UI-readable display name."
+        },
+        {
+          "id": 3,
+          "name": "enabled",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "enabled property descriptor."
+        },
+        {
+          "id": 5,
+          "name": "level",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "level property descriptor."
+        }
+      ]
+    },
+    {
+      "name": "AudioEchoCancellationCapabilities",
+      "type": "object",
+      "description": "Echo cancellation supported fields.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "supported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the device supports echoCancellation."
+        },
+        {
+          "id": 2,
+          "name": "displayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "UI-readable display name."
+        },
+        {
+          "id": 3,
+          "name": "enabled",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "enabled property descriptor."
+        },
+        {
+          "id": 5,
+          "name": "tailLengthMs",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "tailLengthMs property descriptor."
+        },
+        {
+          "id": 6,
+          "name": "nlpLevel",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "nlpLevel property descriptor."
+        }
+      ]
+    },
+    {
+      "name": "AudioAutoGainControlCapabilities",
+      "type": "object",
+      "description": "Automatic gain control supported fields.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "supported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the device supports autoGainControl."
+        },
+        {
+          "id": 2,
+          "name": "displayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "UI-readable display name."
+        },
+        {
+          "id": 3,
+          "name": "enabled",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "enabled property descriptor."
+        },
+        {
+          "id": 4,
+          "name": "targetLevelDb",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "targetLevelDb property descriptor."
+        },
+        {
+          "id": 5,
+          "name": "maxGainDb",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "maxGainDb property descriptor."
+        },
+        {
+          "id": 6,
+          "name": "attackTimeMs",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "attackTimeMs property descriptor."
+        },
+        {
+          "id": 7,
+          "name": "releaseTimeMs",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "releaseTimeMs property descriptor."
+        }
+      ]
+    },
+    {
+      "name": "AudioBeamformingCapabilities",
+      "type": "object",
+      "description": "Beamforming supported fields.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "supported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the device supports beamforming."
+        },
+        {
+          "id": 2,
+          "name": "displayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "UI-readable display name."
+        },
+        {
+          "id": 3,
+          "name": "enabled",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "enabled property descriptor."
+        },
+        {
+          "id": 5,
+          "name": "lookDirectionDeg",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "lookDirectionDeg property descriptor."
+        },
+        {
+          "id": 6,
+          "name": "beamWidthDeg",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "beamWidthDeg property descriptor."
+        }
+      ]
+    },
+    {
+      "name": "AudioDereverberationCapabilities",
+      "type": "object",
+      "description": "Dereverberation supported fields.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "supported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the device supports dereverberation."
+        },
+        {
+          "id": 2,
+          "name": "displayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "UI-readable display name."
+        },
+        {
+          "id": 3,
+          "name": "enabled",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "enabled property descriptor."
+        },
+        {
+          "id": 5,
+          "name": "level",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "level property descriptor."
+        }
+      ]
+    },
+    {
+      "name": "AudioVoiceActivityDetectionCapabilities",
+      "type": "object",
+      "description": "Voice activity detection supported fields.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "supported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the device supports voiceActivityDetection."
+        },
+        {
+          "id": 2,
+          "name": "displayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "UI-readable display name."
+        },
+        {
+          "id": 3,
+          "name": "enabled",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "enabled property descriptor."
+        },
+        {
+          "id": 4,
+          "name": "sensitivity",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "sensitivity property descriptor."
+        },
+        {
+          "id": 5,
+          "name": "hangoverMs",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "hangoverMs property descriptor."
+        }
+      ]
+    },
+    {
+      "name": "AudioDirectionOfArrivalCapabilities",
+      "type": "object",
+      "description": "Direction of arrival supported fields.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "supported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the device supports directionOfArrival."
+        },
+        {
+          "id": 2,
+          "name": "displayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "UI-readable display name."
+        },
+        {
+          "id": 3,
+          "name": "enabled",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "enabled property descriptor."
+        },
+        {
+          "id": 4,
+          "name": "reportingEnabled",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "reportingEnabled property descriptor."
+        },
+        {
+          "id": 5,
+          "name": "reportIntervalMs",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "reportIntervalMs property descriptor."
+        },
+        {
+          "id": 6,
+          "name": "smoothingMs",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "smoothingMs property descriptor."
+        }
+      ]
+    },
+    {
+      "name": "AudioHowlingSuppressionCapabilities",
+      "type": "object",
+      "description": "Howling suppression supported fields.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "supported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the device supports howlingSuppression."
+        },
+        {
+          "id": 2,
+          "name": "displayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "UI-readable display name."
+        },
+        {
+          "id": 3,
+          "name": "enabled",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "enabled property descriptor."
+        },
+        {
+          "id": 5,
+          "name": "level",
+          "type": "AudioAlgorithmPropertyCapability",
+          "required": false,
+          "deprecated": false,
+          "description": "level property descriptor."
+        }
+      ]
+    },
+    {
+      "name": "AudioAlgorithmConfig",
+      "type": "object",
+      "description": "Audio algorithm configuration keyed by algorithm object name.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "noiseSuppression",
+          "type": "AudioNoiseSuppressionConfig",
+          "required": false,
+          "deprecated": false,
+          "description": "Noise suppression configuration."
+        },
+        {
+          "id": 2,
+          "name": "echoCancellation",
+          "type": "AudioEchoCancellationConfig",
+          "required": false,
+          "deprecated": false,
+          "description": "Echo cancellation configuration."
+        },
+        {
+          "id": 3,
+          "name": "autoGainControl",
+          "type": "AudioAutoGainControlConfig",
+          "required": false,
+          "deprecated": false,
+          "description": "Automatic gain control configuration."
+        },
+        {
+          "id": 4,
+          "name": "beamforming",
+          "type": "AudioBeamformingConfig",
+          "required": false,
+          "deprecated": false,
+          "description": "Beamforming configuration."
+        },
+        {
+          "id": 5,
+          "name": "dereverberation",
+          "type": "AudioDereverberationConfig",
+          "required": false,
+          "deprecated": false,
+          "description": "Dereverberation configuration."
+        },
+        {
+          "id": 6,
+          "name": "voiceActivityDetection",
+          "type": "AudioVoiceActivityDetectionConfig",
+          "required": false,
+          "deprecated": false,
+          "description": "Voice activity detection configuration."
+        },
+        {
+          "id": 7,
+          "name": "directionOfArrival",
+          "type": "AudioDirectionOfArrivalConfig",
+          "required": false,
+          "deprecated": false,
+          "description": "Direction of arrival configuration."
+        },
+        {
+          "id": 8,
+          "name": "howlingSuppression",
+          "type": "AudioHowlingSuppressionConfig",
+          "required": false,
+          "deprecated": false,
+          "description": "Howling suppression configuration."
+        }
+      ]
+    },
+    {
+      "name": "AudioNoiseSuppressionConfig",
+      "type": "object",
+      "description": "Noise suppression configuration object.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "enabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether noise suppression is enabled."
+        },
+        {
+          "id": 3,
+          "name": "level",
+          "type": "uint8",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "max": 3,
+          "description": "Suppression strength."
+        }
+      ]
+    },
+    {
+      "name": "AudioEchoCancellationConfig",
+      "type": "object",
+      "description": "Echo cancellation configuration object.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "enabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether echo cancellation is enabled."
+        },
+        {
+          "id": 3,
+          "name": "tailLengthMs",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "min": 64,
+          "max": 512,
+          "description": "Echo tail length in milliseconds; modifying it may require restarting the audio link."
+        },
+        {
+          "id": 4,
+          "name": "nlpLevel",
+          "type": "uint8",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "max": 3,
+          "description": "Non-linear processing strength."
+        }
+      ]
+    },
+    {
+      "name": "AudioAutoGainControlConfig",
+      "type": "object",
+      "description": "Automatic gain control configuration object.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "enabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether automatic gain control is enabled."
+        },
+        {
+          "id": 2,
+          "name": "targetLevelDb",
+          "type": "int32",
+          "required": false,
+          "deprecated": false,
+          "min": -36,
+          "max": -6,
+          "description": "Target output level in dB."
+        },
+        {
+          "id": 3,
+          "name": "maxGainDb",
+          "type": "uint8",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "max": 36,
+          "description": "Maximum gain in dB."
+        },
+        {
+          "id": 4,
+          "name": "attackTimeMs",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "min": 1,
+          "max": 1000,
+          "description": "Gain attack time in milliseconds."
+        },
+        {
+          "id": 5,
+          "name": "releaseTimeMs",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "min": 10,
+          "max": 5000,
+          "description": "Gain release time in milliseconds."
+        }
+      ]
+    },
+    {
+      "name": "AudioBeamformingConfig",
+      "type": "object",
+      "description": "Beamforming configuration object.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "enabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether beamforming is enabled."
+        },
+        {
+          "id": 3,
+          "name": "lookDirectionDeg",
+          "type": "int32",
+          "required": false,
+          "deprecated": false,
+          "min": -180,
+          "max": 180,
+          "description": "Fixed beam look direction in degrees."
+        },
+        {
+          "id": 4,
+          "name": "beamWidthDeg",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "min": 10,
+          "max": 180,
+          "description": "Beam width in degrees."
+        }
+      ]
+    },
+    {
+      "name": "AudioDereverberationConfig",
+      "type": "object",
+      "description": "Dereverberation configuration object.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "enabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether dereverberation is enabled."
+        },
+        {
+          "id": 3,
+          "name": "level",
+          "type": "uint8",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "max": 3,
+          "description": "Dereverberation strength."
+        }
+      ]
+    },
+    {
+      "name": "AudioVoiceActivityDetectionConfig",
+      "type": "object",
+      "description": "Voice activity detection configuration object.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "enabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether voice activity detection is enabled."
+        },
+        {
+          "id": 2,
+          "name": "sensitivity",
+          "type": "uint8",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "max": 3,
+          "description": "Detection sensitivity."
+        },
+        {
+          "id": 3,
+          "name": "hangoverMs",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "max": 2000,
+          "description": "Speech-end hangover time in milliseconds."
+        }
+      ]
+    },
+    {
+      "name": "AudioDirectionOfArrivalConfig",
+      "type": "object",
+      "description": "Direction of arrival configuration object.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "enabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether direction of arrival estimation is enabled."
+        },
+        {
+          "id": 2,
+          "name": "reportingEnabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether DOA or beam result reporting is enabled by this configuration."
+        },
+        {
+          "id": 3,
+          "name": "reportIntervalMs",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "min": 20,
+          "max": 5000,
+          "description": "Result report interval in milliseconds."
+        },
+        {
+          "id": 4,
+          "name": "smoothingMs",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "max": 5000,
+          "description": "Smoothing window in milliseconds."
+        }
+      ]
+    },
+    {
+      "name": "AudioHowlingSuppressionConfig",
+      "type": "object",
+      "description": "Howling suppression configuration object.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "enabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether howling suppression is enabled."
+        },
+        {
+          "id": 3,
+          "name": "level",
+          "type": "uint8",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "max": 3,
+          "description": "Howling suppression strength."
+        }
+      ]
+    }
+  ]
+}
