@@ -4,12 +4,12 @@
 namespace axtp::generated {
 
 inline constexpr const char* kRuntimeName = "axtp-mock-server";
-inline constexpr const char* kRuntimeVersion = "0.0.2";
-inline constexpr const char* kSpecVersion = "0.0.2";
-inline constexpr const char* kSpecTag = "spec/v0.0.2";
-inline constexpr const char* kSpecCommit = "ae58fc10ee967fe3357545076d8acb21b2c4b071";
+inline constexpr const char* kRuntimeVersion = "0.0.3";
+inline constexpr const char* kSpecVersion = "0.0.3";
+inline constexpr const char* kSpecTag = "spec/v0.0.3";
+inline constexpr const char* kSpecCommit = "9d11ea212854bd3a92335347546942ac84066b07";
 inline constexpr const char* kGeneratorName = "@axtp/mock-server-generator";
 inline constexpr const char* kGeneratorVersion = "1.0.0";
-inline constexpr const char* kGeneratedAt = "2026-06-05T18:32:17Z";
+inline constexpr const char* kGeneratedAt = "2026-06-05T19:56:36Z";
 
 }  // namespace axtp::generated
