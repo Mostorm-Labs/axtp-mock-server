@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-14T07:50:22Z",
+  "generatedAt": "2026-06-14T08:17:22Z",
   "generator": {
     "name": "@axtp/mock-server-generator",
     "version": "1.0.0",
-    "commit": "ecc4b6f7c1dc1e0feb4db50b0316c373d51c02ff"
+    "commit": "ecd90b39d3e924157b30ad85ba407801b5eb2284"
   },
   "axtpSpec": {
     "repository": "https://github.com/Mostorm-Labs/axtp",
@@ -14,7 +14,7 @@
   "runtime": {
     "name": "axtp-mock-server",
     "version": "0.5.1",
-    "commit": "ecc4b6f7c1dc1e0feb4db50b0316c373d51c02ff"
+    "commit": "ecd90b39d3e924157b30ad85ba407801b5eb2284"
   },
   "inputs": {
     "registryHash": "sha256:d2809ab0662b7a696f235f6e030466c3342589a604deef26938222617f0e2170",
