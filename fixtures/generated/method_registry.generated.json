@@ -1,6 +1,341 @@
 {
   "methods": [
     {
+      "id": 257,
+      "bitOffset": 0,
+      "name": "device.getInfo",
+      "domain": "device",
+      "status": "draft",
+      "description": "Return the current endpoint main device identity, product, hardware, OS, software, AXTP runtime, and optional capability summary.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "GetDeviceInfoParams",
+      "responseSchema": "DeviceInfo",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "device.info"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "PERMISSION_DENIED",
+        "INTERNAL_ERROR"
+      ],
+      "idHex": "0x0101"
+    },
+    {
+      "id": 1025,
+      "bitOffset": 0,
+      "name": "firmware.getUpdateCapabilities",
+      "domain": "firmware",
+      "status": "draft",
+      "description": "Return P0 firmware update capability and upload constraints.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "Empty",
+      "responseSchema": "FirmwareUpdateCapabilities",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "firmware.update"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_STATE",
+        "FW_DEVICE_NOT_READY"
+      ],
+      "idHex": "0x0401"
+    },
+    {
+      "id": 1026,
+      "bitOffset": 1,
+      "name": "firmware.beginUpdate",
+      "domain": "firmware",
+      "status": "draft",
+      "description": "Create a firmware update session, accept the manifest, and bind file IDs to STREAM streamIds.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "BeginUpdateParams",
+      "responseSchema": "BeginUpdateResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "firmware.update"
+      ],
+      "events": [
+        "firmware.updateStateChanged",
+        "firmware.updateProgressReported"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "BUSY",
+        "FW_VERSION_UNSUPPORTED",
+        "FW_STORAGE_NOT_ENOUGH",
+        "FW_DEVICE_NOT_READY"
+      ],
+      "idHex": "0x0402"
+    },
+    {
+      "id": 1032,
+      "bitOffset": 3,
+      "name": "firmware.getUpdateState",
+      "domain": "firmware",
+      "status": "draft",
+      "description": "Return current firmware update state for UI refresh, reconnect, or event-loss recovery.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "GetUpdateStateParams",
+      "responseSchema": "FirmwareUpdateState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "firmware.update"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_FOUND",
+        "FW_TRANSFER_NOT_STARTED"
+      ],
+      "idHex": "0x0408"
+    },
+    {
+      "id": 1035,
+      "bitOffset": 2,
+      "name": "firmware.finishUpdate",
+      "domain": "firmware",
+      "status": "draft",
+      "description": "Tell the device that upload is complete and hand off verification, install, and reboot to the device.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "FinishUpdateParams",
+      "responseSchema": "FinishUpdateResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "firmware.update"
+      ],
+      "events": [
+        "firmware.updateStateChanged",
+        "firmware.updateProgressReported"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_STATE",
+        "STREAM_CHUNK_MISSING",
+        "FW_SIZE_MISMATCH",
+        "FW_DEVICE_NOT_READY",
+        "BUSY"
+      ],
+      "idHex": "0x040B"
+    },
+    {
+      "id": 2059,
+      "bitOffset": 1,
+      "name": "video.openStream",
+      "domain": "video",
+      "status": "draft",
+      "description": "Open a real-time video STREAM and return the negotiated streamId and media metadata.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "VideoOpenStreamParams",
+      "responseSchema": "VideoOpenStreamResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "video.stream"
+      ],
+      "events": [
+        "video.streamStateChanged",
+        "video.streamSourceStateChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "BUSY",
+        "RESOURCE_EXHAUSTED",
+        "MEDIA_SOURCE_NOT_FOUND",
+        "MEDIA_SOURCE_UNAVAILABLE",
+        "MEDIA_CODEC_UNSUPPORTED",
+        "MEDIA_RESOLUTION_UNSUPPORTED",
+        "MEDIA_FRAMERATE_UNSUPPORTED",
+        "MEDIA_STREAM_START_FAILED"
+      ],
+      "idHex": "0x080B"
+    },
+    {
+      "id": 2060,
+      "bitOffset": 2,
+      "name": "video.closeStream",
+      "domain": "video",
+      "status": "draft",
+      "description": "Close a previously opened video STREAM.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "VideoCloseStreamParams",
+      "responseSchema": "VideoCloseStreamResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "video.stream"
+      ],
+      "events": [
+        "video.streamStateChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "STREAM_NOT_FOUND",
+        "STREAM_CLOSED",
+        "INVALID_STATE",
+        "MEDIA_STREAM_STOP_FAILED"
+      ],
+      "idHex": "0x080C"
+    },
+    {
+      "id": 2061,
+      "bitOffset": 3,
+      "name": "video.getStreamState",
+      "domain": "video",
+      "status": "draft",
+      "description": "Return runtime state for an opened video stream.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "VideoGetStreamStateParams",
+      "responseSchema": "VideoStreamState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "video.stream"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "STREAM_NOT_FOUND",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x080D"
+    },
+    {
+      "id": 2066,
+      "bitOffset": 0,
+      "name": "video.getStreamCapabilities",
+      "domain": "video",
+      "status": "draft",
+      "description": "Return video stream sources, codecs, profiles, and open-mode support.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "VideoGetStreamCapabilitiesParams",
+      "responseSchema": "VideoStreamCapabilities",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "video.stream"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0812"
+    },
+    {
+      "id": 2067,
+      "bitOffset": 4,
+      "name": "video.getStreamSourceState",
+      "domain": "video",
+      "status": "draft",
+      "description": "Return availability and receiving state for a video stream source.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "VideoGetStreamSourceStateParams",
+      "responseSchema": "VideoStreamSourceState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "video.stream"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "MEDIA_SOURCE_NOT_FOUND",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0813"
+    },
+    {
+      "id": 2068,
+      "bitOffset": 5,
+      "name": "video.requestKeyFrame",
+      "domain": "video",
+      "status": "draft",
+      "description": "Request an encoder key frame for an active video stream.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "VideoRequestKeyFrameParams",
+      "responseSchema": "VideoRequestKeyFrameResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "video.stream"
+      ],
+      "events": [
+        "video.streamStateChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "STREAM_NOT_FOUND",
+        "INVALID_STATE",
+        "MEDIA_STREAM_START_FAILED",
+        "PERMISSION_DENIED"
+      ],
+      "idHex": "0x0814"
+    },
+    {
       "id": 2305,
       "bitOffset": 1,
       "name": "audio.getAlgorithmConfig",
@@ -123,6 +458,715 @@
         "INTERNAL_ERROR"
       ],
       "idHex": "0x090E"
+    },
+    {
+      "id": 2319,
+      "bitOffset": 4,
+      "name": "audio.getStreamCapabilities",
+      "domain": "audio",
+      "status": "draft",
+      "description": "Return real-time audio stream sources, codecs, stream profiles, and open-mode support.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "AudioGetStreamCapabilitiesParams",
+      "responseSchema": "AudioStreamCapabilities",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "audio.stream"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x090F"
+    },
+    {
+      "id": 2320,
+      "bitOffset": 5,
+      "name": "audio.openStream",
+      "domain": "audio",
+      "status": "draft",
+      "description": "Open a real-time audio STREAM and return the negotiated streamId and media metadata.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "AudioOpenStreamParams",
+      "responseSchema": "AudioOpenStreamResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "audio.stream"
+      ],
+      "events": [
+        "audio.streamStateChanged",
+        "audio.streamSourceStateChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "BUSY",
+        "RESOURCE_EXHAUSTED",
+        "MEDIA_SOURCE_NOT_FOUND",
+        "MEDIA_SOURCE_UNAVAILABLE",
+        "MEDIA_CODEC_UNSUPPORTED",
+        "MEDIA_STREAM_START_FAILED"
+      ],
+      "idHex": "0x0910"
+    },
+    {
+      "id": 2321,
+      "bitOffset": 6,
+      "name": "audio.closeStream",
+      "domain": "audio",
+      "status": "draft",
+      "description": "Close a previously opened audio STREAM.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "AudioCloseStreamParams",
+      "responseSchema": "AudioCloseStreamResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "audio.stream"
+      ],
+      "events": [
+        "audio.streamStateChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "STREAM_NOT_FOUND",
+        "STREAM_CLOSED",
+        "INVALID_STATE",
+        "MEDIA_STREAM_STOP_FAILED"
+      ],
+      "idHex": "0x0911"
+    },
+    {
+      "id": 2322,
+      "bitOffset": 7,
+      "name": "audio.getStreamState",
+      "domain": "audio",
+      "status": "draft",
+      "description": "Return runtime state for an opened audio stream.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "AudioGetStreamStateParams",
+      "responseSchema": "AudioStreamState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "audio.stream"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "STREAM_NOT_FOUND",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0912"
+    },
+    {
+      "id": 2323,
+      "bitOffset": 8,
+      "name": "audio.getStreamSourceState",
+      "domain": "audio",
+      "status": "draft",
+      "description": "Return availability and receiving state for an audio stream source.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "AudioGetStreamSourceStateParams",
+      "responseSchema": "AudioStreamSourceState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "audio.stream"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "MEDIA_SOURCE_NOT_FOUND",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0913"
+    },
+    {
+      "id": 3586,
+      "bitOffset": 2,
+      "name": "network.getIpConfig",
+      "domain": "network",
+      "status": "draft",
+      "description": "Return IP configuration for a network interface.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkGetIpConfigParams",
+      "responseSchema": "NetworkIpConfig",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.ip"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "NOT_FOUND",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0E02"
+    },
+    {
+      "id": 3587,
+      "bitOffset": 3,
+      "name": "network.setIpConfig",
+      "domain": "network",
+      "status": "draft",
+      "description": "Set DHCP/static/disabled IP configuration for a network interface.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkSetIpConfigParams",
+      "responseSchema": "NetworkSetIpConfigResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.ip"
+      ],
+      "events": [
+        "network.ipConfigChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "OUT_OF_RANGE",
+        "INVALID_STATE",
+        "BUSY",
+        "PERMISSION_DENIED"
+      ],
+      "idHex": "0x0E03"
+    },
+    {
+      "id": 3588,
+      "bitOffset": 5,
+      "name": "network.getWifiConfig",
+      "domain": "network",
+      "status": "draft",
+      "description": "Return saved Wi-Fi profile summaries without plaintext credentials.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkGetWifiConfigParams",
+      "responseSchema": "NetworkWifiConfig",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.wifi"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "NOT_FOUND",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0E04"
+    },
+    {
+      "id": 3589,
+      "bitOffset": 6,
+      "name": "network.setWifiConfig",
+      "domain": "network",
+      "status": "draft",
+      "description": "Create or update a Wi-Fi station profile.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkSetWifiConfigParams",
+      "responseSchema": "NetworkSetWifiConfigResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.wifi"
+      ],
+      "events": [
+        "network.wifiConfigChanged",
+        "network.wifiStateChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "OUT_OF_RANGE",
+        "INVALID_STATE",
+        "BUSY",
+        "PERMISSION_DENIED"
+      ],
+      "idHex": "0x0E05"
+    },
+    {
+      "id": 3590,
+      "bitOffset": 7,
+      "name": "network.scanWifi",
+      "domain": "network",
+      "status": "draft",
+      "description": "Scan visible Wi-Fi access points.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkScanWifiParams",
+      "responseSchema": "NetworkScanWifiResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.wifi"
+      ],
+      "events": [
+        "network.wifiScanResultReported"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "BUSY",
+        "TIMEOUT",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0E06"
+    },
+    {
+      "id": 3591,
+      "bitOffset": 8,
+      "name": "network.connectWifi",
+      "domain": "network",
+      "status": "draft",
+      "description": "Connect to a saved Wi-Fi profile or an inline profile.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkConnectWifiParams",
+      "responseSchema": "NetworkWifiActionResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.wifi"
+      ],
+      "events": [
+        "network.wifiStateChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "NOT_FOUND",
+        "INVALID_STATE",
+        "BUSY",
+        "TIMEOUT",
+        "PERMISSION_DENIED"
+      ],
+      "idHex": "0x0E07"
+    },
+    {
+      "id": 3592,
+      "bitOffset": 9,
+      "name": "network.disconnectWifi",
+      "domain": "network",
+      "status": "draft",
+      "description": "Disconnect the current Wi-Fi station connection.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkDisconnectWifiParams",
+      "responseSchema": "NetworkWifiActionResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.wifi"
+      ],
+      "events": [
+        "network.wifiStateChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "INVALID_STATE",
+        "BUSY",
+        "PERMISSION_DENIED"
+      ],
+      "idHex": "0x0E08"
+    },
+    {
+      "id": 3593,
+      "bitOffset": 10,
+      "name": "network.getWifiState",
+      "domain": "network",
+      "status": "draft",
+      "description": "Return current Wi-Fi station association, authentication, and connection state.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkGetWifiStateParams",
+      "responseSchema": "NetworkWifiState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.wifi"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "NOT_FOUND",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0E09"
+    },
+    {
+      "id": 3594,
+      "bitOffset": 12,
+      "name": "network.getApConfig",
+      "domain": "network",
+      "status": "draft",
+      "description": "Return Wi-Fi AP configuration without exposing plaintext credentials unless explicitly allowed by policy.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkGetApConfigParams",
+      "responseSchema": "NetworkApConfig",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.ap"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0E0A"
+    },
+    {
+      "id": 3595,
+      "bitOffset": 13,
+      "name": "network.setApConfig",
+      "domain": "network",
+      "status": "draft",
+      "description": "Partially update Wi-Fi AP configuration.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkSetApConfigParams",
+      "responseSchema": "NetworkSetApConfigResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.ap"
+      ],
+      "events": [
+        "network.apConfigChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "OUT_OF_RANGE",
+        "INVALID_STATE",
+        "BUSY",
+        "PERMISSION_DENIED"
+      ],
+      "idHex": "0x0E0B"
+    },
+    {
+      "id": 3596,
+      "bitOffset": 15,
+      "name": "network.startAp",
+      "domain": "network",
+      "status": "draft",
+      "description": "Start the Wi-Fi AP role.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkApActionParams",
+      "responseSchema": "NetworkApActionResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.ap"
+      ],
+      "events": [
+        "network.apStateChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "INVALID_STATE",
+        "BUSY",
+        "PERMISSION_DENIED"
+      ],
+      "idHex": "0x0E0C"
+    },
+    {
+      "id": 3597,
+      "bitOffset": 16,
+      "name": "network.stopAp",
+      "domain": "network",
+      "status": "draft",
+      "description": "Stop the Wi-Fi AP role.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkApActionParams",
+      "responseSchema": "NetworkApActionResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.ap"
+      ],
+      "events": [
+        "network.apStateChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "INVALID_STATE",
+        "BUSY",
+        "PERMISSION_DENIED"
+      ],
+      "idHex": "0x0E0D"
+    },
+    {
+      "id": 3598,
+      "bitOffset": 14,
+      "name": "network.getApState",
+      "domain": "network",
+      "status": "draft",
+      "description": "Return runtime state for the device Wi-Fi AP role.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkGetApConfigParams",
+      "responseSchema": "NetworkApState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.ap"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0E0E"
+    },
+    {
+      "id": 3600,
+      "bitOffset": 0,
+      "name": "network.getInterfaces",
+      "domain": "network",
+      "status": "draft",
+      "description": "Return visible network interfaces and default interface identifiers.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkGetInterfacesParams",
+      "responseSchema": "NetworkInterfaces",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.interface"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0E10"
+    },
+    {
+      "id": 3601,
+      "bitOffset": 1,
+      "name": "network.getInterfaceInfo",
+      "domain": "network",
+      "status": "draft",
+      "description": "Return detailed information for one network interface.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkGetInterfaceInfoParams",
+      "responseSchema": "NetworkInterfaceInfo",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.interface"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "NOT_FOUND",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0E11"
+    },
+    {
+      "id": 3602,
+      "bitOffset": 4,
+      "name": "network.getWifiCapabilities",
+      "domain": "network",
+      "status": "draft",
+      "description": "Return Wi-Fi station capability, including security types, bands, scanning, and credential import modes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkGetWifiCapabilitiesParams",
+      "responseSchema": "NetworkWifiCapabilities",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.wifi"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "NOT_FOUND",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0E12"
+    },
+    {
+      "id": 3603,
+      "bitOffset": 11,
+      "name": "network.getApCapabilities",
+      "domain": "network",
+      "status": "draft",
+      "description": "Return Wi-Fi AP capability, including supported bands, security types, channel ranges, and credential export policy.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkGetApCapabilitiesParams",
+      "responseSchema": "NetworkApCapabilities",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.ap"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0E13"
+    },
+    {
+      "id": 3604,
+      "bitOffset": 17,
+      "name": "network.getApClients",
+      "domain": "network",
+      "status": "draft",
+      "description": "Return clients currently associated with the Wi-Fi AP.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "NetworkGetApConfigParams",
+      "responseSchema": "NetworkApClients",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "network.ap"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "PERMISSION_DENIED",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x0E14"
     }
   ]
 }

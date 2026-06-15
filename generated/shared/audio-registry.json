@@ -23,6 +23,36 @@
       "name": "audio.resetAlgorithmConfig",
       "requestSchema": "AudioResetAlgorithmConfigRequest",
       "responseSchema": "AudioSetAlgorithmConfigResponse"
+    },
+    {
+      "id": 2319,
+      "name": "audio.getStreamCapabilities",
+      "requestSchema": "AudioGetStreamCapabilitiesParams",
+      "responseSchema": "AudioStreamCapabilities"
+    },
+    {
+      "id": 2320,
+      "name": "audio.openStream",
+      "requestSchema": "AudioOpenStreamParams",
+      "responseSchema": "AudioOpenStreamResult"
+    },
+    {
+      "id": 2321,
+      "name": "audio.closeStream",
+      "requestSchema": "AudioCloseStreamParams",
+      "responseSchema": "AudioCloseStreamResult"
+    },
+    {
+      "id": 2322,
+      "name": "audio.getStreamState",
+      "requestSchema": "AudioGetStreamStateParams",
+      "responseSchema": "AudioStreamState"
+    },
+    {
+      "id": 2323,
+      "name": "audio.getStreamSourceState",
+      "requestSchema": "AudioGetStreamSourceStateParams",
+      "responseSchema": "AudioStreamSourceState"
     }
   ]
 }

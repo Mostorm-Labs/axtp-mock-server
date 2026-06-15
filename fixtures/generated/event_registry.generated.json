@@ -1,6 +1,116 @@
 {
   "events": [
     {
+      "id": 1026,
+      "bitOffset": 0,
+      "name": "firmware.updateProgressReported",
+      "domain": "firmware",
+      "status": "draft",
+      "description": "Emitted when firmware receiving, verification, or install progress changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "FirmwareUpdateProgressEvent",
+      "severity": "info",
+      "trigger": [
+        "STREAM upload progress",
+        "firmware.finishUpdate",
+        "internal verify",
+        "internal install"
+      ],
+      "capabilities": [
+        "firmware.update"
+      ],
+      "idHex": "0x0402"
+    },
+    {
+      "id": 1027,
+      "bitOffset": 1,
+      "name": "firmware.updateStateChanged",
+      "domain": "firmware",
+      "status": "draft",
+      "description": "Emitted when firmware update state changes or fails.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "FirmwareUpdateStateChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "firmware.beginUpdate",
+        "firmware.finishUpdate",
+        "verify complete",
+        "install complete",
+        "rebooting",
+        "failure"
+      ],
+      "capabilities": [
+        "firmware.update"
+      ],
+      "idHex": "0x0403"
+    },
+    {
+      "id": 2054,
+      "bitOffset": 0,
+      "name": "video.streamStateChanged",
+      "domain": "video",
+      "status": "draft",
+      "description": "Emitted when a video stream enters opening, streaming, closed, failed, or keyframe-related state.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "VideoStreamStateChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "video.openStream",
+        "video.closeStream",
+        "video.requestKeyFrame",
+        "source disconnected",
+        "stream failure"
+      ],
+      "capabilities": [
+        "video.stream"
+      ],
+      "idHex": "0x0806"
+    },
+    {
+      "id": 2055,
+      "bitOffset": 1,
+      "name": "video.streamSourceStateChanged",
+      "domain": "video",
+      "status": "draft",
+      "description": "Emitted when a video stream source availability or receiving state changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "VideoStreamSourceStateChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "source available",
+        "source receiving",
+        "source stopped"
+      ],
+      "capabilities": [
+        "video.stream"
+      ],
+      "idHex": "0x0807"
+    },
+    {
+      "id": 2056,
+      "bitOffset": 2,
+      "name": "video.streamStatsReported",
+      "domain": "video",
+      "status": "draft",
+      "description": "Emitted with bounded runtime statistics for a video stream.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "VideoStreamStatsReportedEvent",
+      "severity": "info",
+      "trigger": [
+        "stream statistics interval",
+        "diagnostic sampling"
+      ],
+      "capabilities": [
+        "video.stream"
+      ],
+      "idHex": "0x0808"
+    },
+    {
       "id": 2305,
       "bitOffset": 0,
       "name": "audio.algorithmConfigChanged",
@@ -23,6 +133,233 @@
         "audio.algorithm"
       ],
       "idHex": "0x0901"
+    },
+    {
+      "id": 2306,
+      "bitOffset": 1,
+      "name": "audio.streamStateChanged",
+      "domain": "audio",
+      "status": "draft",
+      "description": "Emitted when an audio stream enters opening, streaming, closed, or failed state.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "AudioStreamStateChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "audio.openStream",
+        "audio.closeStream",
+        "source disconnected",
+        "stream failure"
+      ],
+      "capabilities": [
+        "audio.stream"
+      ],
+      "idHex": "0x0902"
+    },
+    {
+      "id": 2307,
+      "bitOffset": 2,
+      "name": "audio.streamSourceStateChanged",
+      "domain": "audio",
+      "status": "draft",
+      "description": "Emitted when an audio stream source availability or receiving state changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "AudioStreamSourceStateChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "upstream source available",
+        "upstream source receiving",
+        "upstream source stopped"
+      ],
+      "capabilities": [
+        "audio.stream"
+      ],
+      "idHex": "0x0903"
+    },
+    {
+      "id": 2308,
+      "bitOffset": 3,
+      "name": "audio.streamStatsReported",
+      "domain": "audio",
+      "status": "draft",
+      "description": "Emitted with bounded runtime statistics for an audio stream.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "AudioStreamStatsReportedEvent",
+      "severity": "info",
+      "trigger": [
+        "stream statistics interval",
+        "diagnostic sampling"
+      ],
+      "capabilities": [
+        "audio.stream"
+      ],
+      "idHex": "0x0904"
+    },
+    {
+      "id": 3585,
+      "bitOffset": 0,
+      "name": "network.interfaceStateChanged",
+      "domain": "network",
+      "status": "draft",
+      "description": "Emitted when network interface administrative or link state changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "NetworkInterfaceStateChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "link state change",
+        "admin state change",
+        "interface availability change"
+      ],
+      "capabilities": [
+        "network.interface"
+      ],
+      "idHex": "0x0E01"
+    },
+    {
+      "id": 3586,
+      "bitOffset": 1,
+      "name": "network.ipConfigChanged",
+      "domain": "network",
+      "status": "draft",
+      "description": "Emitted when IP configuration changes for an interface.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "NetworkIpConfigChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "network.setIpConfig",
+        "DHCP renew",
+        "device policy"
+      ],
+      "capabilities": [
+        "network.ip"
+      ],
+      "idHex": "0x0E02"
+    },
+    {
+      "id": 3587,
+      "bitOffset": 2,
+      "name": "network.wifiConfigChanged",
+      "domain": "network",
+      "status": "draft",
+      "description": "Emitted when saved Wi-Fi profile configuration changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "NetworkWifiConfigChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "network.setWifiConfig",
+        "device policy"
+      ],
+      "capabilities": [
+        "network.wifi"
+      ],
+      "idHex": "0x0E03"
+    },
+    {
+      "id": 3588,
+      "bitOffset": 3,
+      "name": "network.wifiStateChanged",
+      "domain": "network",
+      "status": "draft",
+      "description": "Emitted when Wi-Fi station association, authentication, connection, or failure state changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "NetworkWifiStateChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "network.setWifiConfig",
+        "network.connectWifi",
+        "network.disconnectWifi",
+        "local Wi-Fi state change"
+      ],
+      "capabilities": [
+        "network.wifi"
+      ],
+      "idHex": "0x0E04"
+    },
+    {
+      "id": 3589,
+      "bitOffset": 4,
+      "name": "network.wifiScanResultReported",
+      "domain": "network",
+      "status": "draft",
+      "description": "Emitted for asynchronous Wi-Fi scan results or scan completion.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "NetworkWifiScanResultReportedEvent",
+      "severity": "info",
+      "trigger": [
+        "network.scanWifi"
+      ],
+      "capabilities": [
+        "network.wifi"
+      ],
+      "idHex": "0x0E05"
+    },
+    {
+      "id": 3590,
+      "bitOffset": 5,
+      "name": "network.apConfigChanged",
+      "domain": "network",
+      "status": "draft",
+      "description": "Emitted when Wi-Fi AP configuration changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "NetworkApConfigChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "network.setApConfig",
+        "device policy"
+      ],
+      "capabilities": [
+        "network.ap"
+      ],
+      "idHex": "0x0E06"
+    },
+    {
+      "id": 3591,
+      "bitOffset": 6,
+      "name": "network.apStateChanged",
+      "domain": "network",
+      "status": "draft",
+      "description": "Emitted when Wi-Fi AP runtime state changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "NetworkApStateChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "network.startAp",
+        "network.stopAp",
+        "local AP state change"
+      ],
+      "capabilities": [
+        "network.ap"
+      ],
+      "idHex": "0x0E07"
+    },
+    {
+      "id": 3592,
+      "bitOffset": 7,
+      "name": "network.apClientChanged",
+      "domain": "network",
+      "status": "draft",
+      "description": "Emitted when a client joins or leaves the Wi-Fi AP.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "NetworkApClientChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "AP client join",
+        "AP client leave"
+      ],
+      "capabilities": [
+        "network.ap"
+      ],
+      "idHex": "0x0E08"
     }
   ]
 }

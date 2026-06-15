@@ -1303,6 +1303,4301 @@
           "description": "Howling suppression strength."
         }
       ]
+    },
+    {
+      "name": "AudioGetStreamCapabilitiesParams",
+      "type": "object",
+      "description": "Selector for real-time audio stream capability.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "source",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional audio source identifier; omit to query all visible sources."
+        },
+        {
+          "id": 2,
+          "name": "includeRuntimeState",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether to include current source runtime state."
+        }
+      ]
+    },
+    {
+      "name": "AudioStreamCapabilities",
+      "type": "object",
+      "description": "Device-level audio.stream capability summary.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "capability",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 32,
+          "description": "Fixed capability name audio.stream."
+        },
+        {
+          "id": 2,
+          "name": "sources",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 8192,
+          "description": "JSON array of AudioStreamSource objects."
+        },
+        {
+          "id": 3,
+          "name": "streamProfiles",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported stream profiles, normally media.audio."
+        },
+        {
+          "id": 4,
+          "name": "openModes",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported open modes, such as producer_open and receiver_pull."
+        },
+        {
+          "id": 5,
+          "name": "peerRoles",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of peer roles, such as receiver and transmitter."
+        },
+        {
+          "id": 6,
+          "name": "supportsSourceStateEvent",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether audio.streamSourceStateChanged is supported."
+        },
+        {
+          "id": 7,
+          "name": "supportsSyncGroup",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether audio streams can share a synchronization group with video streams."
+        },
+        {
+          "id": 8,
+          "name": "flowControlManagedByRuntime",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether normal applications can rely on runtime-managed STREAM flow control."
+        },
+        {
+          "id": 9,
+          "name": "aacTransportFormats",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "Optional JSON array of AAC transport format strings; exact supported set remains product-confirmed."
+        }
+      ]
+    },
+    {
+      "name": "AudioStreamSource",
+      "type": "object",
+      "description": "One real-time audio stream source.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Source identifier such as wireless_cast_audio."
+        },
+        {
+          "id": 2,
+          "name": "displayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "User-visible source name."
+        },
+        {
+          "id": 3,
+          "name": "codecs",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported audio codecs."
+        },
+        {
+          "id": 4,
+          "name": "sampleRates",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported sample rates in Hz."
+        },
+        {
+          "id": 5,
+          "name": "channels",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 256,
+          "description": "JSON array of supported channel counts."
+        },
+        {
+          "id": 6,
+          "name": "state",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Runtime source state, such as available, receiving, stopped, or unavailable."
+        }
+      ]
+    },
+    {
+      "name": "AudioOpenStreamParams",
+      "type": "object",
+      "description": "Request to open a real-time audio stream.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Audio source identifier."
+        },
+        {
+          "id": 2,
+          "name": "peerRole",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Requested peer media role; values include receiver and transmitter."
+        },
+        {
+          "id": 3,
+          "name": "codec",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Requested audio codec, such as aac, opus, or pcm."
+        },
+        {
+          "id": 4,
+          "name": "transportFormat",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Optional codec transport format, such as adts, latm, or raw_aac."
+        },
+        {
+          "id": 5,
+          "name": "sampleRate",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Requested sample rate in Hz."
+        },
+        {
+          "id": 6,
+          "name": "channels",
+          "type": "uint8",
+          "required": false,
+          "deprecated": false,
+          "description": "Requested channel count."
+        },
+        {
+          "id": 7,
+          "name": "sampleFormat",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Requested sample format."
+        },
+        {
+          "id": 8,
+          "name": "chunkDurationMs",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Preferred chunk duration in milliseconds."
+        },
+        {
+          "id": 9,
+          "name": "streamProfile",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "media.audio",
+          "description": "STREAM profile name."
+        },
+        {
+          "id": 10,
+          "name": "cursorUnit",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "STREAM cursor unit, such as timestampUs or sampleIndex."
+        },
+        {
+          "id": 11,
+          "name": "syncGroupId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional synchronization group identifier."
+        },
+        {
+          "id": 12,
+          "name": "castSessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional cast session identifier."
+        },
+        {
+          "id": 13,
+          "name": "clockDomain",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Source media clock domain."
+        },
+        {
+          "id": 14,
+          "name": "receiverClockDomain",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver clock domain."
+        },
+        {
+          "id": 15,
+          "name": "maxDataSize",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Preferred maximum STREAM payload data size."
+        }
+      ]
+    },
+    {
+      "name": "AudioOpenStreamResult",
+      "type": "object",
+      "description": "Result of opening a real-time audio stream.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Initial state, normally opening or streaming."
+        },
+        {
+          "id": 3,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Bound source identifier."
+        },
+        {
+          "id": 4,
+          "name": "peerRole",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Confirmed peer media role."
+        },
+        {
+          "id": 5,
+          "name": "codec",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Negotiated codec."
+        },
+        {
+          "id": 6,
+          "name": "transportFormat",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Negotiated transport format."
+        },
+        {
+          "id": 7,
+          "name": "sampleRate",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "Negotiated sample rate in Hz."
+        },
+        {
+          "id": 8,
+          "name": "channels",
+          "type": "uint8",
+          "required": true,
+          "deprecated": false,
+          "description": "Negotiated channel count."
+        },
+        {
+          "id": 9,
+          "name": "sampleFormat",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Negotiated sample format."
+        },
+        {
+          "id": 10,
+          "name": "streamProfile",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Normalized stream profile."
+        },
+        {
+          "id": 11,
+          "name": "cursorUnit",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM cursor unit."
+        },
+        {
+          "id": 12,
+          "name": "syncGroupId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Synchronization group identifier."
+        },
+        {
+          "id": 13,
+          "name": "castSessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Cast session identifier."
+        },
+        {
+          "id": 14,
+          "name": "clockDomain",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Source media clock domain."
+        },
+        {
+          "id": 15,
+          "name": "receiverClockDomain",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver clock domain."
+        },
+        {
+          "id": 16,
+          "name": "maxDataSize",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Negotiated maximum STREAM payload data size."
+        }
+      ]
+    },
+    {
+      "name": "AudioCloseStreamParams",
+      "type": "object",
+      "description": "Request to close an audio stream.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        },
+        {
+          "id": 2,
+          "name": "peerRole",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Peer role in this stream."
+        },
+        {
+          "id": 3,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Close reason."
+        },
+        {
+          "id": 4,
+          "name": "finalCursor",
+          "type": "uint64",
+          "required": false,
+          "deprecated": false,
+          "description": "Last processed cursor value."
+        }
+      ]
+    },
+    {
+      "name": "AudioCloseStreamResult",
+      "type": "object",
+      "description": "Result of closing an audio stream.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "Closed stream identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Close state, such as closing, closed, or failed."
+        },
+        {
+          "id": 3,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Final close reason."
+        },
+        {
+          "id": 4,
+          "name": "alreadyClosed",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether the stream was already terminal before this request."
+        }
+      ]
+    },
+    {
+      "name": "AudioGetStreamStateParams",
+      "type": "object",
+      "description": "Selector for an audio stream state query.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        }
+      ]
+    },
+    {
+      "name": "AudioStreamState",
+      "type": "object",
+      "description": "Runtime state of one audio stream.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Stream state, such as opening, streaming, closing, closed, or failed."
+        },
+        {
+          "id": 3,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Bound audio source."
+        },
+        {
+          "id": 4,
+          "name": "peerRole",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Peer media role."
+        },
+        {
+          "id": 5,
+          "name": "codec",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Negotiated audio codec."
+        },
+        {
+          "id": 6,
+          "name": "streamProfile",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Stream profile."
+        },
+        {
+          "id": 7,
+          "name": "syncGroupId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Synchronization group identifier."
+        },
+        {
+          "id": 8,
+          "name": "cursorUnit",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "STREAM cursor unit."
+        },
+        {
+          "id": 9,
+          "name": "lastCursor",
+          "type": "uint64",
+          "required": false,
+          "deprecated": false,
+          "description": "Last known cursor value."
+        },
+        {
+          "id": 10,
+          "name": "failureReason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Failure reason when state is failed."
+        }
+      ]
+    },
+    {
+      "name": "AudioGetStreamSourceStateParams",
+      "type": "object",
+      "description": "Selector for audio source runtime state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Audio source identifier."
+        }
+      ]
+    },
+    {
+      "name": "AudioStreamSourceState",
+      "type": "object",
+      "description": "Runtime state of an audio stream source.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Audio source identifier."
+        },
+        {
+          "id": 2,
+          "name": "mediaKind",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Media kind, normally audio."
+        },
+        {
+          "id": 3,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Source state, such as unavailable, available, receiving, stopped, or failed."
+        },
+        {
+          "id": 4,
+          "name": "available",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether the source is available for openStream."
+        },
+        {
+          "id": 5,
+          "name": "activeStreamId",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Active downstream stream id, if any."
+        },
+        {
+          "id": 6,
+          "name": "lastOpenRejectedReason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Last open rejection reason."
+        }
+      ]
+    },
+    {
+      "name": "AudioStreamStateChangedEvent",
+      "type": "object",
+      "description": "Event payload for audio stream state changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "New stream state."
+        },
+        {
+          "id": 3,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Bound audio source."
+        },
+        {
+          "id": 4,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "State change reason."
+        },
+        {
+          "id": 5,
+          "name": "stats",
+          "type": "AudioStreamStats",
+          "required": false,
+          "deprecated": false,
+          "description": "Optional bounded stream statistics."
+        }
+      ]
+    },
+    {
+      "name": "AudioStreamSourceStateChangedEvent",
+      "type": "object",
+      "description": "Event payload for audio stream source state changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Audio source identifier."
+        },
+        {
+          "id": 2,
+          "name": "mediaKind",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Media kind, normally audio."
+        },
+        {
+          "id": 3,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "New source state."
+        },
+        {
+          "id": 4,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Source state change reason."
+        },
+        {
+          "id": 5,
+          "name": "activeStreamId",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Active downstream stream id, if any."
+        }
+      ]
+    },
+    {
+      "name": "AudioStreamStatsReportedEvent",
+      "type": "object",
+      "description": "Event payload for audio stream statistics reports.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        },
+        {
+          "id": 2,
+          "name": "stats",
+          "type": "AudioStreamStats",
+          "required": true,
+          "deprecated": false,
+          "description": "Bounded stream statistics."
+        }
+      ]
+    },
+    {
+      "name": "AudioStreamStats",
+      "type": "object",
+      "description": "Bounded runtime statistics for an audio stream.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "packets",
+          "type": "uint64",
+          "required": false,
+          "deprecated": false,
+          "description": "Number of STREAM packets observed."
+        },
+        {
+          "id": 2,
+          "name": "bytes",
+          "type": "uint64",
+          "required": false,
+          "deprecated": false,
+          "description": "Number of STREAM payload bytes observed."
+        },
+        {
+          "id": 3,
+          "name": "droppedPackets",
+          "type": "uint64",
+          "required": false,
+          "deprecated": false,
+          "description": "Number of dropped packets."
+        },
+        {
+          "id": 4,
+          "name": "jitterMs",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Estimated jitter in milliseconds."
+        }
+      ]
+    },
+    {
+      "name": "GetDeviceInfoParams",
+      "type": "object",
+      "description": "Optional selector for the read-only device information snapshot.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "includeCapabilitySummary",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether to include the lightweight DeviceCapabilitySummary block."
+        }
+      ]
+    },
+    {
+      "name": "DeviceInfo",
+      "type": "object",
+      "description": "Read-only information snapshot for the current AXTP endpoint main device.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "identity",
+          "type": "DeviceIdentity",
+          "required": true,
+          "deprecated": false,
+          "description": "Stable device identity fields."
+        },
+        {
+          "id": 2,
+          "name": "product",
+          "type": "DeviceProduct",
+          "required": true,
+          "deprecated": false,
+          "description": "Brand, product type, model, and display information."
+        },
+        {
+          "id": 3,
+          "name": "hardware",
+          "type": "DeviceHardware",
+          "required": false,
+          "deprecated": false,
+          "description": "Hardware summary."
+        },
+        {
+          "id": 4,
+          "name": "os",
+          "type": "DeviceOs",
+          "required": false,
+          "deprecated": false,
+          "description": "Operating system summary."
+        },
+        {
+          "id": 5,
+          "name": "software",
+          "type": "DeviceSoftware",
+          "required": false,
+          "deprecated": false,
+          "description": "Installed or hosted software component summary."
+        },
+        {
+          "id": 6,
+          "name": "runtime",
+          "type": "DeviceAxtpRuntime",
+          "required": false,
+          "deprecated": false,
+          "description": "AXTP runtime summary."
+        },
+        {
+          "id": 7,
+          "name": "capability",
+          "type": "DeviceCapabilitySummary",
+          "required": false,
+          "deprecated": false,
+          "description": "Lightweight modeling summary; not a complete capability registry."
+        }
+      ]
+    },
+    {
+      "name": "DeviceIdentity",
+      "type": "object",
+      "description": "Stable identity fields for the current main device.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "deviceId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Stable AXTP or business device identifier."
+        },
+        {
+          "id": 2,
+          "name": "serialNumber",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Vendor serial number; may be omitted by permission policy."
+        },
+        {
+          "id": 3,
+          "name": "vendorId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Vendor identifier."
+        },
+        {
+          "id": 4,
+          "name": "productId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Product identifier."
+        }
+      ]
+    },
+    {
+      "name": "DeviceProduct",
+      "type": "object",
+      "description": "Product and user-visible model information.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "brand",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Product brand."
+        },
+        {
+          "id": 2,
+          "name": "productType",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Product type; candidate values include windowsDevice, androidDevice, embeddedDevice, rtosDevice, cameraDevice, displayDevice, and unknown."
+        },
+        {
+          "id": 3,
+          "name": "model",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Hardware or whole-product model."
+        },
+        {
+          "id": 4,
+          "name": "displayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "User-visible display name; this feature exposes it as read-only."
+        }
+      ]
+    },
+    {
+      "name": "DeviceHardware",
+      "type": "object",
+      "description": "Hardware summary.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "revision",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 32,
+          "description": "Hardware revision."
+        },
+        {
+          "id": 2,
+          "name": "cpuArch",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "CPU architecture; candidate values include x86_64, arm64, armv7, riscv64, and unknown."
+        },
+        {
+          "id": 3,
+          "name": "memoryBytes",
+          "type": "uint64",
+          "required": false,
+          "deprecated": false,
+          "description": "Physical memory capacity in bytes."
+        }
+      ]
+    },
+    {
+      "name": "DeviceOs",
+      "type": "object",
+      "description": "Operating system summary.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "type",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "OS type; candidate values include windows, android, linux, rtos, and unknown."
+        },
+        {
+          "id": 2,
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "OS display name."
+        },
+        {
+          "id": 3,
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "OS version string."
+        },
+        {
+          "id": 4,
+          "name": "arch",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "OS architecture; candidate values include x86_64, arm64, armv7, riscv64, and unknown."
+        }
+      ]
+    },
+    {
+      "name": "DeviceSoftware",
+      "type": "object",
+      "description": "Software component summary.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "components",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 4096,
+          "description": "JSON array of SoftwareComponent objects."
+        }
+      ]
+    },
+    {
+      "name": "SoftwareComponent",
+      "type": "object",
+      "description": "One software component running on or hosted by the device.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Component identifier."
+        },
+        {
+          "id": 2,
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Component display name."
+        },
+        {
+          "id": 3,
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Component version."
+        },
+        {
+          "id": 4,
+          "name": "role",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Component role, such as axtpHost, launcher, signagePlayer, agent, or unknown."
+        }
+      ]
+    },
+    {
+      "name": "DeviceAxtpRuntime",
+      "type": "object",
+      "description": "AXTP runtime summary.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "axtpRuntime",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "AXTP runtime implementation name."
+        },
+        {
+          "id": 2,
+          "name": "axtpRuntimeVersion",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "AXTP runtime implementation version."
+        },
+        {
+          "id": 3,
+          "name": "hostAppId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Host application identifier."
+        }
+      ]
+    },
+    {
+      "name": "DeviceCapabilitySummary",
+      "type": "object",
+      "description": "Lightweight capability modeling summary returned by device.getInfo.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "domains",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 1024,
+          "description": "JSON array of domain names represented by the device."
+        },
+        {
+          "id": 2,
+          "name": "features",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 4096,
+          "description": "JSON array of domain.feature names represented by the device."
+        },
+        {
+          "id": 3,
+          "name": "profiles",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 1024,
+          "description": "JSON array of profile names or product profile hints."
+        }
+      ]
+    },
+    {
+      "name": "DeviceInfoCapability",
+      "type": "object",
+      "description": "Capability descriptor for device.info.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "readOnly",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "default": true,
+          "description": "device.info currently exposes only read-only information."
+        },
+        {
+          "id": 2,
+          "name": "supportsCapabilitySummary",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether device.getInfo can include DeviceCapabilitySummary."
+        },
+        {
+          "id": 3,
+          "name": "identityMerged",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether device.identity has been merged into device.info."
+        }
+      ]
+    },
+    {
+      "name": "FirmwareUpdateCapabilities",
+      "type": "object",
+      "description": "P0 firmware update capability and upload constraints.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "supported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether firmware.update P0 is supported."
+        },
+        {
+          "id": 2,
+          "name": "supportsMultiFile",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether manifest may contain multiple files."
+        },
+        {
+          "id": 3,
+          "name": "streamLayout",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "P0 stream layout, currently file."
+        },
+        {
+          "id": 4,
+          "name": "hashAlgorithm",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "P0 hash algorithm, currently md5."
+        },
+        {
+          "id": 5,
+          "name": "autoReboot",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the device automatically reboots after installation."
+        },
+        {
+          "id": 6,
+          "name": "maxChunkSize",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Maximum STREAM data chunk size supported by the device."
+        },
+        {
+          "id": 7,
+          "name": "devicePolicyVersion",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Optional device policy version used by host tooling."
+        }
+      ]
+    },
+    {
+      "name": "BeginUpdateParams",
+      "type": "object",
+      "description": "Request to begin a firmware update session.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "manifest",
+          "type": "FirmwareUpdateManifest",
+          "required": true,
+          "deprecated": false,
+          "description": "Minimal firmware update manifest."
+        }
+      ]
+    },
+    {
+      "name": "BeginUpdateResult",
+      "type": "object",
+      "description": "Result of creating a firmware update session.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "updateSessionId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Firmware update session identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "State after begin, normally receiving."
+        },
+        {
+          "id": 3,
+          "name": "streams",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 4096,
+          "description": "JSON array of FirmwareUpdateStreamBinding objects."
+        },
+        {
+          "id": 4,
+          "name": "chunkSize",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Recommended STREAM chunk size."
+        }
+      ]
+    },
+    {
+      "name": "FinishUpdateParams",
+      "type": "object",
+      "description": "Request to finish firmware upload and hand off processing to the device.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "updateSessionId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Firmware update session identifier."
+        }
+      ]
+    },
+    {
+      "name": "FinishUpdateResult",
+      "type": "object",
+      "description": "Result of finishUpdate.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "updateSessionId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Firmware update session identifier."
+        },
+        {
+          "id": 2,
+          "name": "accepted",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the device accepted the finish handoff."
+        },
+        {
+          "id": 3,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "State after finish, normally verifying or failed."
+        }
+      ]
+    },
+    {
+      "name": "GetUpdateStateParams",
+      "type": "object",
+      "description": "Selector for firmware update state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "updateSessionId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Firmware update session identifier."
+        }
+      ]
+    },
+    {
+      "name": "FirmwareUpdateManifest",
+      "type": "object",
+      "description": "Minimal firmware update manifest.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "packageId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Firmware package identifier."
+        },
+        {
+          "id": 2,
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Target firmware version string."
+        },
+        {
+          "id": 3,
+          "name": "files",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 16384,
+          "description": "JSON array of FirmwareUpdateFile objects."
+        },
+        {
+          "id": 4,
+          "name": "devicePolicyVersion",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Optional policy version used to interpret the package."
+        }
+      ]
+    },
+    {
+      "name": "FirmwareUpdateFile",
+      "type": "object",
+      "description": "One file in the firmware update manifest.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "fileId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Manifest-scoped file identifier."
+        },
+        {
+          "id": 2,
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Device-defined target component or partition."
+        },
+        {
+          "id": 3,
+          "name": "size",
+          "type": "uint64",
+          "required": true,
+          "deprecated": false,
+          "description": "File size in bytes."
+        },
+        {
+          "id": 4,
+          "name": "md5",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 32,
+          "description": "File md5 digest as lowercase hexadecimal."
+        }
+      ]
+    },
+    {
+      "name": "FirmwareUpdateStreamBinding",
+      "type": "object",
+      "description": "Binding between a manifest file and a STREAM streamId.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "fileId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Manifest-scoped file identifier."
+        },
+        {
+          "id": 2,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        }
+      ]
+    },
+    {
+      "name": "FirmwareUpdateState",
+      "type": "object",
+      "description": "Current firmware update state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "updateSessionId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Firmware update session identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "State, such as idle, receiving, verifying, installing, rebooting, confirmed, or failed."
+        },
+        {
+          "id": 3,
+          "name": "progress",
+          "type": "uint8",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "max": 100,
+          "description": "Overall progress percentage."
+        },
+        {
+          "id": 4,
+          "name": "currentFileId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Current file identifier, if file-level progress is available."
+        },
+        {
+          "id": 5,
+          "name": "error",
+          "type": "FirmwareUpdateErrorInfo",
+          "required": false,
+          "deprecated": false,
+          "description": "Error details when state is failed."
+        }
+      ]
+    },
+    {
+      "name": "FirmwareUpdateErrorInfo",
+      "type": "object",
+      "description": "Firmware update error details.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "error",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Candidate or adopted error name."
+        },
+        {
+          "id": 2,
+          "name": "message",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 256,
+          "description": "Developer-facing error message."
+        },
+        {
+          "id": 3,
+          "name": "fileId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Related file identifier, if applicable."
+        }
+      ]
+    },
+    {
+      "name": "FirmwareUpdateProgressEvent",
+      "type": "object",
+      "description": "Event payload for firmware update progress.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "updateSessionId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Firmware update session identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Current firmware update state."
+        },
+        {
+          "id": 3,
+          "name": "progress",
+          "type": "uint8",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "max": 100,
+          "description": "Overall progress percentage."
+        },
+        {
+          "id": 4,
+          "name": "fileId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Current file identifier."
+        }
+      ]
+    },
+    {
+      "name": "FirmwareUpdateStateChangedEvent",
+      "type": "object",
+      "description": "Event payload for firmware update state changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "updateSessionId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Firmware update session identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "New firmware update state."
+        },
+        {
+          "id": 3,
+          "name": "error",
+          "type": "FirmwareUpdateErrorInfo",
+          "required": false,
+          "deprecated": false,
+          "description": "Error details when state is failed."
+        }
+      ]
+    },
+    {
+      "name": "NetworkGetInterfacesParams",
+      "type": "object",
+      "description": "Selector for network interface enumeration.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "includeDisabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether disabled interfaces should be included."
+        }
+      ]
+    },
+    {
+      "name": "NetworkGetInterfaceInfoParams",
+      "type": "object",
+      "description": "Selector for one network interface.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Interface identifier."
+        }
+      ]
+    },
+    {
+      "name": "NetworkInterfaces",
+      "type": "object",
+      "description": "Network interface enumeration result.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaces",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 8192,
+          "description": "JSON array of NetworkInterfaceSummary objects."
+        },
+        {
+          "id": 2,
+          "name": "defaults",
+          "type": "NetworkDefaultInterfaceIds",
+          "required": false,
+          "deprecated": false,
+          "description": "Default interface identifiers for common roles."
+        }
+      ]
+    },
+    {
+      "name": "NetworkDefaultInterfaceIds",
+      "type": "object",
+      "description": "Default network interface identifiers by role.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "primary",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Primary interface."
+        },
+        {
+          "id": 2,
+          "name": "wifiSta",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Default Wi-Fi station interface."
+        },
+        {
+          "id": 3,
+          "name": "wifiAp",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Default Wi-Fi AP interface."
+        }
+      ]
+    },
+    {
+      "name": "NetworkInterfaceSummary",
+      "type": "object",
+      "description": "Summary of one network interface.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "type",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Interface type; candidate values include ethernet, wifi, cellular, usb, virtual, and unknown."
+        },
+        {
+          "id": 3,
+          "name": "displayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "User-visible interface name."
+        },
+        {
+          "id": 4,
+          "name": "state",
+          "type": "NetworkInterfaceState",
+          "required": false,
+          "deprecated": false,
+          "description": "Current interface state."
+        }
+      ]
+    },
+    {
+      "name": "NetworkInterfaceInfo",
+      "type": "object",
+      "description": "Detailed information for one network interface.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "type",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Interface type."
+        },
+        {
+          "id": 3,
+          "name": "macAddress",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 32,
+          "description": "Interface MAC address, if available and permitted."
+        },
+        {
+          "id": 4,
+          "name": "state",
+          "type": "NetworkInterfaceState",
+          "required": false,
+          "deprecated": false,
+          "description": "Current interface state."
+        },
+        {
+          "id": 5,
+          "name": "supportsIpConfig",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether this interface can be used with network.ip."
+        }
+      ]
+    },
+    {
+      "name": "NetworkInterfaceState",
+      "type": "object",
+      "description": "Network interface administrative and link state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "admin",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Administrative state; candidate values include up, down, disabled, and unknown."
+        },
+        {
+          "id": 2,
+          "name": "link",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Link state; candidate values include up, down, dormant, unknown."
+        },
+        {
+          "id": 3,
+          "name": "speedMbps",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Link speed in Mbps."
+        }
+      ]
+    },
+    {
+      "name": "NetworkGetIpConfigParams",
+      "type": "object",
+      "description": "Selector for IP configuration.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "defaults.primary",
+          "description": "Interface identifier; omitted means default primary interface."
+        },
+        {
+          "id": 2,
+          "name": "family",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "default": "ipv4",
+          "description": "IP family; candidate values include ipv4 and ipv6."
+        }
+      ]
+    },
+    {
+      "name": "NetworkSetIpConfigParams",
+      "type": "object",
+      "description": "IP configuration update request.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "defaults.primary",
+          "description": "Interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "family",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "default": "ipv4",
+          "description": "IP family."
+        },
+        {
+          "id": 3,
+          "name": "config",
+          "type": "NetworkIpConfig",
+          "required": true,
+          "deprecated": false,
+          "description": "Target IP configuration."
+        },
+        {
+          "id": 4,
+          "name": "applyPolicy",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "default": "immediate",
+          "description": "Apply policy; candidate values include immediate and pending_restart."
+        }
+      ]
+    },
+    {
+      "name": "NetworkSetIpConfigResult",
+      "type": "object",
+      "description": "Result of setting IP configuration.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "config",
+          "type": "NetworkIpConfig",
+          "required": true,
+          "deprecated": false,
+          "description": "Applied or pending IP configuration."
+        },
+        {
+          "id": 2,
+          "name": "applyState",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Apply state; candidate values include applied, pending_restart, and failed."
+        }
+      ]
+    },
+    {
+      "name": "NetworkIpConfig",
+      "type": "object",
+      "description": "IP configuration for one interface and address family.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "family",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "default": "ipv4",
+          "description": "IP family; candidate values include ipv4 and ipv6."
+        },
+        {
+          "id": 3,
+          "name": "mode",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "IP mode; candidate values include dhcp, static, disabled, link_local, and unknown."
+        },
+        {
+          "id": 4,
+          "name": "address",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "IP address."
+        },
+        {
+          "id": 5,
+          "name": "prefixLength",
+          "type": "uint8",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "max": 128,
+          "description": "Network prefix length."
+        },
+        {
+          "id": 6,
+          "name": "gateway",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Default gateway."
+        },
+        {
+          "id": 7,
+          "name": "dns",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 1024,
+          "description": "JSON array of DNS server addresses."
+        }
+      ]
+    },
+    {
+      "name": "NetworkGetWifiCapabilitiesParams",
+      "type": "object",
+      "description": "Selector for Wi-Fi station capability.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "defaults.wifiSta",
+          "description": "Wi-Fi station interface identifier."
+        }
+      ]
+    },
+    {
+      "name": "NetworkGetWifiConfigParams",
+      "type": "object",
+      "description": "Selector for saved Wi-Fi configuration.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "defaults.wifiSta",
+          "description": "Wi-Fi station interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "includeProfiles",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether to include saved profile summaries."
+        }
+      ]
+    },
+    {
+      "name": "NetworkGetWifiStateParams",
+      "type": "object",
+      "description": "Selector for Wi-Fi station runtime state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "defaults.wifiSta",
+          "description": "Wi-Fi station interface identifier."
+        }
+      ]
+    },
+    {
+      "name": "NetworkWifiCapabilities",
+      "type": "object",
+      "description": "Wi-Fi station capability descriptor.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "capability",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 32,
+          "description": "Fixed capability name network.wifi."
+        },
+        {
+          "id": 2,
+          "name": "securityTypes",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 1024,
+          "description": "JSON array of supported security type strings."
+        },
+        {
+          "id": 3,
+          "name": "bands",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported Wi-Fi bands."
+        },
+        {
+          "id": 4,
+          "name": "credentialImportModes",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported credential import modes such as passphrase, pairing_token, and opaque_ref."
+        },
+        {
+          "id": 5,
+          "name": "savedProfilesSupported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether saved profiles are supported."
+        },
+        {
+          "id": 6,
+          "name": "scanSupported",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether Wi-Fi scanning is supported."
+        },
+        {
+          "id": 7,
+          "name": "autoConnectSupported",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether profiles can auto-connect."
+        }
+      ]
+    },
+    {
+      "name": "NetworkWifiConfig",
+      "type": "object",
+      "description": "Saved Wi-Fi profile summary.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Wi-Fi station interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "profiles",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 8192,
+          "description": "JSON array of NetworkWifiProfile summaries. Plaintext credentials must not be returned."
+        },
+        {
+          "id": 3,
+          "name": "defaultProfileId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Default profile identifier."
+        }
+      ]
+    },
+    {
+      "name": "NetworkWifiProfile",
+      "type": "object",
+      "description": "Wi-Fi profile object used for station connection.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "profileId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Profile identifier."
+        },
+        {
+          "id": 2,
+          "name": "ssid",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Wi-Fi SSID."
+        },
+        {
+          "id": 3,
+          "name": "bssid",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 32,
+          "description": "Optional AP BSSID."
+        },
+        {
+          "id": 4,
+          "name": "securityType",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Security type, such as open, wpa2_psk, or wpa3_sae."
+        },
+        {
+          "id": 5,
+          "name": "credential",
+          "type": "NetworkCredential",
+          "required": false,
+          "deprecated": false,
+          "description": "Credential descriptor or secret reference. Responses must not expose plaintext secrets."
+        },
+        {
+          "id": 6,
+          "name": "source",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Profile source; candidate values include manual, pairing, migrated, and device_policy."
+        },
+        {
+          "id": 7,
+          "name": "persist",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether the profile should be persisted. This remains policy-controlled."
+        }
+      ]
+    },
+    {
+      "name": "NetworkCredential",
+      "type": "object",
+      "description": "Credential descriptor or secret reference.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "type",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Credential type; candidate values include passphrase, pairing_token, opaque_ref, and none."
+        },
+        {
+          "id": 2,
+          "name": "secretRef",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 256,
+          "description": "Opaque reference to sensitive credential material."
+        },
+        {
+          "id": 3,
+          "name": "expiresInSeconds",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Relative validity lifetime for ephemeral credentials."
+        }
+      ]
+    },
+    {
+      "name": "NetworkSetWifiConfigParams",
+      "type": "object",
+      "description": "Wi-Fi profile create or update request.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "defaults.wifiSta",
+          "description": "Wi-Fi station interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "profile",
+          "type": "NetworkWifiProfile",
+          "required": true,
+          "deprecated": false,
+          "description": "Profile to create or update."
+        },
+        {
+          "id": 3,
+          "name": "replaceExisting",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether an existing matching profile may be replaced."
+        },
+        {
+          "id": 4,
+          "name": "makeDefault",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether to make this the default profile."
+        },
+        {
+          "id": 5,
+          "name": "connectAfterSave",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether to start connection after saving."
+        }
+      ]
+    },
+    {
+      "name": "NetworkSetWifiConfigResult",
+      "type": "object",
+      "description": "Result of setting Wi-Fi profile configuration.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "profileId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Accepted or assigned profile identifier."
+        },
+        {
+          "id": 2,
+          "name": "config",
+          "type": "NetworkWifiConfig",
+          "required": false,
+          "deprecated": false,
+          "description": "Updated profile summary."
+        },
+        {
+          "id": 3,
+          "name": "connectStarted",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether connection was started after saving."
+        }
+      ]
+    },
+    {
+      "name": "NetworkScanWifiParams",
+      "type": "object",
+      "description": "Wi-Fi scan request.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "defaults.wifiSta",
+          "description": "Wi-Fi station interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "ssidFilter",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Optional SSID filter."
+        },
+        {
+          "id": 3,
+          "name": "timeoutMs",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Scan timeout in milliseconds."
+        }
+      ]
+    },
+    {
+      "name": "NetworkScanWifiResult",
+      "type": "object",
+      "description": "Wi-Fi scan result.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "scanId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Asynchronous scan identifier."
+        },
+        {
+          "id": 2,
+          "name": "results",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 16384,
+          "description": "JSON array of NetworkWifiScanResult objects."
+        },
+        {
+          "id": 3,
+          "name": "complete",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether returned results are complete."
+        }
+      ]
+    },
+    {
+      "name": "NetworkConnectWifiParams",
+      "type": "object",
+      "description": "Wi-Fi station connect request.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "defaults.wifiSta",
+          "description": "Wi-Fi station interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "profileId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Saved profile identifier."
+        },
+        {
+          "id": 3,
+          "name": "profile",
+          "type": "NetworkWifiProfile",
+          "required": false,
+          "deprecated": false,
+          "description": "Inline profile to connect with."
+        },
+        {
+          "id": 4,
+          "name": "timeoutMs",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Connection timeout in milliseconds."
+        }
+      ]
+    },
+    {
+      "name": "NetworkDisconnectWifiParams",
+      "type": "object",
+      "description": "Wi-Fi station disconnect request.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "defaults.wifiSta",
+          "description": "Wi-Fi station interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Disconnect reason; candidate values include user_request, profile_changed, shutdown, and unknown."
+        }
+      ]
+    },
+    {
+      "name": "NetworkWifiActionResult",
+      "type": "object",
+      "description": "Result of a Wi-Fi connect or disconnect action.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "accepted",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the action was accepted."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "NetworkWifiState",
+          "required": true,
+          "deprecated": false,
+          "description": "Current or target Wi-Fi state after accepting the action."
+        }
+      ]
+    },
+    {
+      "name": "NetworkWifiState",
+      "type": "object",
+      "description": "Wi-Fi station runtime state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Wi-Fi station interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "State; candidate values include disabled, disconnected, scanning, authenticating, associating, connected, failed, and unknown."
+        },
+        {
+          "id": 3,
+          "name": "profileId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Active profile identifier."
+        },
+        {
+          "id": 4,
+          "name": "ssid",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Active SSID."
+        },
+        {
+          "id": 5,
+          "name": "rssi",
+          "type": "int32",
+          "required": false,
+          "deprecated": false,
+          "description": "Received signal strength indicator in dBm."
+        },
+        {
+          "id": 6,
+          "name": "ipReady",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether IP configuration is ready."
+        },
+        {
+          "id": 7,
+          "name": "failureReason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Failure reason, if state is failed."
+        }
+      ]
+    },
+    {
+      "name": "NetworkWifiScanResult",
+      "type": "object",
+      "description": "One Wi-Fi scan result.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "ssid",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "SSID."
+        },
+        {
+          "id": 2,
+          "name": "bssid",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 32,
+          "description": "BSSID."
+        },
+        {
+          "id": 3,
+          "name": "band",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Wi-Fi band."
+        },
+        {
+          "id": 4,
+          "name": "channel",
+          "type": "uint16",
+          "required": false,
+          "deprecated": false,
+          "description": "Channel number."
+        },
+        {
+          "id": 5,
+          "name": "rssi",
+          "type": "int32",
+          "required": false,
+          "deprecated": false,
+          "description": "RSSI in dBm."
+        },
+        {
+          "id": 6,
+          "name": "securityType",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Security type."
+        }
+      ]
+    },
+    {
+      "name": "NetworkGetApCapabilitiesParams",
+      "type": "object",
+      "description": "Selector for Wi-Fi AP capability.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "defaults.wifiAp",
+          "description": "Wi-Fi AP interface identifier."
+        }
+      ]
+    },
+    {
+      "name": "NetworkGetApConfigParams",
+      "type": "object",
+      "description": "Selector for Wi-Fi AP configuration, state, or client list.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "defaults.wifiAp",
+          "description": "Wi-Fi AP interface identifier."
+        }
+      ]
+    },
+    {
+      "name": "NetworkApCapabilities",
+      "type": "object",
+      "description": "Wi-Fi AP capability descriptor.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "capability",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 32,
+          "description": "Fixed capability name network.ap."
+        },
+        {
+          "id": 2,
+          "name": "securityTypes",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 1024,
+          "description": "JSON array of supported security types."
+        },
+        {
+          "id": 3,
+          "name": "bands",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported bands."
+        },
+        {
+          "id": 4,
+          "name": "credentialExportModes",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of credential export modes."
+        },
+        {
+          "id": 5,
+          "name": "clientsSupported",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether client list query and client change events are supported."
+        }
+      ]
+    },
+    {
+      "name": "NetworkApConfig",
+      "type": "object",
+      "description": "Wi-Fi AP configuration.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Wi-Fi AP interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "enabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether AP should be enabled by configuration."
+        },
+        {
+          "id": 3,
+          "name": "ssid",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "AP SSID."
+        },
+        {
+          "id": 4,
+          "name": "hidden",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether SSID broadcast is hidden."
+        },
+        {
+          "id": 5,
+          "name": "band",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "AP band."
+        },
+        {
+          "id": 6,
+          "name": "channel",
+          "type": "uint16",
+          "required": false,
+          "deprecated": false,
+          "description": "AP channel."
+        },
+        {
+          "id": 7,
+          "name": "securityType",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "AP security type."
+        },
+        {
+          "id": 8,
+          "name": "credential",
+          "type": "NetworkCredential",
+          "required": false,
+          "deprecated": false,
+          "description": "Credential descriptor; plaintext must not be returned unless policy explicitly allows it."
+        },
+        {
+          "id": 9,
+          "name": "maxClients",
+          "type": "uint16",
+          "required": false,
+          "deprecated": false,
+          "description": "Maximum client count."
+        }
+      ]
+    },
+    {
+      "name": "NetworkSetApConfigParams",
+      "type": "object",
+      "description": "Wi-Fi AP configuration update request.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "defaults.wifiAp",
+          "description": "Wi-Fi AP interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "config",
+          "type": "NetworkApConfig",
+          "required": true,
+          "deprecated": false,
+          "description": "AP configuration patch or target configuration."
+        }
+      ]
+    },
+    {
+      "name": "NetworkSetApConfigResult",
+      "type": "object",
+      "description": "Result of setting Wi-Fi AP configuration.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "config",
+          "type": "NetworkApConfig",
+          "required": true,
+          "deprecated": false,
+          "description": "Applied or pending AP configuration."
+        },
+        {
+          "id": 2,
+          "name": "applyState",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Apply state; candidate values include applied, pending_restart, and failed."
+        }
+      ]
+    },
+    {
+      "name": "NetworkApState",
+      "type": "object",
+      "description": "Wi-Fi AP runtime state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Wi-Fi AP interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "enabled",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether AP is currently enabled."
+        },
+        {
+          "id": 3,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "AP state; candidate values include disabled, starting, enabled, stopping, failed, and unknown."
+        },
+        {
+          "id": 4,
+          "name": "ssid",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Active AP SSID."
+        },
+        {
+          "id": 5,
+          "name": "clientCount",
+          "type": "uint16",
+          "required": false,
+          "deprecated": false,
+          "description": "Current associated client count."
+        },
+        {
+          "id": 6,
+          "name": "failureReason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Failure reason when state is failed."
+        }
+      ]
+    },
+    {
+      "name": "NetworkApActionParams",
+      "type": "object",
+      "description": "Start or stop AP request.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "defaults.wifiAp",
+          "description": "Wi-Fi AP interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Action reason."
+        }
+      ]
+    },
+    {
+      "name": "NetworkApActionResult",
+      "type": "object",
+      "description": "Result of starting or stopping AP.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "accepted",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the action was accepted."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "NetworkApState",
+          "required": true,
+          "deprecated": false,
+          "description": "Current or target AP state."
+        }
+      ]
+    },
+    {
+      "name": "NetworkApClients",
+      "type": "object",
+      "description": "AP client list result.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "clients",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 16384,
+          "description": "JSON array of NetworkApClientInfo objects."
+        }
+      ]
+    },
+    {
+      "name": "NetworkApClientInfo",
+      "type": "object",
+      "description": "One AP client summary.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "clientId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Client identifier."
+        },
+        {
+          "id": 2,
+          "name": "macAddress",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 32,
+          "description": "Client MAC address, if available and permitted."
+        },
+        {
+          "id": 3,
+          "name": "displayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Client display name."
+        },
+        {
+          "id": 4,
+          "name": "rssi",
+          "type": "int32",
+          "required": false,
+          "deprecated": false,
+          "description": "Client RSSI in dBm."
+        },
+        {
+          "id": 5,
+          "name": "connectedSeconds",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Connection age in seconds."
+        }
+      ]
+    },
+    {
+      "name": "NetworkInterfaceStateChangedEvent",
+      "type": "object",
+      "description": "Event payload for network interface state changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "NetworkInterfaceState",
+          "required": true,
+          "deprecated": false,
+          "description": "New interface state."
+        },
+        {
+          "id": 3,
+          "name": "previousState",
+          "type": "NetworkInterfaceState",
+          "required": false,
+          "deprecated": false,
+          "description": "Previous interface state."
+        },
+        {
+          "id": 4,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Change reason."
+        }
+      ]
+    },
+    {
+      "name": "NetworkIpConfigChangedEvent",
+      "type": "object",
+      "description": "Event payload for IP configuration changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "family",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "IP family."
+        },
+        {
+          "id": 3,
+          "name": "config",
+          "type": "NetworkIpConfig",
+          "required": true,
+          "deprecated": false,
+          "description": "New IP configuration."
+        },
+        {
+          "id": 4,
+          "name": "previousConfig",
+          "type": "NetworkIpConfig",
+          "required": false,
+          "deprecated": false,
+          "description": "Previous IP configuration."
+        },
+        {
+          "id": 5,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Change reason."
+        }
+      ]
+    },
+    {
+      "name": "NetworkWifiConfigChangedEvent",
+      "type": "object",
+      "description": "Event payload for Wi-Fi profile configuration changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Wi-Fi station interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "config",
+          "type": "NetworkWifiConfig",
+          "required": true,
+          "deprecated": false,
+          "description": "New Wi-Fi configuration summary."
+        },
+        {
+          "id": 3,
+          "name": "changedFields",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 1024,
+          "description": "JSON array of changed field paths."
+        },
+        {
+          "id": 4,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Change reason."
+        }
+      ]
+    },
+    {
+      "name": "NetworkWifiStateChangedEvent",
+      "type": "object",
+      "description": "Event payload for Wi-Fi station state changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "state",
+          "type": "NetworkWifiState",
+          "required": true,
+          "deprecated": false,
+          "description": "New Wi-Fi station state."
+        },
+        {
+          "id": 2,
+          "name": "previousState",
+          "type": "NetworkWifiState",
+          "required": false,
+          "deprecated": false,
+          "description": "Previous state."
+        },
+        {
+          "id": 3,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Change reason."
+        }
+      ]
+    },
+    {
+      "name": "NetworkWifiScanResultReportedEvent",
+      "type": "object",
+      "description": "Event payload for asynchronous Wi-Fi scan results.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "scanId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Scan identifier."
+        },
+        {
+          "id": 2,
+          "name": "results",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 16384,
+          "description": "JSON array of NetworkWifiScanResult objects."
+        },
+        {
+          "id": 3,
+          "name": "complete",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether this event completes the scan."
+        }
+      ]
+    },
+    {
+      "name": "NetworkApConfigChangedEvent",
+      "type": "object",
+      "description": "Event payload for Wi-Fi AP configuration changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Wi-Fi AP interface identifier."
+        },
+        {
+          "id": 2,
+          "name": "config",
+          "type": "NetworkApConfig",
+          "required": true,
+          "deprecated": false,
+          "description": "New AP configuration."
+        },
+        {
+          "id": 3,
+          "name": "changedFields",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 1024,
+          "description": "JSON array of changed field paths."
+        },
+        {
+          "id": 4,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Change reason."
+        }
+      ]
+    },
+    {
+      "name": "NetworkApStateChangedEvent",
+      "type": "object",
+      "description": "Event payload for Wi-Fi AP state changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "state",
+          "type": "NetworkApState",
+          "required": true,
+          "deprecated": false,
+          "description": "New AP state."
+        },
+        {
+          "id": 2,
+          "name": "previousState",
+          "type": "NetworkApState",
+          "required": false,
+          "deprecated": false,
+          "description": "Previous AP state."
+        },
+        {
+          "id": 3,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Change reason."
+        }
+      ]
+    },
+    {
+      "name": "NetworkApClientChangedEvent",
+      "type": "object",
+      "description": "Event payload for Wi-Fi AP client changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "change",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Client change type; candidate values include joined, left, and updated."
+        },
+        {
+          "id": 2,
+          "name": "client",
+          "type": "NetworkApClientInfo",
+          "required": true,
+          "deprecated": false,
+          "description": "Client summary."
+        },
+        {
+          "id": 3,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Change reason."
+        }
+      ]
+    },
+    {
+      "name": "NetworkInterfaceCapability",
+      "type": "object",
+      "description": "Capability descriptor for network.interface.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "interfaceTypes",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported interface type strings."
+        },
+        {
+          "id": 2,
+          "name": "supportsStateEvent",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether network.interfaceStateChanged is supported."
+        }
+      ]
+    },
+    {
+      "name": "NetworkIpCapability",
+      "type": "object",
+      "description": "Capability descriptor for network.ip.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "families",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 256,
+          "description": "JSON array of supported IP families."
+        },
+        {
+          "id": 2,
+          "name": "modes",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported IP modes."
+        },
+        {
+          "id": 3,
+          "name": "applyPolicies",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported apply policies."
+        }
+      ]
+    },
+    {
+      "name": "VideoGetStreamCapabilitiesParams",
+      "type": "object",
+      "description": "Selector for video stream capability.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "source",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional video source identifier; omit to query all visible sources."
+        },
+        {
+          "id": 2,
+          "name": "includeRuntimeState",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether to include current source runtime state."
+        }
+      ]
+    },
+    {
+      "name": "VideoStreamCapabilities",
+      "type": "object",
+      "description": "Device-level video.stream capability summary.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "capability",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 32,
+          "description": "Fixed capability name video.stream."
+        },
+        {
+          "id": 2,
+          "name": "sources",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 8192,
+          "description": "JSON array of VideoStreamSource objects."
+        },
+        {
+          "id": 3,
+          "name": "streamProfiles",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported stream profiles, normally media.video."
+        },
+        {
+          "id": 4,
+          "name": "openModes",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported open modes, such as producer_open and receiver_pull."
+        },
+        {
+          "id": 5,
+          "name": "peerRoles",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of peer roles, such as receiver and transmitter."
+        },
+        {
+          "id": 6,
+          "name": "supportsSourceStateEvent",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether video.streamSourceStateChanged is supported."
+        },
+        {
+          "id": 7,
+          "name": "supportsSyncGroup",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether video streams can share a synchronization group with audio streams."
+        },
+        {
+          "id": 8,
+          "name": "flowControlManagedByRuntime",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether normal applications can rely on runtime-managed STREAM flow control."
+        }
+      ]
+    },
+    {
+      "name": "VideoStreamSource",
+      "type": "object",
+      "description": "One real-time video stream source.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Source identifier such as wireless_cast_video."
+        },
+        {
+          "id": 2,
+          "name": "displayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "User-visible source name."
+        },
+        {
+          "id": 3,
+          "name": "codecs",
+          "type": "bytes",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported video codecs."
+        },
+        {
+          "id": 4,
+          "name": "resolutions",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 1024,
+          "description": "JSON array of supported resolution descriptors."
+        },
+        {
+          "id": 5,
+          "name": "frameRates",
+          "type": "bytes",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "JSON array of supported frame rates."
+        },
+        {
+          "id": 6,
+          "name": "state",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Runtime source state, such as available, receiving, stopped, or unavailable."
+        }
+      ]
+    },
+    {
+      "name": "VideoOpenStreamParams",
+      "type": "object",
+      "description": "Request to open a real-time video stream.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Video source identifier."
+        },
+        {
+          "id": 2,
+          "name": "peerRole",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Requested peer media role; values include receiver and transmitter."
+        },
+        {
+          "id": 3,
+          "name": "codec",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Requested video codec, such as h264, h265, mjpeg, or raw."
+        },
+        {
+          "id": 4,
+          "name": "width",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Requested frame width in pixels."
+        },
+        {
+          "id": 5,
+          "name": "height",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Requested frame height in pixels."
+        },
+        {
+          "id": 6,
+          "name": "frameRate",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Requested frame rate."
+        },
+        {
+          "id": 7,
+          "name": "bitrateKbps",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Requested bitrate in kbps."
+        },
+        {
+          "id": 8,
+          "name": "streamProfile",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "default": "media.video",
+          "description": "STREAM profile name."
+        },
+        {
+          "id": 9,
+          "name": "cursorUnit",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "STREAM cursor unit, such as timestampUs or frameIndex."
+        },
+        {
+          "id": 10,
+          "name": "syncGroupId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional synchronization group identifier."
+        },
+        {
+          "id": 11,
+          "name": "castSessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional cast session identifier."
+        },
+        {
+          "id": 12,
+          "name": "clockDomain",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Source media clock domain."
+        },
+        {
+          "id": 13,
+          "name": "maxDataSize",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Preferred maximum STREAM payload data size."
+        }
+      ]
+    },
+    {
+      "name": "VideoOpenStreamResult",
+      "type": "object",
+      "description": "Result of opening a real-time video stream.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Initial state, normally opening or streaming."
+        },
+        {
+          "id": 3,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Bound source identifier."
+        },
+        {
+          "id": 4,
+          "name": "peerRole",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Confirmed peer media role."
+        },
+        {
+          "id": 5,
+          "name": "codec",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Negotiated codec."
+        },
+        {
+          "id": 6,
+          "name": "width",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Negotiated frame width."
+        },
+        {
+          "id": 7,
+          "name": "height",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Negotiated frame height."
+        },
+        {
+          "id": 8,
+          "name": "frameRate",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Negotiated frame rate."
+        },
+        {
+          "id": 9,
+          "name": "bitrateKbps",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Negotiated bitrate in kbps."
+        },
+        {
+          "id": 10,
+          "name": "streamProfile",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Normalized stream profile."
+        },
+        {
+          "id": 11,
+          "name": "cursorUnit",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM cursor unit."
+        },
+        {
+          "id": 12,
+          "name": "syncGroupId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Synchronization group identifier."
+        },
+        {
+          "id": 13,
+          "name": "maxDataSize",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Negotiated maximum STREAM payload data size."
+        }
+      ]
+    },
+    {
+      "name": "VideoCloseStreamParams",
+      "type": "object",
+      "description": "Request to close a video stream.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        },
+        {
+          "id": 2,
+          "name": "peerRole",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Peer role in this stream."
+        },
+        {
+          "id": 3,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Close reason."
+        },
+        {
+          "id": 4,
+          "name": "finalCursor",
+          "type": "uint64",
+          "required": false,
+          "deprecated": false,
+          "description": "Last processed cursor value."
+        }
+      ]
+    },
+    {
+      "name": "VideoCloseStreamResult",
+      "type": "object",
+      "description": "Result of closing a video stream.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "Closed stream identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Close state, such as closing, closed, or failed."
+        },
+        {
+          "id": 3,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Final close reason."
+        },
+        {
+          "id": 4,
+          "name": "alreadyClosed",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether the stream was already terminal before this request."
+        }
+      ]
+    },
+    {
+      "name": "VideoGetStreamStateParams",
+      "type": "object",
+      "description": "Selector for a video stream state query.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        }
+      ]
+    },
+    {
+      "name": "VideoStreamState",
+      "type": "object",
+      "description": "Runtime state of one video stream.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Stream state, such as opening, streaming, closing, closed, or failed."
+        },
+        {
+          "id": 3,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Bound video source."
+        },
+        {
+          "id": 4,
+          "name": "peerRole",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Peer media role."
+        },
+        {
+          "id": 5,
+          "name": "codec",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Negotiated video codec."
+        },
+        {
+          "id": 6,
+          "name": "streamProfile",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Stream profile."
+        },
+        {
+          "id": 7,
+          "name": "syncGroupId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Synchronization group identifier."
+        },
+        {
+          "id": 8,
+          "name": "cursorUnit",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "STREAM cursor unit."
+        },
+        {
+          "id": 9,
+          "name": "lastCursor",
+          "type": "uint64",
+          "required": false,
+          "deprecated": false,
+          "description": "Last known cursor value."
+        },
+        {
+          "id": 10,
+          "name": "keyFrameRequested",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether a key frame has been requested and is pending."
+        },
+        {
+          "id": 11,
+          "name": "failureReason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Failure reason when state is failed."
+        }
+      ]
+    },
+    {
+      "name": "VideoGetStreamSourceStateParams",
+      "type": "object",
+      "description": "Selector for video source runtime state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Video source identifier."
+        }
+      ]
+    },
+    {
+      "name": "VideoStreamSourceState",
+      "type": "object",
+      "description": "Runtime state of a video stream source.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Video source identifier."
+        },
+        {
+          "id": 2,
+          "name": "mediaKind",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Media kind, normally video."
+        },
+        {
+          "id": 3,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "Source state, such as unavailable, available, receiving, stopped, or failed."
+        },
+        {
+          "id": 4,
+          "name": "available",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether the source is available for openStream."
+        },
+        {
+          "id": 5,
+          "name": "activeStreamId",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Active downstream stream id, if any."
+        }
+      ]
+    },
+    {
+      "name": "VideoRequestKeyFrameParams",
+      "type": "object",
+      "description": "Request a key frame for an active video stream.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        },
+        {
+          "id": 2,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Request reason."
+        }
+      ]
+    },
+    {
+      "name": "VideoRequestKeyFrameResult",
+      "type": "object",
+      "description": "Result of a key frame request.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "accepted",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the request was accepted."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "VideoStreamState",
+          "required": false,
+          "deprecated": false,
+          "description": "Current or updated stream state."
+        }
+      ]
+    },
+    {
+      "name": "VideoStreamStateChangedEvent",
+      "type": "object",
+      "description": "Event payload for video stream state changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "New stream state."
+        },
+        {
+          "id": 3,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Bound video source."
+        },
+        {
+          "id": 4,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "State change reason."
+        },
+        {
+          "id": 5,
+          "name": "stats",
+          "type": "VideoStreamStats",
+          "required": false,
+          "deprecated": false,
+          "description": "Optional bounded stream statistics."
+        }
+      ]
+    },
+    {
+      "name": "VideoStreamSourceStateChangedEvent",
+      "type": "object",
+      "description": "Event payload for video stream source state changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Video source identifier."
+        },
+        {
+          "id": 2,
+          "name": "mediaKind",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Media kind, normally video."
+        },
+        {
+          "id": 3,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "description": "New source state."
+        },
+        {
+          "id": 4,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "description": "Source state change reason."
+        },
+        {
+          "id": 5,
+          "name": "activeStreamId",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Active downstream stream id, if any."
+        }
+      ]
+    },
+    {
+      "name": "VideoStreamStatsReportedEvent",
+      "type": "object",
+      "description": "Event payload for video stream statistics reports.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "streamId",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "STREAM data plane stream identifier."
+        },
+        {
+          "id": 2,
+          "name": "stats",
+          "type": "VideoStreamStats",
+          "required": true,
+          "deprecated": false,
+          "description": "Bounded stream statistics."
+        }
+      ]
+    },
+    {
+      "name": "VideoStreamStats",
+      "type": "object",
+      "description": "Bounded runtime statistics for a video stream.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "frames",
+          "type": "uint64",
+          "required": false,
+          "deprecated": false,
+          "description": "Number of frames observed."
+        },
+        {
+          "id": 2,
+          "name": "bytes",
+          "type": "uint64",
+          "required": false,
+          "deprecated": false,
+          "description": "Number of STREAM payload bytes observed."
+        },
+        {
+          "id": 3,
+          "name": "droppedFrames",
+          "type": "uint64",
+          "required": false,
+          "deprecated": false,
+          "description": "Number of dropped frames."
+        },
+        {
+          "id": 4,
+          "name": "bitrateKbps",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Estimated bitrate in kbps."
+        }
+      ]
     }
   ]
 }

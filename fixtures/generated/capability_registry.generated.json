@@ -41,6 +41,42 @@
       "idHex": "0x0009"
     },
     {
+      "id": 257,
+      "name": "device.info",
+      "domain": "device",
+      "status": "draft",
+      "description": "Device supports read-only device information discovery.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "DeviceInfoCapability",
+      "idHex": "0x0101"
+    },
+    {
+      "id": 1025,
+      "name": "firmware.update",
+      "domain": "firmware",
+      "status": "draft",
+      "description": "Device supports P0 STREAM-based firmware update sessions.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "FirmwareUpdateCapabilities",
+      "idHex": "0x0401"
+    },
+    {
+      "id": 2049,
+      "name": "video.stream",
+      "domain": "video",
+      "status": "draft",
+      "description": "Device supports real-time video STREAM setup, close, state, source state, key frame requests, and stats events.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "VideoStreamCapabilities",
+      "idHex": "0x0801"
+    },
+    {
       "id": 2305,
       "name": "audio.algorithm",
       "domain": "audio",
@@ -51,6 +87,66 @@
       "type": "object",
       "schema": "AudioAlgorithmCapability",
       "idHex": "0x0901"
+    },
+    {
+      "id": 2306,
+      "name": "audio.stream",
+      "domain": "audio",
+      "status": "draft",
+      "description": "Device supports real-time audio STREAM setup, close, state, source state, and stats events.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "AudioStreamCapabilities",
+      "idHex": "0x0902"
+    },
+    {
+      "id": 3585,
+      "name": "network.interface",
+      "domain": "network",
+      "status": "draft",
+      "description": "Device supports network interface enumeration and state observation.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "NetworkInterfaceCapability",
+      "idHex": "0x0E01"
+    },
+    {
+      "id": 3586,
+      "name": "network.ip",
+      "domain": "network",
+      "status": "draft",
+      "description": "Device supports IP configuration query, update, and change notification.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "NetworkIpCapability",
+      "idHex": "0x0E02"
+    },
+    {
+      "id": 3587,
+      "name": "network.wifi",
+      "domain": "network",
+      "status": "draft",
+      "description": "Device supports Wi-Fi station profile, scan, connection, and state operations.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "NetworkWifiCapabilities",
+      "idHex": "0x0E03"
+    },
+    {
+      "id": 3588,
+      "name": "network.ap",
+      "domain": "network",
+      "status": "draft",
+      "description": "Device supports Wi-Fi AP configuration, runtime state, and client observation.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "NetworkApCapabilities",
+      "idHex": "0x0E04"
     }
   ]
 }
