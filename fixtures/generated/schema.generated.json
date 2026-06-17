@@ -23,8 +23,8 @@
           "id": 2,
           "name": "protocolVersion",
           "type": "uint8",
-          "required": true,
-          "deprecated": false,
+          "required": false,
+          "deprecated": true,
           "min": 1,
           "max": 15
         },
@@ -43,14 +43,14 @@
           "type": "uint16",
           "required": true,
           "deprecated": false,
-          "min": 1,
+          "min": 19,
           "max": 65535
         },
         {
           "id": 6,
           "name": "mtu",
           "type": "uint16",
-          "required": true,
+          "required": false,
           "deprecated": false,
           "min": 1,
           "max": 65535
@@ -104,8 +104,8 @@
           "id": 2,
           "name": "protocolVersion",
           "type": "uint8",
-          "required": true,
-          "deprecated": false,
+          "required": false,
+          "deprecated": true,
           "min": 1,
           "max": 15
         },
@@ -124,14 +124,14 @@
           "type": "uint16",
           "required": true,
           "deprecated": false,
-          "min": 1,
+          "min": 19,
           "max": 65535
         },
         {
           "id": 6,
           "name": "mtu",
           "type": "uint16",
-          "required": true,
+          "required": false,
           "deprecated": false,
           "min": 1,
           "max": 65535
