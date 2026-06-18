@@ -197,11 +197,13 @@
         {
           "id": 3,
           "name": "supportedAlgorithms",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 64,
-          "description": "Optional compact list of supported algorithm object names; JSON implementations expose names as an array of strings."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Optional compact list of supported algorithm object names."
         }
       ]
     },
@@ -213,11 +215,13 @@
         {
           "id": 1,
           "name": "items",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 128,
-          "description": "Optional JSON array of algorithm object names; omit to query all supported algorithms."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Optional algorithm object names; omit to query all supported algorithms."
         }
       ]
     },
@@ -229,11 +233,13 @@
         {
           "id": 1,
           "name": "items",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 128,
-          "description": "Optional JSON array of algorithm object names; omit to query all supported algorithms."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Optional algorithm object names; omit to query all supported algorithms."
         }
       ]
     },
@@ -339,11 +345,13 @@
         {
           "id": 5,
           "name": "changedFields",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 256,
-          "description": "Optional JSON array of changed field paths such as noiseSuppression.level."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Optional changed field paths such as noiseSuppression.level."
         }
       ]
     },
@@ -546,11 +554,13 @@
         {
           "id": 8,
           "name": "values",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 128,
-          "description": "Optional JSON array of enum values."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Optional enum values."
         },
         {
           "id": 9,
@@ -1346,38 +1356,44 @@
         {
           "id": 2,
           "name": "sources",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 8192,
-          "description": "JSON array of AudioStreamSource objects."
+          "schema": "AudioStreamSource",
+          "description": "Audio stream source objects."
         },
         {
           "id": 3,
           "name": "streamProfiles",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported stream profiles, normally media.audio."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported stream profiles, normally media.audio."
         },
         {
           "id": 4,
           "name": "openModes",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported open modes, such as producer_open and receiver_pull."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported open modes, such as producer_open and receiver_pull."
         },
         {
           "id": 5,
           "name": "peerRoles",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of peer roles, such as receiver and transmitter."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Peer roles, such as receiver and transmitter."
         },
         {
           "id": 6,
@@ -1406,11 +1422,13 @@
         {
           "id": 9,
           "name": "aacTransportFormats",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "Optional JSON array of AAC transport format strings; exact supported set remains product-confirmed."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Optional AAC transport format strings; exact supported set remains product-confirmed."
         }
       ]
     },
@@ -1440,29 +1458,35 @@
         {
           "id": 3,
           "name": "codecs",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported audio codecs."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported audio codecs."
         },
         {
           "id": 4,
           "name": "sampleRates",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported sample rates in Hz."
+          "array": {
+            "itemType": "uint32"
+          },
+          "description": "Supported sample rates in Hz."
         },
         {
           "id": 5,
           "name": "channels",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 256,
-          "description": "JSON array of supported channel counts."
+          "array": {
+            "itemType": "uint8"
+          },
+          "description": "Supported channel counts."
         },
         {
           "id": 6,
@@ -2408,11 +2432,11 @@
         {
           "id": 1,
           "name": "components",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 4096,
-          "description": "JSON array of SoftwareComponent objects."
+          "schema": "SoftwareComponent",
+          "description": "Software component objects."
         }
       ]
     },
@@ -2500,29 +2524,35 @@
         {
           "id": 1,
           "name": "domains",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 1024,
-          "description": "JSON array of domain names represented by the device."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Domain names represented by the device."
         },
         {
           "id": 2,
           "name": "features",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 4096,
-          "description": "JSON array of domain.feature names represented by the device."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Domain.feature names represented by the device."
         },
         {
           "id": 3,
           "name": "profiles",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 1024,
-          "description": "JSON array of profile names or product profile hints."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Profile names or product profile hints."
         }
       ]
     },
@@ -2664,11 +2694,11 @@
         {
           "id": 3,
           "name": "streams",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 4096,
-          "description": "JSON array of FirmwareUpdateStreamBinding objects."
+          "schema": "FirmwareUpdateStreamBinding",
+          "description": "Firmware update stream bindings."
         },
         {
           "id": 4,
@@ -2770,11 +2800,11 @@
         {
           "id": 3,
           "name": "files",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 16384,
-          "description": "JSON array of FirmwareUpdateFile objects."
+          "schema": "FirmwareUpdateFile",
+          "description": "Firmware update files."
         },
         {
           "id": 4,
@@ -3052,11 +3082,11 @@
         {
           "id": 1,
           "name": "interfaces",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 8192,
-          "description": "JSON array of NetworkInterfaceSummary objects."
+          "schema": "NetworkInterfaceSummary",
+          "description": "Network interface summary objects."
         },
         {
           "id": 2,
@@ -3377,11 +3407,13 @@
         {
           "id": 7,
           "name": "dns",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 1024,
-          "description": "JSON array of DNS server addresses."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "DNS server addresses."
         }
       ]
     },
@@ -3462,29 +3494,35 @@
         {
           "id": 2,
           "name": "securityTypes",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 1024,
-          "description": "JSON array of supported security type strings."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported security type strings."
         },
         {
           "id": 3,
           "name": "bands",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported Wi-Fi bands."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported Wi-Fi bands."
         },
         {
           "id": 4,
           "name": "credentialImportModes",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported credential import modes such as passphrase, pairing_token, and opaque_ref."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported credential import modes such as passphrase, pairing_token, and opaque_ref."
         },
         {
           "id": 5,
@@ -3529,11 +3567,11 @@
         {
           "id": 2,
           "name": "profiles",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 8192,
-          "description": "JSON array of NetworkWifiProfile summaries. Plaintext credentials must not be returned."
+          "schema": "NetworkWifiProfile",
+          "description": "NetworkWifiProfile summaries. Plaintext credentials must not be returned."
         },
         {
           "id": 3,
@@ -3778,11 +3816,11 @@
         {
           "id": 2,
           "name": "results",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 16384,
-          "description": "JSON array of NetworkWifiScanResult objects."
+          "schema": "NetworkWifiScanResult",
+          "description": "NetworkWifiScanResult objects."
         },
         {
           "id": 3,
@@ -4058,29 +4096,35 @@
         {
           "id": 2,
           "name": "securityTypes",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 1024,
-          "description": "JSON array of supported security types."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported security types."
         },
         {
           "id": 3,
           "name": "bands",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported bands."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported bands."
         },
         {
           "id": 4,
           "name": "credentialExportModes",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of credential export modes."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Credential export modes."
         },
         {
           "id": 5,
@@ -4335,11 +4379,11 @@
         {
           "id": 1,
           "name": "clients",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 16384,
-          "description": "JSON array of NetworkApClientInfo objects."
+          "schema": "NetworkApClientInfo",
+          "description": "NetworkApClientInfo objects."
         }
       ]
     },
@@ -4506,11 +4550,13 @@
         {
           "id": 3,
           "name": "changedFields",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 1024,
-          "description": "JSON array of changed field paths."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Changed field paths."
         },
         {
           "id": 4,
@@ -4570,11 +4616,11 @@
         {
           "id": 2,
           "name": "results",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 16384,
-          "description": "JSON array of NetworkWifiScanResult objects."
+          "schema": "NetworkWifiScanResult",
+          "description": "NetworkWifiScanResult objects."
         },
         {
           "id": 3,
@@ -4611,11 +4657,13 @@
         {
           "id": 3,
           "name": "changedFields",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 1024,
-          "description": "JSON array of changed field paths."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Changed field paths."
         },
         {
           "id": 4,
@@ -4697,11 +4745,13 @@
         {
           "id": 1,
           "name": "interfaceTypes",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported interface type strings."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported interface type strings."
         },
         {
           "id": 2,
@@ -4721,29 +4771,35 @@
         {
           "id": 1,
           "name": "families",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 256,
-          "description": "JSON array of supported IP families."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported IP families."
         },
         {
           "id": 2,
           "name": "modes",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported IP modes."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported IP modes."
         },
         {
           "id": 3,
           "name": "applyPolicies",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported apply policies."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported apply policies."
         }
       ]
     },
@@ -4789,38 +4845,44 @@
         {
           "id": 2,
           "name": "sources",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 8192,
-          "description": "JSON array of VideoStreamSource objects."
+          "schema": "VideoStreamSource",
+          "description": "Video stream source objects."
         },
         {
           "id": 3,
           "name": "streamProfiles",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported stream profiles, normally media.video."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported stream profiles, normally media.video."
         },
         {
           "id": 4,
           "name": "openModes",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported open modes, such as producer_open and receiver_pull."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported open modes, such as producer_open and receiver_pull."
         },
         {
           "id": 5,
           "name": "peerRoles",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of peer roles, such as receiver and transmitter."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Peer roles, such as receiver and transmitter."
         },
         {
           "id": 6,
@@ -4874,29 +4936,35 @@
         {
           "id": 3,
           "name": "codecs",
-          "type": "bytes",
+          "type": "array",
           "required": true,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported video codecs."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported video codecs."
         },
         {
           "id": 4,
           "name": "resolutions",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 1024,
-          "description": "JSON array of supported resolution descriptors."
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported resolution descriptors."
         },
         {
           "id": 5,
           "name": "frameRates",
-          "type": "bytes",
+          "type": "array",
           "required": false,
           "deprecated": false,
-          "maxLength": 512,
-          "description": "JSON array of supported frame rates."
+          "array": {
+            "itemType": "number"
+          },
+          "description": "Supported frame rates."
         },
         {
           "id": 6,
