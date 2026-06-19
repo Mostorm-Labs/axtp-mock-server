@@ -7,5 +7,5 @@ export const AXTP_GENERATED_VERSION = {
   specCommit: "e359d5426d973c4ec03cc91a02f540e7c450039c",
   generatorName: "@axtp/mock-server-generator",
   generatorVersion: "1.0.0",
-  generatedAt: "2026-06-18T15:44:24Z"
+  generatedAt: "2026-06-19T00:38:35Z"
 } as const;

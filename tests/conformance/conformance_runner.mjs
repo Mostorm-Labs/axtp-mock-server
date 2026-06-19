@@ -266,6 +266,7 @@ function testClose() {
   const core = new AxtpCore();
   core.byteSink.onBytes(encodeControl(ControlOpcode.Open, 1));
   core.tryPopOutboundBytes();
+  core.tryPopOutboundBytes();
   core.byteSink.onBytes(encodeControl(ControlOpcode.Close, 2));
   const responseBytes = core.tryPopOutboundBytes();
   if (responseBytes === undefined) return false;

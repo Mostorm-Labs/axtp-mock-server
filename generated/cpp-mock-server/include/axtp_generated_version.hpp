@@ -10,6 +10,6 @@ inline constexpr const char* kSpecTag = "spec/v0.7.0";
 inline constexpr const char* kSpecCommit = "e359d5426d973c4ec03cc91a02f540e7c450039c";
 inline constexpr const char* kGeneratorName = "@axtp/mock-server-generator";
 inline constexpr const char* kGeneratorVersion = "1.0.0";
-inline constexpr const char* kGeneratedAt = "2026-06-18T15:44:24Z";
+inline constexpr const char* kGeneratedAt = "2026-06-19T00:38:35Z";
 
 }  // namespace axtp::generated
