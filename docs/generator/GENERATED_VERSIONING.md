@@ -3,11 +3,20 @@
 AXTP runtime and mock asset repositories track three separate version concepts:
 
 - AXTP Spec Version comes from the AXTP main repository tag, such as `spec/v0.3.0`.
-- Repository Release Version comes from this repository, such as `v0.3.1`.
+- Repository Release Version comes from this repository, such as `v0.3.0.1`.
 - Generated Artifact Version comes from `generated/axtp_generated_manifest.json` and generated language constants.
 
-AXTP Spec tags use `spec/vX.Y.Z`. Repository release tags use `vX.Y.Z`.
-Patch releases may move independently while staying on the same AXTP Spec patch.
+AXTP Spec tags use `spec/vX.Y.Z`. Repository release tags use `vX.Y.Z.R`, where `R` is a mock asset package revision scoped to the locked spec version.
+Repository revision releases may move independently while staying on the same locked AXTP Spec patch.
+
+## Repository Revision Workflow
+
+For repository-only changes that do not change `AXTP_SPEC.lock.yaml`, use
+`.github/workflows/release-runtime-revision.yml` or the local skill at
+`skills/70-release-runtime-revision/SKILL.md`. The workflow runs
+`scripts/prepare-runtime-revision.sh`, increments only `R`, regenerates version
+metadata, and opens a PR. After that PR merges, `auto-release-on-merge.yml`
+creates tag `vX.Y.Z.R`.
 
 ## Generated Manifest
 
@@ -33,7 +42,7 @@ Use:
 
 ```bash
 scripts/check-generated-version.sh
-scripts/check-runtime-release.sh 0.3.1
+scripts/check-runtime-release.sh 0.3.0.1
 ```
 
 `check-generated-version.sh` validates lock, manifest, repository version, and

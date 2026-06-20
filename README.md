@@ -104,16 +104,16 @@ Automation flow:
 
 1. Receive `axtp_spec_released` repository dispatch.
 2. Update `AXTP_SPEC.lock.yaml`.
-3. Set mock asset package version to `X.Y.Z`.
+3. Set mock asset package release version to `X.Y.Z.0`.
 4. Generate code and `generated/axtp_generated_manifest.json`.
 5. Open an Upgrade PR.
 6. Auto-merge the PR after checks pass.
-7. Create tag `vX.Y.Z`.
+7. Create tag `vX.Y.Z.0`.
 8. Create a GitHub Release.
 
 AXTP Spec tag: `spec/vX.Y.Z`
 
-Mock asset package tag: `vX.Y.Z`
+Mock asset package tag: `vX.Y.Z.0`
 
 Repository settings must allow GitHub Actions to create PRs, enable auto-merge, create tags, and create releases. Configure `AXTP_RUNTIME_AUTOMATION_TOKEN` when PR-created-by-actions workflows must trigger downstream pull_request checks.
 
@@ -155,7 +155,7 @@ This repository keeps AXTP Spec, mock asset package, and generated artifact
 versions separate:
 
 - AXTP Spec tags use `spec/vX.Y.Z` and are recorded in `AXTP_SPEC.lock.yaml`.
-- Mock asset package releases use `vX.Y.Z`.
+- Mock asset package releases use `vX.Y.Z.R`, with `R=0` for the first release from a spec tag.
 - Generated artifact metadata is recorded in `generated/axtp_generated_manifest.json`.
 
 Use `scripts/check-generated-version.sh` to verify that the lock file,
@@ -167,10 +167,10 @@ See `docs/generator/GENERATED_VERSIONING.md` for generator versioning details.
 
 Mock asset package releases are created from repository release tags:
 
-- Mock asset package tags: `vX.Y.Z`
+- Mock asset package tags: `vX.Y.Z.R`
 - AXTP Spec tags: `spec/vX.Y.Z`
 
-AXTP Spec updates create automated upgrade PRs. After checks pass, the PR is auto-merged; the main branch workflow then creates the matching `vX.Y.Z` mock asset package tag, and that tag triggers the GitHub Release.
+AXTP Spec updates create automated upgrade PRs. After checks pass, the PR is auto-merged; the main branch workflow then creates the matching `vX.Y.Z.0` mock asset package tag, and that tag triggers the GitHub Release.
 
 Each release records mock asset package version, AXTP Spec tag, AXTP Spec
 commit, generator version, and the generated manifest.

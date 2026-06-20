@@ -97,7 +97,7 @@ jobs:
 
       - name: Align mock asset package version
         shell: bash
-        run: scripts/set-runtime-version.sh "$SPEC_VERSION"
+        run: scripts/set-runtime-version.sh "$SPEC_VERSION.0"
 
       - name: Build generator
         shell: bash
@@ -252,10 +252,10 @@ jobs:
           AXTP Spec tag: $SPEC_TAG
           AXTP Spec version: $SPEC_VERSION
           AXTP Spec commit: ${SPEC_COMMIT:-resolved by scripts/upgrade-axtp-spec.sh}
-          Mock asset package target version: $SPEC_VERSION
+          Mock asset package target version: $SPEC_VERSION.0
           Generated manifest: generated/axtp_generated_manifest.json
 
-          This PR updates AXTP_SPEC.lock.yaml, aligns the mock asset package version with the AXTP Spec version, regenerates mock asset artifacts, and runs the available build/test/conformance checks.
+          This PR updates AXTP_SPEC.lock.yaml, aligns the mock asset package release version with the AXTP Spec version at runtime revision 0, regenerates mock asset artifacts, and runs the available build/test/conformance checks.
           EOF
 
       - name: Create upgrade PR
