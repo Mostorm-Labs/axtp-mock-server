@@ -1,7 +1,7 @@
 # Generator local outputs
-generators/node_modules/
-generators/dist/
-generators/.vite/
+devtools/generators/node_modules/
+devtools/generators/dist/
+devtools/generators/.vite/
 third_party/axtp-spec/
 
 # Local build and dependency outputs

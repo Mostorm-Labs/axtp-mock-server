@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "audio_mock_handlers.hpp"
-#include "testing/mock_transport.hpp"
+#include <core/runtime/testing/mock_transport.hpp>
 
 int main() {
     axtp::sdk::AxtpServer server;

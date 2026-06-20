@@ -34,10 +34,10 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 runtime_name="$(basename "$root")"
-tool_scripts="scripts"
-generator_dir="generators"
+tool_scripts="devtools/scripts"
+generator_dir="devtools/generators"
 spec_path="${AXTP_SPEC_PATH:-$root/third_party/axtp-spec}"
 
 read_lock_field() {

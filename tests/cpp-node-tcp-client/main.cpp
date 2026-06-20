@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "sdk/axtp_sdk_all.hpp"
+#include <axtp_sdk.hpp>
 
 namespace {
 

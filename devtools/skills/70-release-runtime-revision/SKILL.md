@@ -47,13 +47,13 @@ Then run:
 ```bash
 corepack enable
 corepack prepare pnpm@11.3.0 --activate
-bash scripts/prepare-runtime-revision.sh
+bash devtools/scripts/prepare-runtime-revision.sh
 ```
 
 For an explicit target:
 
 ```bash
-bash scripts/prepare-runtime-revision.sh --target-version X.Y.Z.R
+bash devtools/scripts/prepare-runtime-revision.sh --target-version X.Y.Z.R
 ```
 
 Review the diff. Expected files are repository version sources, `generated/axtp_generated_manifest.json`, and generated language version constants. `AXTP_SPEC.lock.yaml` must remain unchanged.
@@ -63,9 +63,9 @@ Review the diff. Expected files are repository version sources, `generated/axtp_
 Run:
 
 ```bash
-scripts/check-axtp-spec-lock.sh
-scripts/check-generated-version.sh
-scripts/check-runtime-release.sh X.Y.Z.R
+devtools/scripts/check-axtp-spec-lock.sh
+devtools/scripts/check-generated-version.sh
+devtools/scripts/check-runtime-release.sh X.Y.Z.R
 git diff --check
 ```
 

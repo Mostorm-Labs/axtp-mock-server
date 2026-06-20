@@ -23,7 +23,7 @@ function resolveSpecPath() {
 }
 
 const specPath = resolveSpecPath();
-const profilePath = process.env.CONFORMANCE_PROFILE_PATH ?? path.join(root, "conformance/runtime-profile.yaml");
+const profilePath = process.env.CONFORMANCE_PROFILE_PATH ?? path.join(root, "devtools/conformance/runtime-profile.yaml");
 const resultPath = process.env.CONFORMANCE_RESULT_PATH ?? path.join(root, "conformance-results/result.json");
 const tsRuntimePath = process.env.AXTP_TS_RUNTIME_PATH ?? path.resolve(root, "../axtp-ts-runtime");
 

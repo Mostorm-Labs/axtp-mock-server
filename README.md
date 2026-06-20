@@ -64,7 +64,7 @@ registries, and conformance cases through `AXTP_SPEC_PATH` or an explicit
 ## Spec Lock Checks
 
 ```bash
-scripts/check-axtp-spec-lock.sh
+devtools/scripts/check-axtp-spec-lock.sh
 ```
 
 ## AXTP Spec Upgrade
@@ -74,8 +74,8 @@ This mock scenario repository follows AXTP Spec via `AXTP_SPEC.lock.yaml`.
 To upgrade:
 
 ```bash
-scripts/upgrade-axtp-spec.sh spec/v0.3.0
-scripts/check-axtp-spec-lock.sh
+devtools/scripts/upgrade-axtp-spec.sh spec/v0.3.0
+devtools/scripts/check-axtp-spec-lock.sh
 ```
 
 Mock scenario behavior is generated or validated against AXTP Spec registry,
@@ -88,7 +88,7 @@ Conformance cases are owned by the AXTP spec repository. Point the runner at the
 locked spec checkout and run:
 
 ```bash
-AXTP_SPEC_PATH=/path/to/axtp scripts/run-conformance.sh
+AXTP_SPEC_PATH=/path/to/axtp devtools/scripts/run-conformance.sh
 ```
 
 The runner writes `conformance-results/result.json`. Required failures exit
@@ -119,14 +119,14 @@ Repository settings must allow GitHub Actions to create PRs, enable auto-merge, 
 
 ## Local Generator
 
-This repository maintains its own mock asset generator under `generators/`.
+This repository maintains its own mock asset generator under `devtools/generators/`.
 
 ```bash
 export AXTP_SPEC_PATH=/path/to/axtp
-pnpm --dir generators install
-pnpm --dir generators build
-pnpm --dir generators test
-pnpm --dir generators generate:runtime
+pnpm --dir devtools/generators install
+pnpm --dir devtools/generators build
+pnpm --dir devtools/generators test
+pnpm --dir devtools/generators generate:runtime
 ```
 
 Generated fixtures are written to `fixtures/generated/` and generated test
@@ -146,7 +146,7 @@ in this repository.
 To move to a later released spec tag:
 
 ```bash
-scripts/upgrade-axtp-spec.sh spec/v0.1.0
+devtools/scripts/upgrade-axtp-spec.sh spec/v0.1.0
 ```
 
 ## Versioning
@@ -158,7 +158,7 @@ versions separate:
 - Mock asset package releases use `vX.Y.Z.R`, with `R=0` for the first release from a spec tag.
 - Generated artifact metadata is recorded in `generated/axtp_generated_manifest.json`.
 
-Use `scripts/check-generated-version.sh` to verify that the lock file,
+Use `devtools/scripts/check-generated-version.sh` to verify that the lock file,
 generated manifest, repository version, and generated constants are aligned.
 
 See `docs/generator/GENERATED_VERSIONING.md` for generator versioning details.

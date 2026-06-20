@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 NODE_DIR="${ROOT_DIR}/generated/node-mock-server"
 CPP_RUNTIME_DIR="${AXTP_CPP_RUNTIME_DIR:-${ROOT_DIR}/../axtp-cpp-runtime}"
 BUILD_DIR="${ROOT_DIR}/build/cpp-node-tcp-client"

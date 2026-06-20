@@ -80,7 +80,7 @@ jobs:
             args+=(--target-version "$TARGET_VERSION")
           fi
 
-          AXTP_SPEC_PATH="$GITHUB_WORKSPACE/third_party/axtp-spec" bash scripts/prepare-runtime-revision.sh "${args[@]}"
+          AXTP_SPEC_PATH="$GITHUB_WORKSPACE/third_party/axtp-spec" bash devtools/scripts/prepare-runtime-revision.sh "${args[@]}"
 
       - name: Check AXTP spec lock was not modified
         shell: bash

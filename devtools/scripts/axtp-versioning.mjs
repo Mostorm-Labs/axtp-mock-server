@@ -7,7 +7,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(scriptDir, "..");
+const root = path.resolve(scriptDir, "../..");
 
 function parseArgs(argv) {
   const [command, ...rest] = argv;
@@ -118,7 +118,7 @@ async function readRuntimeVersion(runtimeName) {
 }
 
 async function readGeneratorMetadata() {
-  const pkg = await readJson(path.join(root, "generators/package.json"));
+  const pkg = await readJson(path.join(root, "devtools/generators/package.json"));
   return {
     name: pkg.name,
     version: pkg.version,

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
 spec_path="${AXTP_SPEC_PATH:-}"
 if [[ -z "$spec_path" ]]; then
@@ -26,7 +26,7 @@ if [[ -z "$spec_path" || -z "$conformance_dir" ]]; then
   exit 2
 fi
 
-profile_path="$root/conformance/runtime-profile.yaml"
+profile_path="$root/devtools/conformance/runtime-profile.yaml"
 if [[ ! -f "$profile_path" ]]; then
   echo "Missing runtime conformance profile: $profile_path" >&2
   exit 2
@@ -56,7 +56,7 @@ AXTP_SPEC_PATH="$spec_path" \
 CONFORMANCE_PROFILE_PATH="$profile_path" \
 CONFORMANCE_RESULT_PATH="$result_path" \
 AXTP_TS_RUNTIME_PATH="$ts_runtime_path" \
-node "$root/tests/conformance/conformance_runner.mjs"
+node "$root/devtools/conformance/conformance_runner.mjs"
 
 if [[ "${CONFORMANCE_SKIP_CPP_MOCK:-false}" != "true" && -f "$root/generated/cpp-mock-server/CMakeLists.txt" ]]; then
   cpp_runtime_path="${AXTP_CPP_RUNTIME_PATH:-$root/../axtp-cpp-runtime}"

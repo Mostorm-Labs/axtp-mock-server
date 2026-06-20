@@ -20,7 +20,7 @@ if [[ "$runtime_revision" != "0" ]]; then
   ecosystem_version="$spec_version-runtime.$runtime_revision"
 fi
 
-root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 runtime_name="$(basename "$root")"
 
 write_version_file() {
@@ -113,7 +113,7 @@ case "$runtime_name" in
     ;;
 esac
 
-actual="$("$root/scripts/get-runtime-version.sh")"
+actual="$("$root/devtools/scripts/get-runtime-version.sh")"
 if [[ "$actual" != "$version" ]]; then
   echo "Runtime/tool version update failed: expected $version, got $actual" >&2
   exit 1

@@ -1,7 +1,8 @@
 # Generated AXTP C++ Mock Scenario Harness
 
-This generated project uses `axtp-cpp-runtime` from a sibling repository. It
-runs generated mock scenario handlers on top of the C++ runtime server API.
+This generated project uses the root CMake project from the sibling
+`axtp-cpp-runtime` repository and links the `axtp::sdk` target. It runs
+generated mock scenario handlers on top of the C++ runtime server API.
 
 ```bash
 cmake -S . -B build

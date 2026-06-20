@@ -8,13 +8,13 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(AXTP_CPP_RUNTIME_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../axtp-cpp-runtime" CACHE PATH "Path to axtp-cpp-runtime")
 
-if(NOT TARGET axtp_sdk)
-  add_subdirectory("${AXTP_CPP_RUNTIME_DIR}/sdk" "${CMAKE_BINARY_DIR}/axtp-cpp-sdk")
+if(NOT TARGET axtp::sdk)
+  add_subdirectory("${AXTP_CPP_RUNTIME_DIR}" "${CMAKE_BINARY_DIR}/axtp-cpp-runtime")
 endif()
 
 add_library(axtp_cpp_mock_handlers INTERFACE)
 target_include_directories(axtp_cpp_mock_handlers INTERFACE "${CMAKE_CURRENT_LIST_DIR}/include")
-target_link_libraries(axtp_cpp_mock_handlers INTERFACE axtp_sdk)
+target_link_libraries(axtp_cpp_mock_handlers INTERFACE axtp::sdk)
 
 add_executable(axtp_cpp_mock_server src/main.cpp)
 target_link_libraries(axtp_cpp_mock_server PRIVATE axtp_cpp_mock_handlers)

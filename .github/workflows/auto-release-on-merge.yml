@@ -25,7 +25,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          runtime_version="$(scripts/get-runtime-version.sh)"
+          runtime_version="$(devtools/scripts/get-runtime-version.sh)"
           if [[ ! "$runtime_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
             echo "Mock asset package version must match MAJOR.MINOR.PATCH or MAJOR.MINOR.PATCH.REVISION for automated releases: $runtime_version" >&2
             exit 2
@@ -135,19 +135,19 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          bash -n scripts/*.sh
-          scripts/check-runtime-release.sh "${{ steps.version.outputs.runtime_version }}"
-          scripts/check-axtp-spec-lock.sh
-          scripts/check-generated-version.sh
+          bash -n devtools/scripts/*.sh
+          devtools/scripts/check-runtime-release.sh "${{ steps.version.outputs.runtime_version }}"
+          devtools/scripts/check-axtp-spec-lock.sh
+          devtools/scripts/check-generated-version.sh
 
       - name: Build generator
         if: steps.detect.outputs.should_release == 'true'
         shell: bash
         run: |
           set -euo pipefail
-          pnpm --dir generators install --frozen-lockfile
-          pnpm --dir generators build
-          AXTP_SPEC_PATH="$GITHUB_WORKSPACE/third_party/axtp-spec" pnpm --dir generators test
+          pnpm --dir devtools/generators install --frozen-lockfile
+          pnpm --dir devtools/generators build
+          AXTP_SPEC_PATH="$GITHUB_WORKSPACE/third_party/axtp-spec" pnpm --dir devtools/generators test
 
       - name: Root package checks
         if: steps.detect.outputs.should_release == 'true'
@@ -240,8 +240,6 @@ jobs:
             echo "No generated Node scenario harness package; skipping."
           fi
           if [[ -f generated/cpp-mock-server/CMakeLists.txt && -d ../axtp-cpp-runtime ]]; then
-            sudo apt-get update
-            sudo apt-get install -y libboost-json-dev libudev-dev libusb-1.0-0-dev
             cmake -S generated/cpp-mock-server -B build/generated-cpp-mock-server
             cmake --build build/generated-cpp-mock-server
             ctest --test-dir build/generated-cpp-mock-server --output-on-failure
@@ -256,7 +254,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          AXTP_SPEC_PATH="$GITHUB_WORKSPACE/third_party/axtp-spec" scripts/run-conformance.sh
+          AXTP_SPEC_PATH="$GITHUB_WORKSPACE/third_party/axtp-spec" devtools/scripts/run-conformance.sh
 
       - name: Create and push mock asset package tag
         if: steps.detect.outputs.should_release == 'true'

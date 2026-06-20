@@ -13,8 +13,8 @@ Repository revision releases may move independently while staying on the same lo
 
 For repository-only changes that do not change `AXTP_SPEC.lock.yaml`, use
 `.github/workflows/release-runtime-revision.yml` or the local skill at
-`skills/70-release-runtime-revision/SKILL.md`. The workflow runs
-`scripts/prepare-runtime-revision.sh`, increments only `R`, regenerates version
+`devtools/skills/70-release-runtime-revision/SKILL.md`. The workflow runs
+`devtools/scripts/prepare-runtime-revision.sh`, increments only `R`, regenerates version
 metadata, and opens a PR. After that PR merges, `auto-release-on-merge.yml`
 creates tag `vX.Y.Z.R`.
 
@@ -29,7 +29,7 @@ generated/axtp_generated_manifest.json
 The manifest records:
 
 - `axtpSpec` from `AXTP_SPEC.lock.yaml`
-- `generator` from `generators/package.json` and the current repository commit
+- `generator` from `devtools/generators/package.json` and the current repository commit
 - `runtime` from the repository version source and current repository commit
 - `inputs.registryHash`, `inputs.schemasHash`, and `inputs.conformanceHash`
 
@@ -41,8 +41,8 @@ generator does not invent hashes for missing inputs.
 Use:
 
 ```bash
-scripts/check-generated-version.sh
-scripts/check-runtime-release.sh 0.3.0.1
+devtools/scripts/check-generated-version.sh
+devtools/scripts/check-runtime-release.sh 0.3.0.1
 ```
 
 `check-generated-version.sh` validates lock, manifest, repository version, and
