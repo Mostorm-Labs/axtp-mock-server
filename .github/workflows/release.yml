@@ -1,4 +1,4 @@
-name: Release Runtime
+name: Release Mock Asset Package
 
 on:
   push:
@@ -12,15 +12,15 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout runtime repository
+      - name: Checkout mock asset repository
         uses: actions/checkout@v4
 
-      - name: Validate runtime tag
+      - name: Validate release tag
         shell: bash
         run: |
           set -euo pipefail
           if [[ ! "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Runtime release tags must match vMAJOR.MINOR.PATCH" >&2
+            echo "Mock asset package release tags must match vMAJOR.MINOR.PATCH" >&2
             exit 2
           fi
           echo "RUNTIME_VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
@@ -162,7 +162,7 @@ jobs:
             echo "No CMake runtime layout; skipping CMake checks."
           fi
 
-      - name: Generated Node mock server checks
+      - name: Generated Node scenario harness checks
         shell: bash
         env:
           AXTP_RUNTIME_AUTOMATION_TOKEN: ${{ secrets.AXTP_RUNTIME_AUTOMATION_TOKEN }}
@@ -183,10 +183,10 @@ jobs:
             pnpm --dir generated/node-mock-server test
             rm -f generated/node-mock-server/pnpm-lock.yaml
           else
-            echo "No generated Node mock server package; skipping."
+            echo "No generated Node scenario harness package; skipping."
           fi
 
-      - name: Generated C++ mock server checks
+      - name: Generated C++ scenario harness checks
         shell: bash
         run: |
           set -euo pipefail
@@ -197,9 +197,9 @@ jobs:
             cmake --build build/generated-cpp-mock-server
             ctest --test-dir build/generated-cpp-mock-server --output-on-failure
           elif [[ -f generated/cpp-mock-server/CMakeLists.txt ]]; then
-            echo "Generated C++ mock server requires sibling axtp-cpp-runtime checkout; skipping optional generated C++ checks."
+            echo "Generated C++ scenario harness requires sibling axtp-cpp-runtime checkout; skipping optional generated C++ checks."
           else
-            echo "No generated C++ mock server project; skipping."
+            echo "No generated C++ scenario harness project; skipping."
           fi
 
       - name: Conformance checks

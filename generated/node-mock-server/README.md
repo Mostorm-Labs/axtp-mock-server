@@ -1,4 +1,4 @@
-# Generated AXTP Node Mock Server
+# Generated AXTP Node Mock Scenario Harness
 
 This generated project uses `@axtp/runtime` from the sibling
 `axtp-ts-runtime` repository. It runs a TCP AXTP Standard Framed mock

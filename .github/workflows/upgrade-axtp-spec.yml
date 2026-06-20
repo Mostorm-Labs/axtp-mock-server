@@ -56,7 +56,7 @@ jobs:
           echo "SPEC_VERSION=$spec_version" >> "$GITHUB_ENV"
           echo "PR_BRANCH=automation/upgrade-axtp-spec-v$spec_version" >> "$GITHUB_ENV"
 
-      - name: Checkout runtime/tool repository
+      - name: Checkout mock asset repository
         uses: actions/checkout@v4
 
       - name: Checkout AXTP spec
@@ -95,7 +95,7 @@ jobs:
           set -euo pipefail
           AXTP_SPEC_PATH="$GITHUB_WORKSPACE/third_party/axtp-spec" scripts/upgrade-axtp-spec.sh "$SPEC_TAG"
 
-      - name: Align runtime/tool version
+      - name: Align mock asset package version
         shell: bash
         run: scripts/set-runtime-version.sh "$SPEC_VERSION"
 
@@ -106,7 +106,7 @@ jobs:
           pnpm --dir generators install --frozen-lockfile
           pnpm --dir generators build
 
-      - name: Generate runtime/tool artifacts
+      - name: Generate mock asset artifacts
         shell: bash
         run: |
           set -euo pipefail
@@ -198,7 +198,7 @@ jobs:
             echo "No CMake runtime layout; skipping CMake checks."
           fi
 
-      - name: Generated Node mock server checks
+      - name: Generated Node scenario harness checks
         shell: bash
         env:
           AXTP_RUNTIME_AUTOMATION_TOKEN: ${{ secrets.AXTP_RUNTIME_AUTOMATION_TOKEN }}
@@ -219,10 +219,10 @@ jobs:
             pnpm --dir generated/node-mock-server test
             rm -f generated/node-mock-server/pnpm-lock.yaml
           else
-            echo "No generated Node mock server package; skipping."
+            echo "No generated Node scenario harness package; skipping."
           fi
 
-      - name: Generated C++ mock server checks
+      - name: Generated C++ scenario harness checks
         shell: bash
         run: |
           set -euo pipefail
@@ -233,9 +233,9 @@ jobs:
             cmake --build build/generated-cpp-mock-server
             ctest --test-dir build/generated-cpp-mock-server --output-on-failure
           elif [[ -f generated/cpp-mock-server/CMakeLists.txt ]]; then
-            echo "Generated C++ mock server requires sibling axtp-cpp-runtime checkout; skipping optional generated C++ checks."
+            echo "Generated C++ scenario harness requires sibling axtp-cpp-runtime checkout; skipping optional generated C++ checks."
           else
-            echo "No generated C++ mock server project; skipping."
+            echo "No generated C++ scenario harness project; skipping."
           fi
 
       - name: Conformance checks
@@ -252,10 +252,10 @@ jobs:
           AXTP Spec tag: $SPEC_TAG
           AXTP Spec version: $SPEC_VERSION
           AXTP Spec commit: ${SPEC_COMMIT:-resolved by scripts/upgrade-axtp-spec.sh}
-          Runtime/tool target version: $SPEC_VERSION
+          Mock asset package target version: $SPEC_VERSION
           Generated manifest: generated/axtp_generated_manifest.json
 
-          This PR updates AXTP_SPEC.lock.yaml, aligns the runtime/tool version with the AXTP Spec version, regenerates runtime/tool artifacts, and runs the available build/test/conformance checks.
+          This PR updates AXTP_SPEC.lock.yaml, aligns the mock asset package version with the AXTP Spec version, regenerates mock asset artifacts, and runs the available build/test/conformance checks.
           EOF
 
       - name: Create upgrade PR

@@ -77,7 +77,7 @@ async function readRuntimeVersion(runtimeName) {
   if (runtimeName === "axtp-c-runtime") {
     const text = await readText(path.join(root, "CMakeLists.txt"));
     const match = text.match(/project\s*\([^)]*?\bVERSION\s+([0-9]+\.[0-9]+\.[0-9][^\s)]*)/is);
-    if (!match) throw new Error("Could not read runtime version from CMakeLists.txt project(... VERSION ...)");
+    if (!match) throw new Error("Could not read repository version from CMakeLists.txt project(... VERSION ...)");
     return match[1];
   }
   if (runtimeName === "axtp-cpp-runtime" || runtimeName === "axtp-mock-server") {
@@ -88,7 +88,7 @@ async function readRuntimeVersion(runtimeName) {
   if (runtimeName === "axtp-flutter-runtime") {
     const text = await readText(path.join(root, "pubspec.yaml"));
     const match = text.match(/^version:\s*([^\s]+)\s*$/m);
-    if (!match) throw new Error("Could not read runtime version from pubspec.yaml");
+    if (!match) throw new Error("Could not read repository version from pubspec.yaml");
     return match[1];
   }
   if (runtimeName === "axtp-ts-runtime") {
@@ -97,7 +97,7 @@ async function readRuntimeVersion(runtimeName) {
   if (runtimeName === "axtp-python-runtime") {
     const text = await readText(path.join(root, "pyproject.toml"));
     const match = text.match(/^\[project\][\s\S]*?^version\s*=\s*"([^"]+)"/m);
-    if (!match) throw new Error("Could not read runtime version from pyproject.toml [project].version");
+    if (!match) throw new Error("Could not read repository version from pyproject.toml [project].version");
     return match[1];
   }
   throw new Error(`Unsupported runtime: ${runtimeName}`);
@@ -144,6 +144,10 @@ async function hashDirectory(dir) {
 function resolveSpecRoot() {
   if (process.env.AXTP_SPEC_PATH) return process.env.AXTP_SPEC_PATH;
   return path.join(root, "third_party/axtp-spec");
+}
+
+function firstExistingDirectory(...directories) {
+  return directories.find((dir) => existsSync(dir)) ?? directories[0];
 }
 
 function generatedAt() {
@@ -278,6 +282,7 @@ async function writeVersionMetadata(runtimeName) {
   const lock = await readSpecLock();
   const generator = await readGeneratorMetadata();
   const specRoot = resolveSpecRoot();
+  const contractRoot = firstExistingDirectory(path.join(specRoot, "contract"), specRoot);
   const manifest = {
     generatedAt: generatedAt(),
     generator,
@@ -293,8 +298,14 @@ async function writeVersionMetadata(runtimeName) {
       commit: gitValue(["rev-parse", "HEAD"])
     },
     inputs: {
-      registryHash: await hashDirectory(path.join(specRoot, "registry")),
-      schemasHash: await hashDirectory(path.join(specRoot, "schemas")),
+      registryHash: await hashDirectory(firstExistingDirectory(
+        path.join(specRoot, "registry"),
+        path.join(contractRoot, "registry")
+      )),
+      schemasHash: await hashDirectory(firstExistingDirectory(
+        path.join(specRoot, "schemas"),
+        path.join(contractRoot, "schemas")
+      )),
       conformanceHash: (await hashDirectory(path.join(specRoot, "docs", "conformance"))) ?? await hashDirectory(path.join(specRoot, "conformance"))
     }
   };
@@ -330,7 +341,7 @@ async function checkVersionMetadata(runtimeName, { release = false, tagVersion =
     throw new Error("Release builds must not use AXTP Spec tag: unreleased");
   }
   if (tagVersion !== null) {
-    assertEqual("runtime tag version", runtimeVersion, tagVersion);
+    assertEqual("repository tag version", runtimeVersion, tagVersion);
     assertEqual("AXTP Spec lock version", lock.version, tagVersion);
     assertEqual("AXTP Spec lock tag", lock.tag, "spec/v" + tagVersion);
   }
@@ -355,7 +366,7 @@ async function checkVersionMetadata(runtimeName, { release = false, tagVersion =
   }
 
   console.log("AXTP generated version");
-  console.log(`  runtime: ${manifest.runtime.name} ${manifest.runtime.version}`);
+  console.log(`  repository: ${manifest.runtime.name} ${manifest.runtime.version}`);
   console.log(`  spec: ${manifest.axtpSpec.tag} (${manifest.axtpSpec.commit})`);
   console.log(`  generator: ${manifest.generator.name} ${manifest.generator.version}`);
   console.log(`  generatedAt: ${manifest.generatedAt}`);
@@ -377,16 +388,18 @@ async function writeReleaseNotes(runtimeName, outFile) {
 - Generator: \`{{GENERATOR_NAME}} {{GENERATOR_VERSION}}\`
 - Generated Manifest: \`generated/axtp_generated_manifest.json\`
 
-## Runtime
+## Mock Asset Package
 
-- Runtime Version: \`{{RUNTIME_VERSION}}\`
-- Runtime Commit: \`{{RUNTIME_COMMIT}}\`
+- Package Version: \`{{RUNTIME_VERSION}}\`
+- Package Commit: \`{{RUNTIME_COMMIT}}\`
 
 ## Artifacts
 
 - Source package
 - Generated manifest
-- Generated bindings/types
+- Generated fixtures
+- Generated test vectors
+- Generated scenario harnesses
 
 ## Changes
 

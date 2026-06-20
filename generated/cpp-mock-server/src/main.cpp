@@ -10,6 +10,6 @@ int main() {
     axtp::mock::AudioMockState state;
     axtp::mock::installAudioMockHandlers(server, state);
     server.attachTransport(std::make_unique<axtp::MockTransport>());
-    std::cout << "AXTP C++ mock server initialized with MockTransport.\n";
+    std::cout << "AXTP C++ mock scenario harness initialized with MockTransport.\n";
     return 0;
 }

@@ -1,6 +1,8 @@
-# AXTP Mock Server Generator
+# AXTP Mock Asset Generator
 
-This generator is owned by `axtp-mock-server`.
+This generator is owned by `axtp-mock-server`. It emits mock scenarios,
+conformance fixtures, test vectors, and runnable scenario harnesses built on top
+of AXTP runtime repositories.
 
 It consumes the AXTP spec checkout selected by `AXTP_SPEC_PATH`, or
 `third_party/axtp-spec` when the environment variable is unset. The checkout must
@@ -14,5 +16,5 @@ pnpm --dir generators test
 pnpm --dir generators generate:runtime
 ```
 
-Generated mock server fixtures are written to `fixtures/generated/` and
-`fixtures/test-vectors/`.
+Generated fixtures are written to `fixtures/generated/`, and generated test
+vectors are written to `fixtures/test-vectors/`.

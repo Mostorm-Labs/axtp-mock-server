@@ -1,4 +1,4 @@
-name: Tag Runtime Release After Spec Upgrade Merge
+name: Tag Mock Asset Release After Spec Upgrade Merge
 
 on:
   push:
@@ -13,13 +13,13 @@ jobs:
   tag-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout runtime/tool repository
+      - name: Checkout mock asset repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.AXTP_RUNTIME_AUTOMATION_TOKEN || github.token }}
 
-      - name: Resolve runtime/tool version
+      - name: Resolve mock asset package version
         id: version
         shell: bash
         run: |
@@ -27,7 +27,7 @@ jobs:
 
           runtime_version="$(scripts/get-runtime-version.sh)"
           if [[ ! "$runtime_version" =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
-            echo "Runtime/tool version must match MAJOR.MINOR.PATCH for automated releases: $runtime_version" >&2
+            echo "Mock asset package version must match MAJOR.MINOR.PATCH for automated releases: $runtime_version" >&2
             exit 2
           fi
 
@@ -75,10 +75,10 @@ jobs:
           echo "$changed"
           if echo "$changed" | grep -Eq '^(AXTP_SPEC.lock.yaml|generated/axtp_generated_manifest.json|VERSION|CMakeLists.txt|core/CMakeLists.txt|pubspec.yaml|package.json|pyproject.toml)$'; then
             echo "should_release=true" >> "$GITHUB_OUTPUT"
-            echo "Release-relevant AXTP Spec or runtime/tool version changes detected."
+            echo "Release-relevant AXTP Spec or mock asset package version changes detected."
           else
             echo "should_release=true" >> "$GITHUB_OUTPUT"
-            echo "Tag $TAG is missing for the current runtime/tool version; running release recovery checks."
+            echo "Tag $TAG is missing for the current mock asset package version; running release recovery checks."
           fi
 
       - name: Resolve locked AXTP spec tag
@@ -215,7 +215,7 @@ jobs:
             echo "No CMake runtime layout; skipping CMake checks."
           fi
 
-      - name: Generated mock server checks
+      - name: Generated scenario harness checks
         if: steps.detect.outputs.should_release == 'true'
         shell: bash
         env:
@@ -237,7 +237,7 @@ jobs:
             pnpm --dir generated/node-mock-server test
             rm -f generated/node-mock-server/pnpm-lock.yaml
           else
-            echo "No generated Node mock server package; skipping."
+            echo "No generated Node scenario harness package; skipping."
           fi
           if [[ -f generated/cpp-mock-server/CMakeLists.txt && -d ../axtp-cpp-runtime ]]; then
             sudo apt-get update
@@ -246,9 +246,9 @@ jobs:
             cmake --build build/generated-cpp-mock-server
             ctest --test-dir build/generated-cpp-mock-server --output-on-failure
           elif [[ -f generated/cpp-mock-server/CMakeLists.txt ]]; then
-            echo "Generated C++ mock server requires sibling axtp-cpp-runtime checkout; skipping optional generated C++ checks."
+            echo "Generated C++ scenario harness requires sibling axtp-cpp-runtime checkout; skipping optional generated C++ checks."
           else
-            echo "No generated C++ mock server project; skipping."
+            echo "No generated C++ scenario harness project; skipping."
           fi
 
       - name: Conformance checks
@@ -258,7 +258,7 @@ jobs:
           set -euo pipefail
           AXTP_SPEC_PATH="$GITHUB_WORKSPACE/third_party/axtp-spec" scripts/run-conformance.sh
 
-      - name: Create and push runtime/tool tag
+      - name: Create and push mock asset package tag
         if: steps.detect.outputs.should_release == 'true'
         shell: bash
         run: |

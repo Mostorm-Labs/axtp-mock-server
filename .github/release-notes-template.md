@@ -8,17 +8,19 @@
 - Generator: `{{GENERATOR_NAME}} {{GENERATOR_VERSION}}`
 - Generated Manifest: `generated/axtp_generated_manifest.json`
 
-## Runtime
+## Mock Asset Package
 
-- Runtime Version: `{{RUNTIME_VERSION}}`
-- Runtime Tag: `v{{RUNTIME_VERSION}}`
-- Runtime Commit: `{{RUNTIME_COMMIT}}`
+- Package Version: `{{RUNTIME_VERSION}}`
+- Package Tag: `v{{RUNTIME_VERSION}}`
+- Package Commit: `{{RUNTIME_COMMIT}}`
 
 ## Artifacts
 
 - Source package
 - Generated manifest
-- Generated bindings/types
+- Generated fixtures
+- Generated test vectors
+- Generated scenario harnesses
 
 ## Changes
 

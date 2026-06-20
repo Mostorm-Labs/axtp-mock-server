@@ -66,7 +66,7 @@ if [[ "${CONFORMANCE_SKIP_CPP_MOCK:-false}" != "true" && -f "$root/generated/cpp
     cmake --build "$root/build/conformance-cpp-mock"
     ctest --test-dir "$root/build/conformance-cpp-mock" --output-on-failure
   else
-    echo "Skipping generated C++ mock server conformance smoke; missing $cpp_runtime_path." >&2
+    echo "Skipping generated C++ scenario harness conformance smoke; missing $cpp_runtime_path." >&2
   fi
 fi
 

@@ -189,7 +189,7 @@ jobs:
             echo "No CMake runtime layout; skipping CMake checks."
           fi
 
-      - name: Generated mock server checks
+      - name: Generated scenario harness checks
         if: steps.guard.outputs.should_run == 'true'
         shell: bash
         env:
@@ -211,7 +211,7 @@ jobs:
             pnpm --dir generated/node-mock-server test
             rm -f generated/node-mock-server/pnpm-lock.yaml
           else
-            echo "No generated Node mock server package; skipping."
+            echo "No generated Node scenario harness package; skipping."
           fi
           if [[ -f generated/cpp-mock-server/CMakeLists.txt && -d ../axtp-cpp-runtime ]]; then
             sudo apt-get update
@@ -220,9 +220,9 @@ jobs:
             cmake --build build/generated-cpp-mock-server
             ctest --test-dir build/generated-cpp-mock-server --output-on-failure
           elif [[ -f generated/cpp-mock-server/CMakeLists.txt ]]; then
-            echo "Generated C++ mock server requires sibling axtp-cpp-runtime checkout; skipping optional generated C++ checks."
+            echo "Generated C++ scenario harness requires sibling axtp-cpp-runtime checkout; skipping optional generated C++ checks."
           else
-            echo "No generated C++ mock server project; skipping."
+            echo "No generated C++ scenario harness project; skipping."
           fi
 
       - name: Conformance checks

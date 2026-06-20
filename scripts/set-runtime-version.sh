@@ -97,7 +97,7 @@ case "$runtime_name" in
     fi
     ;;
   *)
-    echo "Unsupported runtime/tool repository: $runtime_name" >&2
+    echo "Unsupported AXTP repository: $runtime_name" >&2
     exit 2
     ;;
 esac

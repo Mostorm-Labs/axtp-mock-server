@@ -103,7 +103,7 @@ async function emitNodeMockServer(dir: string): Promise<void> {
   "include": ["src/**/*.ts"]
 }
 `),
-    writeTextFile(path.join(dir, "README.md"), `# Generated AXTP Node Mock Server
+    writeTextFile(path.join(dir, "README.md"), `# Generated AXTP Node Mock Scenario Harness
 
 This generated project uses \`@axtp/runtime\` from the sibling
 \`axtp-ts-runtime\` repository. It runs a TCP AXTP Standard Framed mock
@@ -320,9 +320,10 @@ add_executable(axtp_cpp_mock_server_smoke tests/smoke.cpp)
 target_link_libraries(axtp_cpp_mock_server_smoke PRIVATE axtp_cpp_mock_handlers)
 add_test(NAME axtp_cpp_mock_server_smoke COMMAND axtp_cpp_mock_server_smoke)
 `),
-    writeTextFile(path.join(dir, "README.md"), `# Generated AXTP C++ Mock Server
+    writeTextFile(path.join(dir, "README.md"), `# Generated AXTP C++ Mock Scenario Harness
 
-This generated project uses \`axtp-cpp-runtime\` from a sibling repository.
+This generated project uses \`axtp-cpp-runtime\` from a sibling repository. It
+runs generated mock scenario handlers on top of the C++ runtime server API.
 
 \`\`\`bash
 cmake -S . -B build
@@ -490,7 +491,7 @@ int main() {
     axtp::mock::AudioMockState state;
     axtp::mock::installAudioMockHandlers(server, state);
     server.attachTransport(std::make_unique<axtp::MockTransport>());
-    std::cout << "AXTP C++ mock server initialized with MockTransport.\\n";
+    std::cout << "AXTP C++ mock scenario harness initialized with MockTransport.\\n";
     return 0;
 }
 `;

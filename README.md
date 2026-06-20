@@ -1,17 +1,36 @@
-# AXTP Mock Server
+# AXTP Mock Scenarios
 
-This repository is reserved for the AXTP mock server, scenario scripts, protocol
-simulator, and conformance helper.
+This repository owns AXTP mock scenarios, conformance helpers, and generated
+fixtures. It does not implement an AXTP protocol runtime or define a separate
+server framework; runtime repositories provide the server/client APIs and
+transports.
 
-No standalone mock server implementation was present in the AXTP source
-repository during this extraction. The repository now carries the AXTP Spec
-dependency contract so future mock server work can bind to the same spec source
-of truth as the runtime repositories.
+Generated Node.js and C++ mock projects in this repository are runnable
+scenario harnesses built on top of `axtp-ts-runtime` and `axtp-cpp-runtime`.
+They exist to exercise spec-defined behavior, produce reusable fixtures, and
+verify conformance across runtime implementations.
+
+## Scope
+
+This repository is responsible for:
+
+- mock scenario definitions and generated scenario handlers
+- generated fixtures under `fixtures/generated/`
+- generated test vectors under `fixtures/test-vectors/`
+- conformance runner glue and runtime profiles
+- generated runnable harnesses under `generated/`
+
+This repository is not responsible for:
+
+- AXTP protocol semantics
+- transport implementations
+- core server/client runtime APIs
+- business domain protocol ownership
 
 ## AXTP Spec Compatibility
 
-This runtime repository implements AXTP Spec from the AXTP main specification
-repository when mock server sources are added.
+Mock scenarios and generated fixtures follow AXTP Spec from the AXTP main
+specification repository.
 
 See `AXTP_SPEC.lock.yaml` for:
 
@@ -38,8 +57,8 @@ The checkout should match the tag and commit recorded in
 `AXTP_SPEC.lock.yaml`. Do not depend on the `main` branch for reproducible
 runtime builds.
 
-Mock server scenarios and conformance helpers should read schemas, registries,
-and conformance cases through `AXTP_SPEC_PATH` or an explicit
+Mock scenarios, generated fixtures, and conformance helpers should read schemas,
+registries, and conformance cases through `AXTP_SPEC_PATH` or an explicit
 `third_party/axtp-spec` checkout.
 
 ## Spec Lock Checks
@@ -50,7 +69,7 @@ scripts/check-axtp-spec-lock.sh
 
 ## AXTP Spec Upgrade
 
-This mock server follows AXTP Spec via `AXTP_SPEC.lock.yaml`.
+This mock scenario repository follows AXTP Spec via `AXTP_SPEC.lock.yaml`.
 
 To upgrade:
 
@@ -59,7 +78,7 @@ scripts/upgrade-axtp-spec.sh spec/v0.3.0
 scripts/check-axtp-spec-lock.sh
 ```
 
-Mock server behavior is generated or validated against AXTP Spec registry,
+Mock scenario behavior is generated or validated against AXTP Spec registry,
 schemas, and conformance cases. After upgrading, run generator checks and the
 conformance runner before merging.
 
@@ -85,7 +104,7 @@ Automation flow:
 
 1. Receive `axtp_spec_released` repository dispatch.
 2. Update `AXTP_SPEC.lock.yaml`.
-3. Set runtime/tool version to `X.Y.Z`.
+3. Set mock asset package version to `X.Y.Z`.
 4. Generate code and `generated/axtp_generated_manifest.json`.
 5. Open an Upgrade PR.
 6. Auto-merge the PR after checks pass.
@@ -94,13 +113,13 @@ Automation flow:
 
 AXTP Spec tag: `spec/vX.Y.Z`
 
-Runtime/tool tag: `vX.Y.Z`
+Mock asset package tag: `vX.Y.Z`
 
 Repository settings must allow GitHub Actions to create PRs, enable auto-merge, create tags, and create releases. Configure `AXTP_RUNTIME_AUTOMATION_TOKEN` when PR-created-by-actions workflows must trigger downstream pull_request checks.
 
 ## Local Generator
 
-This repository maintains its own generator under `generators/`.
+This repository maintains its own mock asset generator under `generators/`.
 
 ```bash
 export AXTP_SPEC_PATH=/path/to/axtp
@@ -110,18 +129,19 @@ pnpm --dir generators test
 pnpm --dir generators generate:runtime
 ```
 
-Generated mock server fixtures are written to `fixtures/generated/` and
-`fixtures/test-vectors/`.
+Generated fixtures are written to `fixtures/generated/` and generated test
+vectors are written to `fixtures/test-vectors/`.
 
-The generator also emits runnable mock-server subprojects:
+The generator also emits runnable mock scenario harnesses:
 
 - `generated/node-mock-server/`, based on `axtp-ts-runtime` with the Node.js backend
 - `generated/cpp-mock-server/`, based on `axtp-cpp-runtime`
 
 Both generated projects install default audio handlers for
 `audio.getAlgorithmConfig`, `audio.getAlgorithmCapabilities`, and
-`audio.setAlgorithmConfig`. Runtime repositories remain dependencies only; mock
-server product code is generated and maintained in this repository.
+`audio.setAlgorithmConfig`. Runtime repositories remain dependencies only; the
+scenario handlers, fixtures, and conformance glue are generated and maintained
+in this repository.
 
 To move to a later released spec tag:
 
@@ -131,26 +151,26 @@ scripts/upgrade-axtp-spec.sh spec/v0.1.0
 
 ## Versioning
 
-This repository keeps AXTP Spec, mock server, and generated artifact versions
-separate:
+This repository keeps AXTP Spec, mock asset package, and generated artifact
+versions separate:
 
 - AXTP Spec tags use `spec/vX.Y.Z` and are recorded in `AXTP_SPEC.lock.yaml`.
-- Mock server releases use `vX.Y.Z`.
+- Mock asset package releases use `vX.Y.Z`.
 - Generated artifact metadata is recorded in `generated/axtp_generated_manifest.json`.
 
 Use `scripts/check-generated-version.sh` to verify that the lock file,
-generated manifest, runtime version, and generated constants are aligned.
+generated manifest, repository version, and generated constants are aligned.
 
 See `docs/generator/GENERATED_VERSIONING.md` for generator versioning details.
 
 ## Release
 
-Mock server releases are created from runtime-style tags:
+Mock asset package releases are created from repository release tags:
 
-- Mock server tags: `vX.Y.Z`
+- Mock asset package tags: `vX.Y.Z`
 - AXTP Spec tags: `spec/vX.Y.Z`
 
-AXTP Spec updates create automated upgrade PRs. After checks pass, the PR is auto-merged; the main branch workflow then creates the matching `vX.Y.Z` mock server tag, and that tag triggers the GitHub Release.
+AXTP Spec updates create automated upgrade PRs. After checks pass, the PR is auto-merged; the main branch workflow then creates the matching `vX.Y.Z` mock asset package tag, and that tag triggers the GitHub Release.
 
-Each release records mock server version, AXTP Spec tag, AXTP Spec commit,
-generator version, and the generated manifest.
+Each release records mock asset package version, AXTP Spec tag, AXTP Spec
+commit, generator version, and the generated manifest.
