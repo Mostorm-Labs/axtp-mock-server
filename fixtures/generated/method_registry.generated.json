@@ -1167,6 +1167,519 @@
         "UNAVAILABLE"
       ],
       "idHex": "0x0E14"
+    },
+    {
+      "id": 5633,
+      "bitOffset": 0,
+      "name": "cast.getSession",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Return the current cast receiver phase and active session summary.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastGetSessionParams",
+      "responseSchema": "CastSessionState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.session"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x1601"
+    },
+    {
+      "id": 5634,
+      "bitOffset": 1,
+      "name": "cast.stopSession",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Stop the current cast session when one is active.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastStopSessionParams",
+      "responseSchema": "CastStopSessionResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.session"
+      ],
+      "events": [
+        "cast.sessionStateChanged",
+        "cast.sessionStopped"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "INVALID_STATE",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x1602"
+    },
+    {
+      "id": 5635,
+      "bitOffset": 2,
+      "name": "cast.getAirPlayName",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Return the AirPlay receiver display name and publish state.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "Empty",
+      "responseSchema": "CastAirPlayNameState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.session"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x1603"
+    },
+    {
+      "id": 5636,
+      "bitOffset": 3,
+      "name": "cast.setAirPlayName",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Set the AirPlay receiver display name and request service rediscovery.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastSetAirPlayNameParams",
+      "responseSchema": "CastAirPlayNameState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.session"
+      ],
+      "events": [
+        "cast.sessionStateChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x1604"
+    },
+    {
+      "id": 5637,
+      "bitOffset": 4,
+      "name": "cast.getAudio",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Return local cast audio playback and mute state.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastGetAudioParams",
+      "responseSchema": "CastAudioState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.audio"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x1605"
+    },
+    {
+      "id": 5638,
+      "bitOffset": 5,
+      "name": "cast.setAudio",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Enable or disable local playback of received cast audio.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastSetAudioParams",
+      "responseSchema": "CastAudioState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.audio"
+      ],
+      "events": [
+        "cast.audioChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x1606"
+    },
+    {
+      "id": 5639,
+      "bitOffset": 6,
+      "name": "cast.setMuted",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Mute or unmute local cast audio output.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastSetMutedParams",
+      "responseSchema": "CastAudioState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.audio"
+      ],
+      "events": [
+        "cast.audioChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x1607"
+    },
+    {
+      "id": 5640,
+      "bitOffset": 7,
+      "name": "cast.getPinCodeConfig",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Return cast PIN protection state, visibility, and optional secret material.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastGetPinCodeConfigParams",
+      "responseSchema": "CastPinCodeConfig",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.pinCode"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x1608"
+    },
+    {
+      "id": 5641,
+      "bitOffset": 8,
+      "name": "cast.setPinCodeConfig",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Enable or disable cast PIN protection and update display policy.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastSetPinCodeConfigParams",
+      "responseSchema": "CastPinCodeConfig",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.pinCode"
+      ],
+      "events": [
+        "cast.pinCodeChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "INVALID_STATE",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x1609"
+    },
+    {
+      "id": 5642,
+      "bitOffset": 9,
+      "name": "cast.setPinCode",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Set the current cast PIN value according to receiver policy.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastSetPinCodeParams",
+      "responseSchema": "CastPinCodeConfig",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.pinCode"
+      ],
+      "events": [
+        "cast.pinCodeChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "INVALID_STATE",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x160A"
+    },
+    {
+      "id": 5643,
+      "bitOffset": 10,
+      "name": "cast.getWindowState",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Return cast window visibility, mode, and bounds summary.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "Empty",
+      "responseSchema": "CastWindowState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.window"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x160B"
+    },
+    {
+      "id": 5644,
+      "bitOffset": 11,
+      "name": "cast.setWindowState",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Set cast window mode, fullscreen state, or always-on-top state.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastSetWindowStateParams",
+      "responseSchema": "CastWindowState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.window"
+      ],
+      "events": [
+        "cast.windowChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "INVALID_STATE",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x160C"
+    },
+    {
+      "id": 5645,
+      "bitOffset": 12,
+      "name": "cast.getBackendStatus",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Return cast backend process, discoverability, and last-error state.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastGetBackendStatusParams",
+      "responseSchema": "CastBackendStatus",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.backend"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x160D"
+    },
+    {
+      "id": 5646,
+      "bitOffset": 13,
+      "name": "cast.restartBackend",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Restart the cast backend without restarting the receiver application or device.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastRestartBackendParams",
+      "responseSchema": "CastRestartBackendResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.backend"
+      ],
+      "events": [
+        "cast.backendChanged",
+        "cast.sessionStopped"
+      ],
+      "errors": [
+        "SUCCESS",
+        "BUSY",
+        "INVALID_STATE",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x160E"
+    },
+    {
+      "id": 5647,
+      "bitOffset": 14,
+      "name": "cast.getFlowControlState",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Return local cast render fps, queue policy, and low-frequency diagnostics.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastGetFlowControlStateParams",
+      "responseSchema": "CastFlowControlState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.flowControl"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x160F"
+    },
+    {
+      "id": 5648,
+      "bitOffset": 15,
+      "name": "cast.setRenderFps",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Set the receiver-local target render fps for cast media.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastSetRenderFpsParams",
+      "responseSchema": "CastFlowControlState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.flowControl"
+      ],
+      "events": [
+        "cast.flowControlChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "OUT_OF_RANGE",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x1610"
+    },
+    {
+      "id": 5649,
+      "bitOffset": 16,
+      "name": "cast.setFlowPolicy",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Set receiver-local cast queue, late-frame, drop, and overlay policy.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastSetFlowPolicyParams",
+      "responseSchema": "CastFlowControlState",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.flowControl"
+      ],
+      "events": [
+        "cast.flowControlChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "OUT_OF_RANGE",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x1611"
+    },
+    {
+      "id": 5650,
+      "bitOffset": 17,
+      "name": "cast.getStatus",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Return a low-frequency aggregate cast receiver status summary.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "CastGetStatusParams",
+      "responseSchema": "CastStatus",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "cast.status"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "UNAVAILABLE"
+      ],
+      "idHex": "0x1612"
     }
   ]
 }

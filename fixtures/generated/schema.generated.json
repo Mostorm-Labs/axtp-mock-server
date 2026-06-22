@@ -2188,6 +2188,3368 @@
       ]
     },
     {
+      "name": "CastSourceSummary",
+      "type": "object",
+      "description": "Summary of a cast source device or local AXTP sender.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "User-visible source name when known."
+        },
+        {
+          "id": 2,
+          "name": "model",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Source model identifier when known."
+        },
+        {
+          "id": 3,
+          "name": "address",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Network or transport address summary when safe to expose."
+        },
+        {
+          "id": 4,
+          "name": "sourceId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver-local source identifier."
+        },
+        {
+          "id": 5,
+          "name": "protocol",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "airplay",
+            "hid",
+            "unknown"
+          ],
+          "description": "Protocol path that produced the source summary."
+        }
+      ]
+    },
+    {
+      "name": "CastMediaSummary",
+      "type": "object",
+      "description": "Low-frequency media summary for a cast session.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "firstFrame",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether the first visible frame has rendered."
+        },
+        {
+          "id": 2,
+          "name": "width",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Current media width in pixels."
+        },
+        {
+          "id": 3,
+          "name": "height",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Current media height in pixels."
+        },
+        {
+          "id": 4,
+          "name": "orientation",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "landscape",
+            "portrait",
+            "unknown"
+          ],
+          "description": "Current media orientation summary."
+        },
+        {
+          "id": 5,
+          "name": "inputFps",
+          "type": "number",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "description": "Estimated incoming media frame rate."
+        },
+        {
+          "id": 6,
+          "name": "renderFps",
+          "type": "number",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "description": "Estimated local render frame rate."
+        },
+        {
+          "id": 7,
+          "name": "audioActive",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether local receiver audio output is active."
+        }
+      ]
+    },
+    {
+      "name": "CastLastError",
+      "type": "object",
+      "description": "Redactable backend or receiver error summary.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "code",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Backend-local or AXTP-visible error code."
+        },
+        {
+          "id": 2,
+          "name": "message",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 512,
+          "description": "Human-readable error summary suitable for authorized clients."
+        },
+        {
+          "id": 3,
+          "name": "occurredAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp when the error was observed."
+        },
+        {
+          "id": 4,
+          "name": "redacted",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether sensitive details were removed from this summary."
+        }
+      ]
+    },
+    {
+      "name": "CastGetSessionParams",
+      "type": "object",
+      "description": "Selector for cast receiver and active session summary.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "include",
+          "type": "array",
+          "required": false,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Optional summary sections, such as source, media, or airPlayName."
+        },
+        {
+          "id": 2,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional receiver-local session id to query."
+        }
+      ]
+    },
+    {
+      "name": "CastSessionState",
+      "type": "object",
+      "description": "Current receiver phase and active session state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "receiverState",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "disabled",
+            "starting",
+            "ready",
+            "busy",
+            "failed"
+          ],
+          "description": "Receiver service availability state."
+        },
+        {
+          "id": 2,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver-local active session id."
+        },
+        {
+          "id": 3,
+          "name": "receiverPhase",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "authenticating",
+            "streamStarting",
+            "streaming",
+            "rendering",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "Protocol-neutral receiver phase used by UI and reconnection calibration."
+        },
+        {
+          "id": 4,
+          "name": "sessionState",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "waitingForPassword",
+            "authenticated",
+            "preparing",
+            "casting",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "AirPlay or backend-specific session state detail."
+        },
+        {
+          "id": 5,
+          "name": "protocol",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "airplay",
+            "hid",
+            "unknown"
+          ],
+          "description": "Cast protocol path currently represented by this state."
+        },
+        {
+          "id": 6,
+          "name": "airPlayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Current published AirPlay receiver display name."
+        },
+        {
+          "id": 7,
+          "name": "source",
+          "type": "CastSourceSummary",
+          "required": false,
+          "deprecated": false,
+          "description": "Source device summary."
+        },
+        {
+          "id": 8,
+          "name": "media",
+          "type": "CastMediaSummary",
+          "required": false,
+          "deprecated": false,
+          "description": "Low-frequency media summary."
+        },
+        {
+          "id": 9,
+          "name": "backendState",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "starting",
+            "ready",
+            "restarting",
+            "exited",
+            "failed",
+            "disabled"
+          ],
+          "description": "Current backend state summary."
+        },
+        {
+          "id": 10,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "sessionStarted",
+            "mediaFlowStarted",
+            "externalRequest",
+            "sourceClosed",
+            "backendRestart",
+            "backendExited",
+            "authFailed",
+            "error",
+            "unknown"
+          ],
+          "description": "Last state transition reason."
+        },
+        {
+          "id": 11,
+          "name": "authRequired",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether this session path currently requires authentication."
+        },
+        {
+          "id": 12,
+          "name": "updatedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this state snapshot."
+        }
+      ]
+    },
+    {
+      "name": "CastStopSessionParams",
+      "type": "object",
+      "description": "Request to stop an active cast session.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional receiver-local session id; omitted means current active session."
+        },
+        {
+          "id": 2,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "externalRequest",
+            "localUi",
+            "backendRestart",
+            "shutdown",
+            "unknown"
+          ],
+          "description": "Caller-visible reason for stopping the session."
+        },
+        {
+          "id": 3,
+          "name": "force",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether the receiver may force backend/session cleanup."
+        }
+      ]
+    },
+    {
+      "name": "CastStopSessionResult",
+      "type": "object",
+      "description": "Result of a cast session stop request.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "accepted",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the receiver accepted the stop request."
+        },
+        {
+          "id": 2,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Session affected by the request."
+        },
+        {
+          "id": 3,
+          "name": "previousReceiverPhase",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "authenticating",
+            "streamStarting",
+            "streaming",
+            "rendering",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "Receiver phase before the stop transition."
+        },
+        {
+          "id": 4,
+          "name": "receiverPhase",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "authenticating",
+            "streamStarting",
+            "streaming",
+            "rendering",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "Receiver phase after accepting the stop request."
+        },
+        {
+          "id": 5,
+          "name": "previousState",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "waitingForPassword",
+            "authenticated",
+            "preparing",
+            "casting",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "Backend-specific state before the stop transition."
+        },
+        {
+          "id": 6,
+          "name": "sessionState",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "waitingForPassword",
+            "authenticated",
+            "preparing",
+            "casting",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "Backend-specific state after accepting the stop request."
+        },
+        {
+          "id": 7,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "externalRequest",
+            "sourceClosed",
+            "backendRestart",
+            "backendExited",
+            "shutdown",
+            "unknown"
+          ],
+          "description": "Applied stop reason."
+        },
+        {
+          "id": 8,
+          "name": "noActiveSession",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether no active session existed when the request was processed."
+        },
+        {
+          "id": 9,
+          "name": "updatedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for the result."
+        }
+      ]
+    },
+    {
+      "name": "CastSetAirPlayNameParams",
+      "type": "object",
+      "description": "Request to set the AirPlay receiver display name.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "displayName",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Target AirPlay display name."
+        },
+        {
+          "id": 2,
+          "name": "apply",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "immediate",
+            "onNextBackendStart"
+          ],
+          "description": "Requested backend apply timing."
+        }
+      ]
+    },
+    {
+      "name": "CastAirPlayNameState",
+      "type": "object",
+      "description": "AirPlay display name and backend publish state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "displayName",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Current AirPlay display name."
+        },
+        {
+          "id": 2,
+          "name": "previousDisplayName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Previous display name when a change was applied."
+        },
+        {
+          "id": 3,
+          "name": "source",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "configured",
+            "default",
+            "backend",
+            "unknown"
+          ],
+          "description": "Source of the current display name."
+        },
+        {
+          "id": 4,
+          "name": "apply",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "immediate",
+            "onNextBackendStart"
+          ],
+          "description": "Apply timing used for the latest update."
+        },
+        {
+          "id": 5,
+          "name": "publishState",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "published",
+            "republishing",
+            "pending",
+            "failed",
+            "unpublished"
+          ],
+          "description": "Bonjour or backend service publish state."
+        },
+        {
+          "id": 6,
+          "name": "backendType",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "uxplay",
+            "unknown"
+          ],
+          "description": "Backend that owns the published name."
+        },
+        {
+          "id": 7,
+          "name": "updatedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this name state."
+        }
+      ]
+    },
+    {
+      "name": "CastSessionIncomingEvent",
+      "type": "object",
+      "description": "Event payload for a new incoming cast session.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver-local session id assigned to the incoming session."
+        },
+        {
+          "id": 2,
+          "name": "receiverPhase",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "incoming",
+            "authenticating"
+          ],
+          "description": "Receiver phase entered for the incoming session."
+        },
+        {
+          "id": 3,
+          "name": "protocol",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "airplay",
+            "hid",
+            "unknown"
+          ],
+          "description": "Protocol path used by the incoming session."
+        },
+        {
+          "id": 4,
+          "name": "source",
+          "type": "CastSourceSummary",
+          "required": false,
+          "deprecated": false,
+          "description": "Source summary when available."
+        },
+        {
+          "id": 5,
+          "name": "authRequired",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether this incoming session requires authentication."
+        },
+        {
+          "id": 6,
+          "name": "incomingAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp when the incoming session was observed."
+        }
+      ]
+    },
+    {
+      "name": "CastSessionStateChangedEvent",
+      "type": "object",
+      "description": "Event payload for receiver phase or backend session state changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver-local session id."
+        },
+        {
+          "id": 2,
+          "name": "previousReceiverPhase",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "authenticating",
+            "streamStarting",
+            "streaming",
+            "rendering",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "Previous receiver phase."
+        },
+        {
+          "id": 3,
+          "name": "receiverPhase",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "authenticating",
+            "streamStarting",
+            "streaming",
+            "rendering",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "New receiver phase."
+        },
+        {
+          "id": 4,
+          "name": "previousState",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "waitingForPassword",
+            "authenticated",
+            "preparing",
+            "casting",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "Previous backend-specific session state."
+        },
+        {
+          "id": 5,
+          "name": "sessionState",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "waitingForPassword",
+            "authenticated",
+            "preparing",
+            "casting",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "New backend-specific session state."
+        },
+        {
+          "id": 6,
+          "name": "protocol",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "airplay",
+            "hid",
+            "unknown"
+          ],
+          "description": "Protocol path represented by this event."
+        },
+        {
+          "id": 7,
+          "name": "authRequired",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether the current session phase requires authentication."
+        },
+        {
+          "id": 8,
+          "name": "media",
+          "type": "CastMediaSummary",
+          "required": false,
+          "deprecated": false,
+          "description": "Low-frequency media summary at the time of transition."
+        },
+        {
+          "id": 9,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "sessionStarted",
+            "mediaFlowStarted",
+            "externalRequest",
+            "sourceClosed",
+            "backendRestart",
+            "backendExited",
+            "authFailed",
+            "error",
+            "unknown"
+          ],
+          "description": "Transition reason."
+        },
+        {
+          "id": 10,
+          "name": "updatedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for the transition."
+        }
+      ]
+    },
+    {
+      "name": "CastSessionStartedEvent",
+      "type": "object",
+      "description": "Event payload for a user-visible cast session start.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "sessionId",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver-local started session id."
+        },
+        {
+          "id": 2,
+          "name": "receiverPhase",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "rendering"
+          ],
+          "description": "Receiver phase after first visible frame or local playback starts."
+        },
+        {
+          "id": 3,
+          "name": "sessionState",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "casting"
+          ],
+          "description": "Backend-specific state after session start."
+        },
+        {
+          "id": 4,
+          "name": "protocol",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "airplay",
+            "hid",
+            "unknown"
+          ],
+          "description": "Protocol path represented by the started session."
+        },
+        {
+          "id": 5,
+          "name": "source",
+          "type": "CastSourceSummary",
+          "required": false,
+          "deprecated": false,
+          "description": "Source summary when available."
+        },
+        {
+          "id": 6,
+          "name": "media",
+          "type": "CastMediaSummary",
+          "required": false,
+          "deprecated": false,
+          "description": "Media summary at session start."
+        },
+        {
+          "id": 7,
+          "name": "startedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp when the session became user-visible."
+        }
+      ]
+    },
+    {
+      "name": "CastSessionStoppedEvent",
+      "type": "object",
+      "description": "Event payload for a stopped cast session.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver-local stopped session id."
+        },
+        {
+          "id": 2,
+          "name": "previousReceiverPhase",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "authenticating",
+            "streamStarting",
+            "streaming",
+            "rendering",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "Receiver phase before stop completion."
+        },
+        {
+          "id": 3,
+          "name": "receiverPhase",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "ended",
+            "failed",
+            "idle"
+          ],
+          "description": "Receiver phase after stop completion."
+        },
+        {
+          "id": 4,
+          "name": "previousState",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "waitingForPassword",
+            "authenticated",
+            "preparing",
+            "casting",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "Backend-specific state before stop completion."
+        },
+        {
+          "id": 5,
+          "name": "sessionState",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "ended",
+            "failed",
+            "idle"
+          ],
+          "description": "Backend-specific state after stop completion."
+        },
+        {
+          "id": 6,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "externalRequest",
+            "sourceClosed",
+            "backendRestart",
+            "backendExited",
+            "shutdown",
+            "error",
+            "unknown"
+          ],
+          "description": "Stop reason."
+        },
+        {
+          "id": 7,
+          "name": "backendType",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "uxplay",
+            "unknown"
+          ],
+          "description": "Backend type associated with the stopped session."
+        },
+        {
+          "id": 8,
+          "name": "stoppedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp when the stop was observed."
+        }
+      ]
+    },
+    {
+      "name": "CastSessionFailedEvent",
+      "type": "object",
+      "description": "Event payload for cast session failure.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver-local failed session id when assigned."
+        },
+        {
+          "id": 2,
+          "name": "receiverPhase",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "failed"
+          ],
+          "description": "Receiver phase after failure."
+        },
+        {
+          "id": 3,
+          "name": "sessionState",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "failed"
+          ],
+          "description": "Backend-specific failed state."
+        },
+        {
+          "id": 4,
+          "name": "protocol",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "airplay",
+            "hid",
+            "unknown"
+          ],
+          "description": "Protocol path represented by the failed session."
+        },
+        {
+          "id": 5,
+          "name": "source",
+          "type": "CastSourceSummary",
+          "required": false,
+          "deprecated": false,
+          "description": "Source summary when available."
+        },
+        {
+          "id": 6,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "connectionFailed",
+            "authFailed",
+            "negotiationFailed",
+            "backendFailed",
+            "mediaFailed",
+            "unknown"
+          ],
+          "description": "Failure reason."
+        },
+        {
+          "id": 7,
+          "name": "error",
+          "type": "CastLastError",
+          "required": false,
+          "deprecated": false,
+          "description": "Redactable error summary."
+        },
+        {
+          "id": 8,
+          "name": "failedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp when the failure was observed."
+        }
+      ]
+    },
+    {
+      "name": "CastGetAudioParams",
+      "type": "object",
+      "description": "Selector for local cast audio state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "includeEffective",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether to include effective local playback state."
+        },
+        {
+          "id": 2,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional receiver-local session id."
+        }
+      ]
+    },
+    {
+      "name": "CastSetAudioParams",
+      "type": "object",
+      "description": "Request to enable or disable local cast audio playback.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "enabled",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether local receiver playback is enabled."
+        },
+        {
+          "id": 2,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional receiver-local session id."
+        },
+        {
+          "id": 3,
+          "name": "scope",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "currentSession",
+            "default"
+          ],
+          "description": "State target hint; this is not an authorization scope."
+        }
+      ]
+    },
+    {
+      "name": "CastSetMutedParams",
+      "type": "object",
+      "description": "Request to mute or unmute local cast audio output.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "muted",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether local receiver output is muted."
+        },
+        {
+          "id": 2,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional receiver-local session id."
+        },
+        {
+          "id": 3,
+          "name": "scope",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "currentSession",
+            "default"
+          ],
+          "description": "State target hint; this is not an authorization scope."
+        }
+      ]
+    },
+    {
+      "name": "CastAudioState",
+      "type": "object",
+      "description": "Local cast audio playback and mute state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "enabled",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether local receiver playback is enabled."
+        },
+        {
+          "id": 2,
+          "name": "muted",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether local receiver output is muted."
+        },
+        {
+          "id": 3,
+          "name": "effectivePlayback",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether audio is effectively playing locally after state and session conditions are applied."
+        },
+        {
+          "id": 4,
+          "name": "scope",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "currentSession",
+            "default"
+          ],
+          "description": "State target hint represented by this snapshot."
+        },
+        {
+          "id": 5,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver-local session id for session-specific state."
+        },
+        {
+          "id": 6,
+          "name": "source",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "defaultConfig",
+            "externalSet",
+            "localUi",
+            "sessionStarted",
+            "sessionStopped",
+            "unknown"
+          ],
+          "description": "Source of the latest state value."
+        },
+        {
+          "id": 7,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "receiverDefault",
+            "externalSet",
+            "localUi",
+            "sessionStarted",
+            "sessionStopped",
+            "unknown"
+          ],
+          "description": "Latest audio state transition reason."
+        },
+        {
+          "id": 8,
+          "name": "changedFields",
+          "type": "array",
+          "required": false,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Field names changed by the latest operation or event."
+        },
+        {
+          "id": 9,
+          "name": "updatedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this audio state."
+        }
+      ]
+    },
+    {
+      "name": "CastAudioChangedEvent",
+      "type": "object",
+      "description": "Event payload for local cast audio state changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "changedFields",
+          "type": "array",
+          "required": true,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Field names changed by this event."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "CastAudioState",
+          "required": true,
+          "deprecated": false,
+          "description": "State after the change."
+        },
+        {
+          "id": 3,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "externalSet",
+            "localUi",
+            "sessionStarted",
+            "sessionStopped",
+            "unknown"
+          ],
+          "description": "Change reason."
+        },
+        {
+          "id": 4,
+          "name": "updatedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this event."
+        }
+      ]
+    },
+    {
+      "name": "CastGetPinCodeConfigParams",
+      "type": "object",
+      "description": "Selector for cast PIN protection configuration.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "includeSecret",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether authorized clients request plaintext PIN material."
+        }
+      ]
+    },
+    {
+      "name": "CastSetPinCodeConfigParams",
+      "type": "object",
+      "description": "Request to update cast PIN protection configuration.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "enabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether PIN protection is enabled."
+        },
+        {
+          "id": 2,
+          "name": "pinDisplay",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "hidden",
+            "authorizedClients",
+            "localUi",
+            "both"
+          ],
+          "description": "Where the current PIN may be displayed."
+        },
+        {
+          "id": 3,
+          "name": "rotatePin",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether the receiver should rotate or regenerate the PIN."
+        },
+        {
+          "id": 4,
+          "name": "visibility",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "hidden",
+            "authorizedOnly",
+            "localUi",
+            "both"
+          ],
+          "description": "Visibility policy for responses and events."
+        }
+      ]
+    },
+    {
+      "name": "CastSetPinCodeParams",
+      "type": "object",
+      "description": "Request to set the active cast PIN value.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "pinCode",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "description": "Opaque PIN value; concrete format is backend or product policy."
+        },
+        {
+          "id": 2,
+          "name": "expirePrevious",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether prior PIN material should stop being accepted."
+        },
+        {
+          "id": 3,
+          "name": "visibility",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "hidden",
+            "authorizedOnly",
+            "localUi",
+            "both"
+          ],
+          "description": "Visibility policy for the new PIN."
+        }
+      ]
+    },
+    {
+      "name": "CastPinCodeConfig",
+      "type": "object",
+      "description": "Cast PIN protection state and optional plaintext PIN value.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "enabled",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether PIN protection is enabled."
+        },
+        {
+          "id": 2,
+          "name": "hasPinCode",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether a current PIN exists."
+        },
+        {
+          "id": 3,
+          "name": "pinCode",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "description": "Plaintext PIN value when visible to the caller."
+        },
+        {
+          "id": 4,
+          "name": "pinDisplay",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "hidden",
+            "authorizedClients",
+            "localUi",
+            "both"
+          ],
+          "description": "Where the current PIN may be displayed."
+        },
+        {
+          "id": 5,
+          "name": "generatedBy",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "nearcast",
+            "uxplay",
+            "external",
+            "unknown"
+          ],
+          "description": "Component or actor that generated the current PIN."
+        },
+        {
+          "id": 6,
+          "name": "visibility",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "hidden",
+            "authorizedOnly",
+            "localUi",
+            "both"
+          ],
+          "description": "Visibility policy for the PIN value."
+        },
+        {
+          "id": 7,
+          "name": "expiresAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Expiration timestamp when applicable."
+        },
+        {
+          "id": 8,
+          "name": "redactionRequired",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether logs, diagnostics, and error summaries must redact the PIN."
+        },
+        {
+          "id": 9,
+          "name": "changedFields",
+          "type": "array",
+          "required": false,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Field names changed by the latest operation or event."
+        },
+        {
+          "id": 10,
+          "name": "updatedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this PIN state."
+        },
+        {
+          "id": 11,
+          "name": "redacted",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether sensitive fields were withheld in this snapshot."
+        }
+      ]
+    },
+    {
+      "name": "CastPinCodeChangedEvent",
+      "type": "object",
+      "description": "Event payload for PIN configuration or PIN state changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "changedFields",
+          "type": "array",
+          "required": true,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Field names changed by this event."
+        },
+        {
+          "id": 2,
+          "name": "config",
+          "type": "CastPinCodeConfig",
+          "required": true,
+          "deprecated": false,
+          "description": "PIN state after the change."
+        },
+        {
+          "id": 3,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "externalSet",
+            "localUi",
+            "generated",
+            "backendChanged",
+            "unknown"
+          ],
+          "description": "Change reason."
+        },
+        {
+          "id": 4,
+          "name": "updatedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this event."
+        }
+      ]
+    },
+    {
+      "name": "CastPinCodeRequiredEvent",
+      "type": "object",
+      "description": "Event payload for a session waiting for PIN authentication.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver-local session id."
+        },
+        {
+          "id": 2,
+          "name": "source",
+          "type": "CastSourceSummary",
+          "required": false,
+          "deprecated": false,
+          "description": "Source waiting for authentication."
+        },
+        {
+          "id": 3,
+          "name": "pinCode",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "description": "Plaintext PIN value when visible to the event subscriber."
+        },
+        {
+          "id": 4,
+          "name": "visibility",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "hidden",
+            "authorizedOnly",
+            "localUi",
+            "both"
+          ],
+          "description": "Visibility policy for this event payload."
+        },
+        {
+          "id": 5,
+          "name": "redactionRequired",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether logs and diagnostics must redact this PIN value."
+        },
+        {
+          "id": 6,
+          "name": "requestedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp when PIN input was requested."
+        }
+      ]
+    },
+    {
+      "name": "CastPinCodeAuthFailedEvent",
+      "type": "object",
+      "description": "Event payload for failed PIN authentication.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver-local session id."
+        },
+        {
+          "id": 2,
+          "name": "source",
+          "type": "CastSourceSummary",
+          "required": false,
+          "deprecated": false,
+          "description": "Source that failed authentication."
+        },
+        {
+          "id": 3,
+          "name": "authFailureReason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "wrongPin",
+            "timeout",
+            "cancelled",
+            "tooManyAttempts",
+            "unknown"
+          ],
+          "description": "Authentication failure reason."
+        },
+        {
+          "id": 4,
+          "name": "attemptCount",
+          "type": "uint16",
+          "required": false,
+          "deprecated": false,
+          "description": "Attempt count visible to the receiver."
+        },
+        {
+          "id": 5,
+          "name": "failedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp when authentication failed."
+        }
+      ]
+    },
+    {
+      "name": "CastRect",
+      "type": "object",
+      "description": "Cast window rectangle in screen coordinates.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "x",
+          "type": "int32",
+          "required": true,
+          "deprecated": false,
+          "description": "Rectangle left coordinate."
+        },
+        {
+          "id": 2,
+          "name": "y",
+          "type": "int32",
+          "required": true,
+          "deprecated": false,
+          "description": "Rectangle top coordinate."
+        },
+        {
+          "id": 3,
+          "name": "width",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "Rectangle width in pixels."
+        },
+        {
+          "id": 4,
+          "name": "height",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "Rectangle height in pixels."
+        }
+      ]
+    },
+    {
+      "name": "CastSetWindowStateParams",
+      "type": "object",
+      "description": "Request to update cast window state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "mode",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "normal",
+            "fullscreen"
+          ],
+          "description": "Target cast window mode."
+        },
+        {
+          "id": 2,
+          "name": "fullscreen",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether the cast window should be fullscreen."
+        },
+        {
+          "id": 3,
+          "name": "alwaysOnTop",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether the cast window should stay above normal windows."
+        },
+        {
+          "id": 4,
+          "name": "bounds",
+          "type": "CastRect",
+          "required": false,
+          "deprecated": false,
+          "description": "Optional target normal-mode window bounds."
+        }
+      ]
+    },
+    {
+      "name": "CastWindowState",
+      "type": "object",
+      "description": "Cast window visibility, mode, and bounds state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "hasWindow",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether a cast window currently exists."
+        },
+        {
+          "id": 2,
+          "name": "visible",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the cast window is visible."
+        },
+        {
+          "id": 3,
+          "name": "mode",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "normal",
+            "fullscreen"
+          ],
+          "description": "Current cast window mode."
+        },
+        {
+          "id": 4,
+          "name": "fullscreen",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the cast window is fullscreen."
+        },
+        {
+          "id": 5,
+          "name": "alwaysOnTop",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the cast window is topmost."
+        },
+        {
+          "id": 6,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver-local session id associated with the window."
+        },
+        {
+          "id": 7,
+          "name": "bounds",
+          "type": "CastRect",
+          "required": false,
+          "deprecated": false,
+          "description": "Current window bounds when available."
+        },
+        {
+          "id": 8,
+          "name": "previousNormalBounds",
+          "type": "CastRect",
+          "required": false,
+          "deprecated": false,
+          "description": "Normal-mode bounds recorded before fullscreen or topmost mode."
+        },
+        {
+          "id": 9,
+          "name": "restoredBounds",
+          "type": "CastRect",
+          "required": false,
+          "deprecated": false,
+          "description": "Bounds restored by the latest transition."
+        },
+        {
+          "id": 10,
+          "name": "changedFields",
+          "type": "array",
+          "required": false,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Field names changed by the latest operation or event."
+        },
+        {
+          "id": 11,
+          "name": "updatedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this window state."
+        }
+      ]
+    },
+    {
+      "name": "CastWindowChangedEvent",
+      "type": "object",
+      "description": "Event payload for cast window state changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "changedFields",
+          "type": "array",
+          "required": true,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Field names changed by this event."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "CastWindowState",
+          "required": true,
+          "deprecated": false,
+          "description": "Window state after the change."
+        },
+        {
+          "id": 3,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "externalSet",
+            "localUi",
+            "sessionStarted",
+            "sessionStopped",
+            "unknown"
+          ],
+          "description": "Change reason."
+        },
+        {
+          "id": 4,
+          "name": "updatedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this event."
+        }
+      ]
+    },
+    {
+      "name": "CastGetBackendStatusParams",
+      "type": "object",
+      "description": "Selector for cast backend status.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "includeLastError",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether to include the last backend error summary."
+        }
+      ]
+    },
+    {
+      "name": "CastRestartBackendParams",
+      "type": "object",
+      "description": "Request to restart the cast backend.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "manualRecovery",
+            "configChanged",
+            "backendUnhealthy",
+            "unknown"
+          ],
+          "description": "Caller-visible restart reason."
+        },
+        {
+          "id": 2,
+          "name": "force",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether the backend adapter may force cleanup before restart."
+        }
+      ]
+    },
+    {
+      "name": "CastBackendStatus",
+      "type": "object",
+      "description": "Cast backend state, process summary, discoverability, and last error.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "backendType",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "uxplay",
+            "unknown"
+          ],
+          "description": "Backend implementation type."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "starting",
+            "ready",
+            "restarting",
+            "exited",
+            "failed",
+            "disabled"
+          ],
+          "description": "Backend runtime state."
+        },
+        {
+          "id": 3,
+          "name": "discoverable",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the cast service is discoverable by sources."
+        },
+        {
+          "id": 4,
+          "name": "pid",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Backend process id when available."
+        },
+        {
+          "id": 5,
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Backend version or build identifier."
+        },
+        {
+          "id": 6,
+          "name": "activeSessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Active cast session id currently owned by the backend."
+        },
+        {
+          "id": 7,
+          "name": "restartInProgress",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether a backend restart is currently in progress."
+        },
+        {
+          "id": 8,
+          "name": "lastError",
+          "type": "CastLastError",
+          "required": false,
+          "deprecated": false,
+          "description": "Last backend error summary when requested and available."
+        },
+        {
+          "id": 9,
+          "name": "updatedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this backend status."
+        }
+      ]
+    },
+    {
+      "name": "CastRestartBackendResult",
+      "type": "object",
+      "description": "Result of requesting a cast backend restart.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "accepted",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether the receiver accepted the restart request."
+        },
+        {
+          "id": 2,
+          "name": "backendType",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "uxplay",
+            "unknown"
+          ],
+          "description": "Backend implementation affected by the restart."
+        },
+        {
+          "id": 3,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "starting",
+            "ready",
+            "restarting",
+            "exited",
+            "failed",
+            "disabled"
+          ],
+          "description": "Backend state after accepting the restart request."
+        },
+        {
+          "id": 4,
+          "name": "restartId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver-local restart operation id."
+        },
+        {
+          "id": 5,
+          "name": "activeSessionEnded",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether an active cast session was ended by the restart."
+        },
+        {
+          "id": 6,
+          "name": "endedSessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Session ended by the restart."
+        },
+        {
+          "id": 7,
+          "name": "sessionStopReason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "backendRestart",
+            "backendExited",
+            "error",
+            "unknown"
+          ],
+          "description": "Session stop reason reported for the ended session."
+        },
+        {
+          "id": 8,
+          "name": "estimatedReadyInMs",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Estimated backend recovery time in milliseconds."
+        },
+        {
+          "id": 9,
+          "name": "updatedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this restart result."
+        }
+      ]
+    },
+    {
+      "name": "CastBackendChangedEvent",
+      "type": "object",
+      "description": "Event payload for cast backend state changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "changedFields",
+          "type": "array",
+          "required": true,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Field names changed by this event."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "CastBackendStatus",
+          "required": true,
+          "deprecated": false,
+          "description": "Backend status after the change."
+        },
+        {
+          "id": 3,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "manualRecovery",
+            "configChanged",
+            "backendUnhealthy",
+            "backendExited",
+            "unknown"
+          ],
+          "description": "Change reason."
+        },
+        {
+          "id": 4,
+          "name": "restartId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Restart operation id when this event is restart-related."
+        },
+        {
+          "id": 5,
+          "name": "activeSessionEnded",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether this backend change ended an active session."
+        },
+        {
+          "id": 6,
+          "name": "endedSessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Session ended by this backend change."
+        },
+        {
+          "id": 7,
+          "name": "updatedAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this event."
+        }
+      ]
+    },
+    {
+      "name": "CastGetFlowControlStateParams",
+      "type": "object",
+      "description": "Selector for cast receiver flow control state.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "includeStats",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether to include low-frequency diagnostic counters."
+        },
+        {
+          "id": 2,
+          "name": "includePolicy",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether to include current flow policy fields."
+        },
+        {
+          "id": 3,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional receiver-local session id."
+        }
+      ]
+    },
+    {
+      "name": "CastSetRenderFpsParams",
+      "type": "object",
+      "description": "Request to set receiver-local target render fps.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "fps",
+          "type": "number",
+          "required": true,
+          "deprecated": false,
+          "min": 0,
+          "description": "Target local render fps; zero means uncapped."
+        },
+        {
+          "id": 2,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional receiver-local session id."
+        },
+        {
+          "id": 3,
+          "name": "scope",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "currentSession",
+            "default"
+          ],
+          "description": "State target hint; this is not an authorization scope."
+        }
+      ]
+    },
+    {
+      "name": "CastSetFlowPolicyParams",
+      "type": "object",
+      "description": "Request to update receiver-local queue, late-frame, drop, and overlay policy.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "videoQueueFrames",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "min": 1,
+          "description": "Maximum queued video frames."
+        },
+        {
+          "id": 2,
+          "name": "lateFrameThresholdMs",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Late-frame threshold in milliseconds."
+        },
+        {
+          "id": 3,
+          "name": "dropMode",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "drop-late",
+            "drop-oldest",
+            "render-latest"
+          ],
+          "description": "Local frame drop policy."
+        },
+        {
+          "id": 4,
+          "name": "overlayEnabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether receiver diagnostics overlay is enabled."
+        },
+        {
+          "id": 5,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Optional receiver-local session id."
+        },
+        {
+          "id": 6,
+          "name": "scope",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "currentSession",
+            "default"
+          ],
+          "description": "State target hint; this is not an authorization scope."
+        }
+      ]
+    },
+    {
+      "name": "CastFlowControlState",
+      "type": "object",
+      "description": "Receiver-local cast flow control policy and low-frequency statistics.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "targetRenderFps",
+          "type": "number",
+          "required": true,
+          "deprecated": false,
+          "min": 0,
+          "description": "Configured target render fps; zero means uncapped."
+        },
+        {
+          "id": 2,
+          "name": "inputFps",
+          "type": "number",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "description": "Estimated incoming media frame rate."
+        },
+        {
+          "id": 3,
+          "name": "renderFps",
+          "type": "number",
+          "required": false,
+          "deprecated": false,
+          "min": 0,
+          "description": "Estimated local render frame rate."
+        },
+        {
+          "id": 4,
+          "name": "dropMode",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "drop-late",
+            "drop-oldest",
+            "render-latest"
+          ],
+          "description": "Local frame drop policy."
+        },
+        {
+          "id": 5,
+          "name": "videoQueueFrames",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "min": 1,
+          "description": "Maximum queued video frames."
+        },
+        {
+          "id": 6,
+          "name": "videoQueueDepth",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Current queued video frame depth."
+        },
+        {
+          "id": 7,
+          "name": "audioQueueDepth",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Current queued audio frame depth when known."
+        },
+        {
+          "id": 8,
+          "name": "lateFrameThresholdMs",
+          "type": "uint32",
+          "required": true,
+          "deprecated": false,
+          "description": "Late-frame threshold in milliseconds."
+        },
+        {
+          "id": 9,
+          "name": "overlayEnabled",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether diagnostics overlay is enabled."
+        },
+        {
+          "id": 10,
+          "name": "droppedFrames",
+          "type": "uint64",
+          "required": false,
+          "deprecated": false,
+          "description": "Low-frequency dropped-frame counter."
+        },
+        {
+          "id": 11,
+          "name": "lateFrames",
+          "type": "uint64",
+          "required": false,
+          "deprecated": false,
+          "description": "Low-frequency late-frame counter."
+        },
+        {
+          "id": 12,
+          "name": "keyframeRequestCount",
+          "type": "uint32",
+          "required": false,
+          "deprecated": false,
+          "description": "Internal keyframe requests triggered by receiver policy."
+        },
+        {
+          "id": 13,
+          "name": "keyFrameOnDropBurst",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether the receiver may internally request a keyframe after a drop burst."
+        },
+        {
+          "id": 14,
+          "name": "changedFields",
+          "type": "array",
+          "required": false,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Field names changed by the latest operation or event."
+        },
+        {
+          "id": 15,
+          "name": "sampledAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this flow sample."
+        }
+      ]
+    },
+    {
+      "name": "CastFlowControlChangedEvent",
+      "type": "object",
+      "description": "Event payload for cast flow control changes or low-frequency diagnostic samples.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "changedFields",
+          "type": "array",
+          "required": true,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Field names changed or sampled by this event."
+        },
+        {
+          "id": 2,
+          "name": "state",
+          "type": "CastFlowControlState",
+          "required": true,
+          "deprecated": false,
+          "description": "Flow control state after the change or sample."
+        },
+        {
+          "id": 3,
+          "name": "reason",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "manualFlowControl",
+            "diagnosticsSample",
+            "sessionStarted",
+            "sessionStopped",
+            "unknown"
+          ],
+          "description": "Change or sampling reason."
+        },
+        {
+          "id": 4,
+          "name": "sampledAt",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this event."
+        }
+      ]
+    },
+    {
+      "name": "CastGetStatusParams",
+      "type": "object",
+      "description": "Selector for aggregate cast receiver status.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "include",
+          "type": "array",
+          "required": false,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Optional status sections to include."
+        },
+        {
+          "id": 2,
+          "name": "includeSensitive",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether authorized callers request sensitive summary fields."
+        }
+      ]
+    },
+    {
+      "name": "CastReceiverSummary",
+      "type": "object",
+      "description": "Aggregate receiver role and protocol-neutral phase summary.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "role",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "receiver"
+          ],
+          "description": "Cast endpoint role."
+        },
+        {
+          "id": 2,
+          "name": "protocols",
+          "type": "array",
+          "required": true,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported or active cast protocol paths."
+        },
+        {
+          "id": 3,
+          "name": "state",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "disabled",
+            "starting",
+            "ready",
+            "busy",
+            "failed"
+          ],
+          "description": "Receiver service availability state."
+        },
+        {
+          "id": 4,
+          "name": "receiverPhase",
+          "type": "enum",
+          "required": true,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "authenticating",
+            "streamStarting",
+            "streaming",
+            "rendering",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "Protocol-neutral receiver phase."
+        }
+      ]
+    },
+    {
+      "name": "CastSessionStatusSummary",
+      "type": "object",
+      "description": "Aggregate active session summary for status views.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "sessionId",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "Receiver-local session id."
+        },
+        {
+          "id": 2,
+          "name": "receiverPhase",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "authenticating",
+            "streamStarting",
+            "streaming",
+            "rendering",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "Protocol-neutral receiver phase."
+        },
+        {
+          "id": 3,
+          "name": "sessionState",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "idle",
+            "incoming",
+            "waitingForPassword",
+            "authenticated",
+            "preparing",
+            "casting",
+            "interrupted",
+            "stopping",
+            "ended",
+            "failed"
+          ],
+          "description": "Backend-specific session state."
+        },
+        {
+          "id": 4,
+          "name": "protocol",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "airplay",
+            "hid",
+            "unknown"
+          ],
+          "description": "Protocol path represented by the active session."
+        },
+        {
+          "id": 5,
+          "name": "sourceName",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "maxLength": 128,
+          "description": "User-visible source name."
+        }
+      ]
+    },
+    {
+      "name": "CastPinCodeStatusSummary",
+      "type": "object",
+      "description": "Aggregate PIN summary for status views.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "enabled",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether PIN protection is enabled."
+        },
+        {
+          "id": 2,
+          "name": "hasPinCode",
+          "type": "bool",
+          "required": true,
+          "deprecated": false,
+          "description": "Whether a current PIN exists."
+        },
+        {
+          "id": 3,
+          "name": "pinDisplay",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "hidden",
+            "authorizedClients",
+            "localUi",
+            "both"
+          ],
+          "description": "Where the current PIN may be displayed."
+        },
+        {
+          "id": 4,
+          "name": "pinCode",
+          "type": "string",
+          "required": false,
+          "deprecated": false,
+          "description": "Plaintext PIN value when visible to the caller."
+        },
+        {
+          "id": 5,
+          "name": "redacted",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether sensitive fields were withheld."
+        },
+        {
+          "id": 6,
+          "name": "visibility",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "hidden",
+            "authorizedOnly",
+            "localUi",
+            "both"
+          ],
+          "description": "Visibility policy applied to this summary."
+        }
+      ]
+    },
+    {
+      "name": "CastStatus",
+      "type": "object",
+      "description": "Low-frequency aggregate cast receiver status.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "receiver",
+          "type": "CastReceiverSummary",
+          "required": true,
+          "deprecated": false,
+          "description": "Receiver role and phase summary."
+        },
+        {
+          "id": 2,
+          "name": "session",
+          "type": "CastSessionStatusSummary",
+          "required": false,
+          "deprecated": false,
+          "description": "Active session summary."
+        },
+        {
+          "id": 3,
+          "name": "pinCode",
+          "type": "CastPinCodeStatusSummary",
+          "required": false,
+          "deprecated": false,
+          "description": "PIN protection summary."
+        },
+        {
+          "id": 4,
+          "name": "audio",
+          "type": "CastAudioState",
+          "required": false,
+          "deprecated": false,
+          "description": "Local audio summary."
+        },
+        {
+          "id": 5,
+          "name": "window",
+          "type": "CastWindowState",
+          "required": false,
+          "deprecated": false,
+          "description": "Cast window summary."
+        },
+        {
+          "id": 6,
+          "name": "backend",
+          "type": "CastBackendStatus",
+          "required": false,
+          "deprecated": false,
+          "description": "Backend summary."
+        },
+        {
+          "id": 7,
+          "name": "flowControl",
+          "type": "CastFlowControlState",
+          "required": false,
+          "deprecated": false,
+          "description": "Flow control summary."
+        },
+        {
+          "id": 8,
+          "name": "sampledAt",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this aggregate snapshot."
+        },
+        {
+          "id": 9,
+          "name": "redacted",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "description": "Whether any sensitive aggregate fields were withheld."
+        }
+      ]
+    },
+    {
+      "name": "CastStatusChangedEvent",
+      "type": "object",
+      "description": "Event payload for low-frequency aggregate status changes.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "changedSections",
+          "type": "array",
+          "required": true,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Status section names changed by this event."
+        },
+        {
+          "id": 2,
+          "name": "status",
+          "type": "CastStatus",
+          "required": true,
+          "deprecated": false,
+          "description": "Aggregate status after the change."
+        },
+        {
+          "id": 3,
+          "name": "sampledAt",
+          "type": "string",
+          "required": true,
+          "deprecated": false,
+          "maxLength": 64,
+          "description": "Timestamp for this aggregate event."
+        }
+      ]
+    },
+    {
+      "name": "CastSessionCapability",
+      "type": "object",
+      "description": "Capability descriptor for cast.session.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "protocols",
+          "type": "array",
+          "required": true,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Cast protocol paths represented by the receiver."
+        },
+        {
+          "id": 2,
+          "name": "receiverPhases",
+          "type": "array",
+          "required": true,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Supported protocol-neutral receiver phases."
+        },
+        {
+          "id": 3,
+          "name": "supportsAirPlayName",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether AirPlay display name query and update are supported."
+        },
+        {
+          "id": 4,
+          "name": "supportsStopSession",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether active cast sessions can be stopped through cast.stopSession."
+        },
+        {
+          "id": 5,
+          "name": "backendTypes",
+          "type": "array",
+          "required": false,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Backend implementations represented by this receiver."
+        }
+      ]
+    },
+    {
+      "name": "CastAudioCapability",
+      "type": "object",
+      "description": "Capability descriptor for cast.audio.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "defaultEnabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Default local playback enablement for received cast audio."
+        },
+        {
+          "id": 2,
+          "name": "supportsMute",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether local mute state can be controlled separately."
+        },
+        {
+          "id": 3,
+          "name": "reportsEffectivePlayback",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether the receiver reports effective local playback state."
+        }
+      ]
+    },
+    {
+      "name": "CastPinCodeCapability",
+      "type": "object",
+      "description": "Capability descriptor for cast.pinCode.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "defaultEnabled",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether PIN protection is enabled by default."
+        },
+        {
+          "id": 2,
+          "name": "supportsPlaintextResponse",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether authorized responses or events may carry plaintext PIN values."
+        },
+        {
+          "id": 3,
+          "name": "supportedPinDisplays",
+          "type": "array",
+          "required": false,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "PIN display policies supported by the receiver."
+        },
+        {
+          "id": 4,
+          "name": "supportsGeneratedPin",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether the receiver can generate a default PIN."
+        },
+        {
+          "id": 5,
+          "name": "redactionRequired",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether logs, diagnostics, and error summaries must redact PIN values."
+        }
+      ]
+    },
+    {
+      "name": "CastWindowCapability",
+      "type": "object",
+      "description": "Capability descriptor for cast.window.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "supportsFullscreen",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether fullscreen window mode is supported."
+        },
+        {
+          "id": 2,
+          "name": "supportsAlwaysOnTop",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether topmost window state is supported."
+        },
+        {
+          "id": 3,
+          "name": "supportsNormalRestore",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether normal mode can restore previous normal bounds."
+        },
+        {
+          "id": 4,
+          "name": "noWindowPolicy",
+          "type": "enum",
+          "required": false,
+          "deprecated": false,
+          "enum": [
+            "reject",
+            "remember",
+            "runtimeDefault"
+          ],
+          "description": "Receiver policy when a window command is received without an active cast window."
+        }
+      ]
+    },
+    {
+      "name": "CastBackendCapability",
+      "type": "object",
+      "description": "Capability descriptor for cast.backend.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "backendTypes",
+          "type": "array",
+          "required": true,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Backend implementations controlled by the receiver."
+        },
+        {
+          "id": 2,
+          "name": "supportsRestart",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether cast.restartBackend is supported."
+        },
+        {
+          "id": 3,
+          "name": "reportsProcess",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether backend process metadata such as pid may be reported."
+        },
+        {
+          "id": 4,
+          "name": "supportsLastError",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether last backend error summaries are available."
+        }
+      ]
+    },
+    {
+      "name": "CastFlowControlCapability",
+      "type": "object",
+      "description": "Capability descriptor for cast.flowControl.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "supportsRenderFps",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether receiver-local target render fps can be controlled."
+        },
+        {
+          "id": 2,
+          "name": "supportsQueuePolicy",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether queue and late-frame policy can be controlled."
+        },
+        {
+          "id": 3,
+          "name": "supportsOverlay",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether diagnostics overlay can be controlled."
+        },
+        {
+          "id": 4,
+          "name": "supportsStats",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether low-frequency flow diagnostics are reported."
+        },
+        {
+          "id": 5,
+          "name": "exposesExternalKeyframeRequest",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": false,
+          "description": "Whether a public keyframe request method is exposed; current draft keeps this false."
+        }
+      ]
+    },
+    {
+      "name": "CastStatusCapability",
+      "type": "object",
+      "description": "Capability descriptor for cast.status.",
+      "fields": [
+        {
+          "id": 1,
+          "name": "sections",
+          "type": "array",
+          "required": true,
+          "deprecated": false,
+          "array": {
+            "itemType": "string"
+          },
+          "description": "Aggregate status sections the receiver can report."
+        },
+        {
+          "id": 2,
+          "name": "supportsSensitiveRedaction",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether sensitive status fields can be withheld and marked redacted."
+        },
+        {
+          "id": 3,
+          "name": "supportsStatusChangedEvent",
+          "type": "bool",
+          "required": false,
+          "deprecated": false,
+          "default": true,
+          "description": "Whether low-frequency aggregate status change events are supported."
+        }
+      ]
+    },
+    {
       "name": "GetDeviceInfoParams",
       "type": "object",
       "description": "Optional selector for the read-only device information snapshot.",
