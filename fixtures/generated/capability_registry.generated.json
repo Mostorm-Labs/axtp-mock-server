@@ -147,6 +147,90 @@
       "type": "object",
       "schema": "NetworkApCapabilities",
       "idHex": "0x0E04"
+    },
+    {
+      "id": 5633,
+      "name": "cast.session",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Device supports cast receiver session phase, AirPlay name, and session stop control.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "CastSessionCapability",
+      "idHex": "0x1601"
+    },
+    {
+      "id": 5634,
+      "name": "cast.audio",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Device supports local cast audio playback and mute control.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "CastAudioCapability",
+      "idHex": "0x1602"
+    },
+    {
+      "id": 5635,
+      "name": "cast.pinCode",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Device supports cast PIN protection, PIN state, and authentication events.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "CastPinCodeCapability",
+      "idHex": "0x1603"
+    },
+    {
+      "id": 5636,
+      "name": "cast.window",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Device supports cast window state query and mode control.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "CastWindowCapability",
+      "idHex": "0x1604"
+    },
+    {
+      "id": 5637,
+      "name": "cast.backend",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Device supports cast backend status query and restart control.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "CastBackendCapability",
+      "idHex": "0x1605"
+    },
+    {
+      "id": 5638,
+      "name": "cast.flowControl",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Device supports receiver-local cast render fps, queue, drop, overlay, and diagnostics control.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "CastFlowControlCapability",
+      "idHex": "0x1606"
+    },
+    {
+      "id": 5639,
+      "name": "cast.status",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Device supports low-frequency aggregate cast receiver status query and change events.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "CastStatusCapability",
+      "idHex": "0x1607"
     }
   ]
 }

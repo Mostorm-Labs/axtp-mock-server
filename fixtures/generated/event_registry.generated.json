@@ -360,6 +360,289 @@
         "network.ap"
       ],
       "idHex": "0x0E08"
+    },
+    {
+      "id": 5633,
+      "bitOffset": 0,
+      "name": "cast.sessionIncoming",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Emitted when a cast source initiates a receiver session.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "CastSessionIncomingEvent",
+      "severity": "info",
+      "trigger": [
+        "source connected",
+        "backend incoming session"
+      ],
+      "capabilities": [
+        "cast.session"
+      ],
+      "idHex": "0x1601"
+    },
+    {
+      "id": 5634,
+      "bitOffset": 1,
+      "name": "cast.sessionStateChanged",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Emitted when receiver phase, protocol state, or low-frequency session media state changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "CastSessionStateChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "incoming session",
+        "authentication",
+        "stream starting",
+        "media flow started",
+        "interruption",
+        "stopping"
+      ],
+      "capabilities": [
+        "cast.session"
+      ],
+      "idHex": "0x1602"
+    },
+    {
+      "id": 5635,
+      "bitOffset": 2,
+      "name": "cast.sessionStarted",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Emitted when a cast session becomes user-visible after first frame or local playback starts.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "CastSessionStartedEvent",
+      "severity": "info",
+      "trigger": [
+        "first frame rendered",
+        "local playback started"
+      ],
+      "capabilities": [
+        "cast.session"
+      ],
+      "idHex": "0x1603"
+    },
+    {
+      "id": 5636,
+      "bitOffset": 3,
+      "name": "cast.sessionStopped",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Emitted when a cast session ends normally or is forced to stop.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "CastSessionStoppedEvent",
+      "severity": "info",
+      "trigger": [
+        "cast.stopSession",
+        "source closed",
+        "backend restart",
+        "backend exited"
+      ],
+      "capabilities": [
+        "cast.session"
+      ],
+      "idHex": "0x1604"
+    },
+    {
+      "id": 5637,
+      "bitOffset": 4,
+      "name": "cast.sessionFailed",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Emitted when cast connection, authentication, negotiation, or backend handling fails.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "CastSessionFailedEvent",
+      "severity": "error",
+      "trigger": [
+        "connection failed",
+        "authentication failed",
+        "media negotiation failed",
+        "backend failed"
+      ],
+      "capabilities": [
+        "cast.session"
+      ],
+      "idHex": "0x1605"
+    },
+    {
+      "id": 5638,
+      "bitOffset": 5,
+      "name": "cast.audioChanged",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Emitted when local cast audio playback or mute state changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "CastAudioChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "cast.setAudio",
+        "cast.setMuted",
+        "local UI",
+        "session started",
+        "session stopped"
+      ],
+      "capabilities": [
+        "cast.audio"
+      ],
+      "idHex": "0x1606"
+    },
+    {
+      "id": 5639,
+      "bitOffset": 6,
+      "name": "cast.pinCodeChanged",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Emitted when cast PIN protection configuration or current PIN state changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "CastPinCodeChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "cast.setPinCodeConfig",
+        "cast.setPinCode",
+        "generated PIN changed"
+      ],
+      "capabilities": [
+        "cast.pinCode"
+      ],
+      "idHex": "0x1607"
+    },
+    {
+      "id": 5640,
+      "bitOffset": 7,
+      "name": "cast.pinCodeRequired",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Emitted when a cast source is waiting for PIN authentication.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "CastPinCodeRequiredEvent",
+      "severity": "info",
+      "trigger": [
+        "incoming session requires PIN"
+      ],
+      "capabilities": [
+        "cast.pinCode"
+      ],
+      "idHex": "0x1608"
+    },
+    {
+      "id": 5641,
+      "bitOffset": 8,
+      "name": "cast.pinCodeAuthFailed",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Emitted when PIN authentication fails, times out, or is cancelled.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "CastPinCodeAuthFailedEvent",
+      "severity": "warning",
+      "trigger": [
+        "wrong PIN",
+        "authentication timeout",
+        "authentication cancelled",
+        "too many attempts"
+      ],
+      "capabilities": [
+        "cast.pinCode"
+      ],
+      "idHex": "0x1609"
+    },
+    {
+      "id": 5642,
+      "bitOffset": 9,
+      "name": "cast.windowChanged",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Emitted when cast window visibility, mode, topmost state, or bounds changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "CastWindowChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "cast.setWindowState",
+        "local UI",
+        "session started",
+        "session stopped"
+      ],
+      "capabilities": [
+        "cast.window"
+      ],
+      "idHex": "0x160A"
+    },
+    {
+      "id": 5643,
+      "bitOffset": 10,
+      "name": "cast.backendChanged",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Emitted when cast backend ready, restart, exit, failed, or discoverable state changes.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "CastBackendChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "backend started",
+        "backend restarting",
+        "backend exited",
+        "backend failed",
+        "discovery changed"
+      ],
+      "capabilities": [
+        "cast.backend"
+      ],
+      "idHex": "0x160B"
+    },
+    {
+      "id": 5644,
+      "bitOffset": 11,
+      "name": "cast.flowControlChanged",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Emitted when receiver-local cast flow policy or low-frequency flow statistics change.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "CastFlowControlChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "cast.setRenderFps",
+        "cast.setFlowPolicy",
+        "diagnostics sample"
+      ],
+      "capabilities": [
+        "cast.flowControl"
+      ],
+      "idHex": "0x160C"
+    },
+    {
+      "id": 5645,
+      "bitOffset": 12,
+      "name": "cast.statusChanged",
+      "domain": "cast",
+      "status": "draft",
+      "description": "Emitted when low-frequency aggregate cast status sections change.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "CastStatusChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "session changed",
+        "audio changed",
+        "PIN changed",
+        "window changed",
+        "backend changed",
+        "flow control changed"
+      ],
+      "capabilities": [
+        "cast.status"
+      ],
+      "idHex": "0x160D"
     }
   ]
 }
