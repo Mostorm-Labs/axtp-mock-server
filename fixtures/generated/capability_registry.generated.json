@@ -53,6 +53,18 @@
       "idHex": "0x0101"
     },
     {
+      "id": 258,
+      "name": "device.enrollment",
+      "domain": "device",
+      "status": "draft",
+      "description": "Device supports pairing-code-based enrollment into backend management, enrollment state query and change, and enrollment state change notifications.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "DeviceEnrollmentCapability",
+      "idHex": "0x0102"
+    },
+    {
       "id": 1025,
       "name": "firmware.update",
       "domain": "firmware",
@@ -99,6 +111,18 @@
       "type": "object",
       "schema": "AudioStreamCapabilities",
       "idHex": "0x0902"
+    },
+    {
+      "id": 3329,
+      "name": "signage.playlist",
+      "domain": "signage",
+      "status": "draft",
+      "description": "Device supports digital signage playlist full sync, query, reset, playlist item URL refresh, and playlist config change notification.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "SignagePlaylistCapability",
+      "idHex": "0x0D01"
     },
     {
       "id": 3585,
@@ -231,6 +255,30 @@
       "type": "object",
       "schema": "CastStatusCapability",
       "idHex": "0x1607"
+    },
+    {
+      "id": 5889,
+      "name": "software.config",
+      "domain": "software",
+      "status": "draft",
+      "description": "Device supports reading, setting, and resetting the runtime configuration of software objects (such as the Launcher) and emitting configuration change notifications.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "SoftwareConfigCapability",
+      "idHex": "0x1701"
+    },
+    {
+      "id": 5890,
+      "name": "software.updatePolicy",
+      "domain": "software",
+      "status": "draft",
+      "description": "Device supports reading, setting, and resetting the automatic update policy of software objects (such as the Launcher) and emitting update policy change notifications.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "type": "object",
+      "schema": "SoftwareUpdatePolicyCapability",
+      "idHex": "0x1702"
     }
   ]
 }

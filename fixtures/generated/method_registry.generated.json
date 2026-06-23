@@ -30,6 +30,91 @@
       "idHex": "0x0101"
     },
     {
+      "id": 258,
+      "bitOffset": 1,
+      "name": "device.getPairingCode",
+      "domain": "device",
+      "status": "draft",
+      "description": "Return a pairing code for on-site or backend-claimed device enrollment. With refresh=false (default) the current valid code is returned; with refresh=true the server generates a new code and invalidates the previous one.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "DeviceGetPairingCodeParams",
+      "responseSchema": "DevicePairingCodeInfo",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "device.enrollment"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "PERMISSION_DENIED",
+        "INTERNAL_ERROR"
+      ],
+      "idHex": "0x0102"
+    },
+    {
+      "id": 259,
+      "bitOffset": 2,
+      "name": "device.getEnrollmentState",
+      "domain": "device",
+      "status": "draft",
+      "description": "Query whether the device is enrolled and return the associated backend object summary when enrolled.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "DeviceGetEnrollmentStateParams",
+      "responseSchema": "DeviceEnrollmentInfo",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "device.enrollment"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED"
+      ],
+      "idHex": "0x0103"
+    },
+    {
+      "id": 260,
+      "bitOffset": 3,
+      "name": "device.setEnrollmentState",
+      "domain": "device",
+      "status": "draft",
+      "description": "Set the enrollment state (bind success, unbind, clear failure, or sync server claim). State transitions must follow the enrollment state machine; an invalid transition returns INVALID_STATE. Emitted after the state actually changes by the device.enrollmentStateChanged event.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "DeviceSetEnrollmentStateParams",
+      "responseSchema": "DeviceSetEnrollmentStateResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "device.enrollment"
+      ],
+      "events": [
+        "device.enrollmentStateChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "INVALID_STATE",
+        "PERMISSION_DENIED"
+      ],
+      "idHex": "0x0104"
+    },
+    {
       "id": 1025,
       "bitOffset": 0,
       "name": "firmware.getUpdateCapabilities",
@@ -610,6 +695,147 @@
         "UNAVAILABLE"
       ],
       "idHex": "0x0913"
+    },
+    {
+      "id": 3329,
+      "bitOffset": 0,
+      "name": "signage.getPlaylistCapabilities",
+      "domain": "signage",
+      "status": "draft",
+      "description": "Return the signage.playlist capability scope, including supported playlist item types, quantity limits, and feature toggles.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "SignageGetPlaylistCapabilitiesParams",
+      "responseSchema": "SignagePlaylistCapabilitiesResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "signage.playlist"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INTERNAL_ERROR"
+      ],
+      "idHex": "0x0D01"
+    },
+    {
+      "id": 3330,
+      "bitOffset": 1,
+      "name": "signage.getPlaylistConfig",
+      "domain": "signage",
+      "status": "draft",
+      "description": "Return the current playlist configuration held by the device as the complete playlists array.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "SignageGetPlaylistConfigParams",
+      "responseSchema": "SignagePlaylistConfigResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "signage.playlist"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INTERNAL_ERROR"
+      ],
+      "idHex": "0x0D02"
+    },
+    {
+      "id": 3331,
+      "bitOffset": 2,
+      "name": "signage.setPlaylistConfig",
+      "domain": "signage",
+      "status": "draft",
+      "description": "Fully replace the playlist configuration. The server is the single source of truth; a second full sync removes playlist items absent from the new payload.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "SignageSetPlaylistConfigParams",
+      "responseSchema": "SignageSetPlaylistConfigResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "signage.playlist"
+      ],
+      "events": [
+        "signage.playlistConfigChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "INVALID_ARGUMENT",
+        "NOT_SUPPORTED",
+        "PERMISSION_DENIED"
+      ],
+      "idHex": "0x0D03"
+    },
+    {
+      "id": 3332,
+      "bitOffset": 3,
+      "name": "signage.resetPlaylistConfig",
+      "domain": "signage",
+      "status": "draft",
+      "description": "Restore the playlist configuration to the factory default state.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "SignageResetPlaylistConfigParams",
+      "responseSchema": "SignagePlaylistConfigResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "signage.playlist"
+      ],
+      "events": [
+        "signage.playlistConfigChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INTERNAL_ERROR"
+      ],
+      "idHex": "0x0D04"
+    },
+    {
+      "id": 3333,
+      "bitOffset": 4,
+      "name": "signage.getPlaylistItemUrl",
+      "domain": "signage",
+      "status": "draft",
+      "description": "Fetch the latest resource URL for a playlist item by itemId (URL refresh). The device calls this proactively when an item URL is about to expire. Clock items have no URL resource and return NOT_SUPPORTED.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "SignageGetPlaylistItemUrlParams",
+      "responseSchema": "SignageGetPlaylistItemUrlResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "signage.playlist"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "NOT_FOUND",
+        "INTERNAL_ERROR"
+      ],
+      "idHex": "0x0D05"
     },
     {
       "id": 3586,
@@ -1680,6 +1906,181 @@
         "UNAVAILABLE"
       ],
       "idHex": "0x1612"
+    },
+    {
+      "id": 5889,
+      "bitOffset": 0,
+      "name": "software.getConfig",
+      "domain": "software",
+      "status": "draft",
+      "description": "Read the current runtime configuration of a software object identified by target.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "SoftwareGetConfigParams",
+      "responseSchema": "SoftwareConfig",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "software.config"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT"
+      ],
+      "idHex": "0x1701"
+    },
+    {
+      "id": 5890,
+      "bitOffset": 1,
+      "name": "software.setConfig",
+      "domain": "software",
+      "status": "draft",
+      "description": "Set a configuration fragment of a software object using partial update semantics; fields absent from the payload are left unchanged.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "SoftwareSetConfigParams",
+      "responseSchema": "SoftwareSetConfigResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "software.config"
+      ],
+      "events": [
+        "software.configChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "PERMISSION_DENIED",
+        "INVALID_STATE"
+      ],
+      "idHex": "0x1702"
+    },
+    {
+      "id": 5891,
+      "bitOffset": 2,
+      "name": "software.resetConfig",
+      "domain": "software",
+      "status": "draft",
+      "description": "Restore the runtime configuration of a software object to the current-version defaults for the given target. Only resets the specified software object; system-level factory reset is handled by system.restoreFactorySettings and does not trigger a device reboot.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "SoftwareResetConfigParams",
+      "responseSchema": "SoftwareConfig",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "software.config"
+      ],
+      "events": [
+        "software.configChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "PERMISSION_DENIED",
+        "INVALID_STATE"
+      ],
+      "idHex": "0x1703"
+    },
+    {
+      "id": 5892,
+      "bitOffset": 3,
+      "name": "software.getUpdatePolicy",
+      "domain": "software",
+      "status": "draft",
+      "description": "Read the current automatic update policy of a software object identified by target.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "SoftwareGetUpdatePolicyParams",
+      "responseSchema": "SoftwareUpdatePolicy",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "software.updatePolicy"
+      ],
+      "events": [],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED"
+      ],
+      "idHex": "0x1704"
+    },
+    {
+      "id": 5893,
+      "bitOffset": 4,
+      "name": "software.setUpdatePolicy",
+      "domain": "software",
+      "status": "draft",
+      "description": "Set an update policy fragment of a software object using partial update semantics; fields absent from the payload are left unchanged.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "SoftwareSetUpdatePolicyParams",
+      "responseSchema": "SoftwareSetUpdatePolicyResult",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "software.updatePolicy"
+      ],
+      "events": [
+        "software.updatePolicyChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "INVALID_ARGUMENT",
+        "PERMISSION_DENIED",
+        "INVALID_STATE"
+      ],
+      "idHex": "0x1705"
+    },
+    {
+      "id": 5894,
+      "bitOffset": 5,
+      "name": "software.resetUpdatePolicy",
+      "domain": "software",
+      "status": "draft",
+      "description": "Restore the update policy of a software object to the current-version defaults for the given target. Only resets the update policy; it does not trigger a software or device reboot. System-level factory reset is handled by system.restoreFactorySettings.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "rpcOp": "request_response",
+      "requestSchema": "SoftwareResetUpdatePolicyParams",
+      "responseSchema": "SoftwareUpdatePolicy",
+      "recommendedEncoding": [
+        "json",
+        "tlv"
+      ],
+      "capabilities": [
+        "software.updatePolicy"
+      ],
+      "events": [
+        "software.updatePolicyChanged"
+      ],
+      "errors": [
+        "SUCCESS",
+        "NOT_SUPPORTED",
+        "PERMISSION_DENIED",
+        "INVALID_STATE"
+      ],
+      "idHex": "0x1706"
     }
   ]
 }

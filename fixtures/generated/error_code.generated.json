@@ -681,6 +681,26 @@
       "idHex": "0x0109"
     },
     {
+      "id": 266,
+      "name": "ENROLLMENT_CODE_EXPIRED",
+      "domain": "device",
+      "status": "draft",
+      "description": "Pairing code has expired.",
+      "deprecated": false,
+      "retryable": true,
+      "idHex": "0x010A"
+    },
+    {
+      "id": 267,
+      "name": "ENROLLMENT_CODE_ALREADY_USED",
+      "domain": "device",
+      "status": "draft",
+      "description": "Pairing code has already been used.",
+      "deprecated": false,
+      "retryable": false,
+      "idHex": "0x010B"
+    },
+    {
       "id": 513,
       "name": "CAPABILITY_NOT_FOUND",
       "domain": "capability",

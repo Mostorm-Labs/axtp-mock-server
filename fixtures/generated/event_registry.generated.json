@@ -1,6 +1,25 @@
 {
   "events": [
     {
+      "id": 258,
+      "bitOffset": 0,
+      "name": "device.enrollmentStateChanged",
+      "domain": "device",
+      "status": "draft",
+      "description": "Emitted after device.setEnrollmentState actually changes the enrollment state, or after a device-internal policy modifies it (e.g. pairing code expiry fallback, server-side revoke).",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "DeviceEnrollmentStateChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "device.setEnrollmentState"
+      ],
+      "capabilities": [
+        "device.enrollment"
+      ],
+      "idHex": "0x0102"
+    },
+    {
       "id": 1026,
       "bitOffset": 0,
       "name": "firmware.updateProgressReported",
@@ -196,6 +215,26 @@
         "audio.stream"
       ],
       "idHex": "0x0904"
+    },
+    {
+      "id": 3329,
+      "bitOffset": 0,
+      "name": "signage.playlistConfigChanged",
+      "domain": "signage",
+      "status": "draft",
+      "description": "Emitted after setPlaylistConfig or resetPlaylistConfig successfully changes the playlist configuration.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "SignagePlaylistConfigChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "signage.setPlaylistConfig",
+        "signage.resetPlaylistConfig"
+      ],
+      "capabilities": [
+        "signage.playlist"
+      ],
+      "idHex": "0x0D01"
     },
     {
       "id": 3585,
@@ -643,6 +682,46 @@
         "cast.status"
       ],
       "idHex": "0x160D"
+    },
+    {
+      "id": 5889,
+      "bitOffset": 0,
+      "name": "software.configChanged",
+      "domain": "software",
+      "status": "draft",
+      "description": "Emitted after software.setConfig or software.resetConfig successfully changes a software object configuration, or after a device-internal policy modifies it.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "SoftwareConfigChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "software.setConfig",
+        "software.resetConfig"
+      ],
+      "capabilities": [
+        "software.config"
+      ],
+      "idHex": "0x1701"
+    },
+    {
+      "id": 5890,
+      "bitOffset": 1,
+      "name": "software.updatePolicyChanged",
+      "domain": "software",
+      "status": "draft",
+      "description": "Emitted after software.setUpdatePolicy or software.resetUpdatePolicy successfully changes a software object update policy, or after a device-internal policy modifies it.",
+      "since": "1.0.0",
+      "deprecated": false,
+      "eventSchema": "SoftwareUpdatePolicyChangedEvent",
+      "severity": "info",
+      "trigger": [
+        "software.setUpdatePolicy",
+        "software.resetUpdatePolicy"
+      ],
+      "capabilities": [
+        "software.updatePolicy"
+      ],
+      "idHex": "0x1702"
     }
   ]
 }
