@@ -1886,7 +1886,7 @@
       "name": "cast.getStatus",
       "domain": "cast",
       "status": "draft",
-      "description": "Return a low-frequency aggregate cast receiver status summary.",
+      "description": "Return a current cast receiver snapshot for UI reload, reconnect, or event-loss recovery.",
       "since": "1.0.0",
       "deprecated": false,
       "rpcOp": "request_response",
