@@ -249,7 +249,7 @@
       "name": "cast.status",
       "domain": "cast",
       "status": "draft",
-      "description": "Device supports low-frequency aggregate cast receiver status query and change events.",
+      "description": "Device supports current cast receiver status snapshot query.",
       "since": "1.0.0",
       "deprecated": false,
       "type": "object",

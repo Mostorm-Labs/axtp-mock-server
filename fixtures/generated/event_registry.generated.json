@@ -660,30 +660,6 @@
       "idHex": "0x160C"
     },
     {
-      "id": 5645,
-      "bitOffset": 12,
-      "name": "cast.statusChanged",
-      "domain": "cast",
-      "status": "draft",
-      "description": "Emitted when low-frequency aggregate cast status sections change.",
-      "since": "1.0.0",
-      "deprecated": false,
-      "eventSchema": "CastStatusChangedEvent",
-      "severity": "info",
-      "trigger": [
-        "session changed",
-        "audio changed",
-        "PIN changed",
-        "window changed",
-        "backend changed",
-        "flow control changed"
-      ],
-      "capabilities": [
-        "cast.status"
-      ],
-      "idHex": "0x160D"
-    },
-    {
       "id": 5889,
       "bitOffset": 0,
       "name": "software.configChanged",
