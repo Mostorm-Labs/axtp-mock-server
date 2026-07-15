@@ -5,25 +5,25 @@ import { installAudioMockHandlers } from "./audioHandlers.js";
 
 const host = process.env.AXTP_MOCK_TCP_HOST ?? "127.0.0.1";
 const port = Number.parseInt(process.env.AXTP_MOCK_TCP_PORT ?? "50362", 10);
-const server = new AxtpServer();
 const transport = new NodeTcpServerTransport({ host, port });
-await server.attachTransport(transport);
+const server = new AxtpServer(transport, { logicalRole: "server" });
 installAudioMockHandlers(server);
+await server.listen();
 
-console.log(`AXTP TCP mock server listening on ${host}:${transport.localPort()}`);
+console.log(`AXTP TCP mock server listening on ${host}:${transport.boundPort ?? port}`);
 
-const pump = setInterval(async () => {
-  await server.poll();
-}, 1);
-
-async function shutdown(): Promise<void> {
-  clearInterval(pump);
-  await server.close();
+let shutdownPromise: Promise<void> | undefined;
+function shutdown(): Promise<void> {
+  shutdownPromise ??= server.close().catch((error: unknown) => {
+    console.error("AXTP TCP mock server shutdown failed", error);
+    process.exitCode = 1;
+  });
+  return shutdownPromise;
 }
 
 process.once("SIGINT", () => {
-  void shutdown().finally(() => process.exit(0));
+  void shutdown().finally(() => process.exit(process.exitCode ?? 0));
 });
 process.once("SIGTERM", () => {
-  void shutdown().finally(() => process.exit(0));
+  void shutdown().finally(() => process.exit(process.exitCode ?? 0));
 });

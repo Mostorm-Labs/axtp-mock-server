@@ -43,9 +43,21 @@ if [[ ! -d "$ts_runtime_path/node_modules" ]]; then
 fi
 pnpm --dir "$ts_runtime_path" build
 
+generator_dir="$root/devtools/generators"
+if [[ ! -d "$generator_dir/node_modules" ]]; then
+  pnpm --dir "$generator_dir" install --frozen-lockfile
+fi
+pnpm --dir "$generator_dir" build
+
 node_mock_dir="$root/generated/node-mock-server"
 pnpm --dir "$node_mock_dir" install --no-lockfile
+rm -rf "$node_mock_dir/node_modules/@axtp/runtime"
+ln -s "$ts_runtime_path" "$node_mock_dir/node_modules/@axtp/runtime"
+node "$root/devtools/conformance/verify-runtime.mjs" "$node_mock_dir" "$ts_runtime_path"
 pnpm --dir "$node_mock_dir" build
+node "$root/devtools/conformance/verify-runtime.mjs" "$node_mock_dir" "$ts_runtime_path"
+pnpm --dir "$node_mock_dir" smoke
+node "$root/devtools/conformance/verify-runtime.mjs" "$node_mock_dir" "$ts_runtime_path"
 rm -f "$node_mock_dir/pnpm-lock.yaml"
 
 result_dir="$root/conformance-results"
@@ -70,35 +82,14 @@ if [[ "${CONFORMANCE_SKIP_CPP_MOCK:-false}" != "true" && -f "$root/generated/cpp
   fi
 fi
 
-node - "$conformance_dir/schemas/conformance-result.schema.json" "$result_path" <<'NODE'
-const fs = require("node:fs");
+node --input-type=module - "$conformance_dir/schemas/conformance-result.schema.json" "$result_path" <<'NODE'
+import fs from "node:fs";
+import { validateConformanceResult } from "./devtools/generators/dist/conformance.js";
 const [schemaPath, resultPath] = process.argv.slice(2);
-JSON.parse(fs.readFileSync(schemaPath, "utf8"));
-const result = JSON.parse(fs.readFileSync(resultPath, "utf8"));
-const errors = [];
-for (const key of ["runtime", "runtimeVersion", "specTag", "summary", "cases"]) {
-  if (!(key in result)) errors.push(`missing ${key}`);
-}
-if (!/^spec\/v[0-9]+\.[0-9]+\.[0-9]+$/.test(result.specTag || "")) {
-  errors.push(`invalid specTag ${result.specTag}`);
-}
-if (!Array.isArray(result.cases)) errors.push("cases must be an array");
-for (const [key, value] of Object.entries(result.summary || {})) {
-  if (["total", "passed", "failed", "skipped", "unsupported"].includes(key) && (!Number.isInteger(value) || value < 0)) {
-    errors.push(`summary.${key} must be a non-negative integer`);
-  }
-}
-for (const item of result.cases || []) {
-  if (typeof item.id !== "string" || item.id.length === 0) errors.push("case id must be a non-empty string");
-  if (!["passed", "failed", "skipped", "unsupported"].includes(item.status)) {
-    errors.push(`case ${item.id || "<unknown>"} has invalid status ${item.status}`);
-  }
-}
-if (errors.length > 0) {
-  console.error(`Invalid conformance result ${resultPath}`);
-  for (const error of errors) console.error(`- ${error}`);
-  process.exit(1);
-}
+validateConformanceResult(
+  JSON.parse(fs.readFileSync(resultPath, "utf8")),
+  JSON.parse(fs.readFileSync(schemaPath, "utf8"))
+);
 NODE
 
 echo "AXTP conformance result: $result_path"

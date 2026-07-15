@@ -1,12 +1,11 @@
 runtime: axtp-mock-server
 spec_min: spec/v0.0.2
-required_levels:
+required_levels: []
+optional_levels: []
+unsupported_levels:
   - core
-  - websocket-jsonrpc
-optional_levels:
   - capability
-  - framed-binary
   - event
   - stream
-unsupported_levels: []
-
+  - websocket-jsonrpc
+  - framed-binary
