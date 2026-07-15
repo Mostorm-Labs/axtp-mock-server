@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-06-25T02:34:12Z",
+  "generatedAt": "2026-07-15T19:26:56Z",
   "generator": {
     "name": "@axtp/mock-server-generator",
     "version": "1.0.0",
-    "commit": "88123a1e8a27927ee399ae8f45e92d1cfa9ff1db"
+    "commit": "6ceb958aa47e9e612f858aadebe2e34e85d6da29"
   },
   "axtpSpec": {
     "repository": "https://github.com/Mostorm-Labs/axtp",
-    "tag": "spec/v0.11.0",
-    "version": "0.11.0",
-    "commit": "6e9594a268e840d04aa75b1de065f7d4c2debcc1"
+    "tag": "spec/v0.13.0",
+    "version": "0.13.0",
+    "commit": "9357d8215164f4ca3df865a72d313d495ac8b682"
   },
   "runtime": {
     "name": "axtp-mock-server",
-    "version": "0.11.0.0",
-    "commit": "88123a1e8a27927ee399ae8f45e92d1cfa9ff1db"
+    "version": "0.13.0.0",
+    "commit": "6ceb958aa47e9e612f858aadebe2e34e85d6da29"
   },
   "inputs": {
-    "registryHash": "sha256:065f99d8d92dd39d758058d3b53e7e6d0e5b993cd7d0f329f9cd60156d3a06d8",
+    "registryHash": "sha256:a8533fbcce6d0d11cfde66b2d94357a450865f324985da4957b9ad05edf02f7a",
     "schemasHash": null,
-    "conformanceHash": "sha256:0393197fe34563f9ae3078d984d259e6b259c04eb14765d6dfa6b63d090950f2"
+    "conformanceHash": "sha256:92f96531d5eee456c5bd26196eae6264d525d3bc40e7cae47c98a48544c6bd9d"
   }
 }
